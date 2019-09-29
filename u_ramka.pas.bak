@@ -1,0 +1,170 @@
+unit u_ramka;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, ExtCtrls, Graphics, LCLIntf, windows;
+
+type
+
+  { TRamka }
+
+  TRamka = class(TShape)
+    Lapka : TShape;
+    private TiLapka : TTimer; //do 'mrugania' Lapką
+
+    private FJestLapka:Boolean;
+    public procedure SetLapka(Value:Boolean);
+    public property JestLapka : Boolean read FJestLapka write setLapka;
+    constructor WlasnyCreate(xlg,ylg,wys,szer:Integer);
+    public procedure UstawKolorObramowania(JakieJestTlo : TColor);       //ustawia kolor obramowania Ramki i Lapki
+    public procedure PolozNaXY(X,Y:Integer);          //zamiast Left:=x, Top:=y - bo wraz z Self-em trzeba przesuwac rowniz Lapke
+    public procedure UstalWidthHeight(W,H:Integer);   //j.w.
+
+    private procedure MrugajLapka(Sender:TObject);   //UWAGA - parametr formalny (typu TObject) MUSI byc, bo inaczej kompilator nie puszcza przypisywania handlera (sygnatura metody sztywna?)
+
+
+  End; //Class
+
+implementation
+uses u_operacje;
+
+{ TRamka }
+
+procedure TRamka.SetLapka(Value:Boolean);
+Begin
+  if Value=FJestLapka then Exit;
+  FJestLapka    := Value;
+  Lapka.Visible := Value; //symulacja mrugania/znikniecia
+  {}
+  if Value=True then begin //Zaczynamy mrugac Lapka
+    TiLapka.Enabled:=True;
+  end
+  else begin               //wylaczamy mruganie (szkoda zasobow, lapki i tak nie widac)
+    TiLapka.Enabled:=False;
+  end;
+End;
+
+constructor TRamka.WlasnyCreate(xlg,ylg,wys,szer:Integer);
+Begin
+  inherited Create(nil);
+  Self.Left := xlg;
+  Self.Top  := ylg;
+  Self.Height := wys;
+  Self.Width  := szer;
+  Self.Brush.Style:=bsClear; //zeby widoczne byl baclground
+  //Self.Pen.Color := InvertColor(Brush.Color); //albo: Self.Pen.Color := clRed;  bo czerwony pasuje do wszystkiego...
+  {}
+  Lapka := TShape.Create(nil);
+  Lapka.Brush.Style:=bsClear;
+  //Lapka.Pen.Color   := Self.Pen.Color;
+  //zapewniam, ze nie ma i nie widac Lapki:
+  JestLapka:=False;
+  JestLapka:=False;
+  Lapka.Visible := False;
+
+  //Kreowanie Timera do mrugania Lapka:
+  TiLapka := TTimer.Create(Self); //kazda Lapka powinna miec wlasny Timer (lepiej 'mruga')
+  TiLapka.Interval := 100;
+  TiLapka.OnTimer:=@MrugajLapka;
+  TiLapka.Enabled:=False;
+End;
+
+
+procedure TRamka.MrugajLapka(Sender: TObject);
+(* Mrugamy wystawiona lapka; wywolywana na onTimer *)
+Begin
+  //Try zabezpiecza przed sytuacja kiedy probujemy mrugac lapka, a obiektu juz nie ma -
+
+  Try
+   if Lapka.Pen.Style = psDot then
+     Lapka.Pen.Style := psDash
+   else
+     Lapka.Pen.Style := psDot;
+  Except
+  End;
+
+End;  (* MrugajLapka *)
+
+procedure TRamka.UstawKolorObramowania(JakieJestTlo: TColor);
+(* Kolor odwrotny niz tlo, zeby mozna bylo cos widziec... *)
+Begin
+  Self.Pen.Color   := skib_InvertColor(JakieJestTlo);
+  Lapka.Pen.Color  := Self.Pen.Color;
+End;
+
+procedure TRamka.PolozNaXY(X, Y: Integer);
+(* Przesuwanie obydwu ksztaltów na raz.               *)
+(* Nie uzywac standardowego Left:=X, bo się 'rozlazą' *)
+Begin
+  Self.Left := X;
+  Self.Top  := Y;
+  Lapka.Left := Self.Left+4;
+  Lapka.Top  := Self.Top+4;
+End;
+
+procedure TRamka.UstalWidthHeight(W, H: Integer);
+(* Uzywana, zeby dostosowac ramka do wymiarow zgadywanego Obrazka *)
+var
+thumbnail : TBitmap;
+thumbRect : TRect;
+robW,robH:Integer;
+Begin
+
+  {ok: 2017-12-17
+  Self.Width := W;
+  Self.Height:= H;
+  Lapka.Width  := Self.Width div 2;
+  Lapka.Height := Self.Height div 2;
+  }
+
+
+
+  {FOperacje.GetFormImage;}
+                  robW :=  FOperacje.tabOb[2].Picture.Bitmap.Width;
+                  robH :=  FOperacje.tabOb[2].Picture.Bitmap.Height;
+
+                  Self.Width:=robW;
+                  Self.Height:=robH;
+
+                  {
+
+
+                  try
+                    thumbRect.Left := 0;
+                    thumbRect.Top := 0;
+
+                    //proportional resize
+                    if thumbnail.Width > thumbnail.Height then
+                    begin
+                      thumbRect.Right := maxWidth;
+                      thumbRect.Bottom := (maxWidth * thumbnail.Height) div thumbnail.Width;
+                    end
+                    else
+                    begin
+                      thumbRect.Bottom := maxHeight;
+                      thumbRect.Right := (maxHeight * thumbnail.Width) div thumbnail.Height;
+                    end;
+
+                    thumbnail.Canvas.StretchDraw(thumbRect, thumbnail) ;
+
+                //resize image
+                    thumbnail.Width := thumbRect.Right;
+                   thumbnail.Height := thumbRect.Bottom;
+
+                    //display in a TImage control
+                    Image1.Picture.Assign(thumbnail) ;
+                  finally
+                    thumbnail.Free;
+                  end;
+
+                   }
+
+
+
+End;
+
+end.
+
