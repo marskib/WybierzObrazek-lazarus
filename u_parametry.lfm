@@ -1147,8 +1147,8 @@ object FParametry: TFParametry
     Left = 121
     Height = 28
     Top = 126
-    Width = 255
-    Caption = 'Zezwalaj na podpowiedź'
+    Width = 354
+    Caption = 'Zezwalaj na podpowiedźxxxxxxxxx'
     Checked = True
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack

@@ -1,0 +1,171 @@
+object FOperacje: TFOperacje
+  Left = 251
+  Height = 682
+  Top = 104
+  Width = 1015
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'DopasujObrazek'
+  ClientHeight = 657
+  ClientWidth = 1015
+  DesignTimePPI = 120
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poDesktopCenter
+  ShowHint = True
+  LCLVersion = '2.0.4.0'
+  object SLinia: TShape
+    Left = 75
+    Height = 5
+    Top = 391
+    Width = 829
+    Brush.Color = clMaroon
+    Pen.Color = clGradientActiveCaption
+  end
+  object Button1: TButton
+    Left = 80
+    Height = 40
+    Hint = 'powtórz to samo ćwiczenie'
+    Top = 176
+    Width = 130
+    Caption = 'Destroy All'
+    OnClick = Button1Click
+    ParentFont = False
+    TabOrder = 0
+    Visible = False
+  end
+  object Button2: TButton
+    Left = 80
+    Height = 25
+    Top = 224
+    Width = 144
+    Caption = 'Destroy Last'
+    OnClick = Button2Click
+    ParentFont = False
+    TabOrder = 1
+    Visible = False
+  end
+  object BRebuildAll: TButton
+    Left = 80
+    Height = 40
+    Top = 272
+    Width = 130
+    Caption = 'Rebuild All'
+    OnClick = BRebuildAllClick
+    ParentFont = False
+    TabOrder = 2
+    Visible = False
+  end
+  object BPodp: TButton
+    Left = 949
+    Height = 38
+    Hint = 'Podpowiedź'
+    Top = 160
+    Width = 62
+    Caption = '?'
+    Font.Style = [fsBold]
+    OnClick = BPodpClick
+    ParentFont = False
+    TabOrder = 3
+  end
+  object BAgain: TButton
+    Left = 824
+    Height = 51
+    Hint = 'powtórz Ćwiczenie'
+    Top = 264
+    Width = 188
+    Caption = '@'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = BAgainClick
+    ParentFont = False
+    TabOrder = 4
+  end
+  object BNextCwicz: TButton
+    Left = 840
+    Height = 38
+    Hint = 'nowe Ćwiczenie'
+    Top = 210
+    Width = 171
+    Caption = '>>>'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = BNextCwiczClick
+    ParentFont = False
+    TabOrder = 5
+  end
+  object BGraj: TButton
+    Left = 949
+    Height = 38
+    Hint = 'odegraj nazwę'
+    Top = 112
+    Width = 62
+    Caption = '<)'
+    OnClick = BGrajClick
+    ParentFont = False
+    TabOrder = 6
+    Visible = False
+  end
+  object LNazwa: TLabel
+    Left = 370
+    Height = 41
+    Top = 120
+    Width = 131
+    Caption = 'LNazwa'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -35
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    Visible = False
+  end
+  object MainMenu1: TMainMenu
+    left = 84
+    top = 44
+    object Parametry: TMenuItem
+      Caption = 'Ustawienia'
+      OnClick = ParametryClick
+    end
+    object MenuItem6: TMenuItem
+      Caption = '                       '
+    end
+    object OProgramie: TMenuItem
+      Caption = 'o programie'
+      OnClick = OProgramieClick
+    end
+  end
+  object TimerLosuj: TTimer
+    Enabled = False
+    Interval = 1500
+    OnTimer = TimerLosujTimer
+    left = 558
+    top = 114
+  end
+  object TimerKlawisze: TTimer
+    Enabled = False
+    Interval = 3000
+    OnTimer = TimerKlawiszeTimer
+    left = 558
+    top = 193
+  end
+  object TimerNazwa: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = TimerNazwaTimer
+    left = 558
+    top = 288
+  end
+end
