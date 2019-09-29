@@ -865,7 +865,7 @@ object FParametry: TFParametry
     Top = 31
     Width = 254
     Directory = 'Zasoby'
-    ItemHeight = 0
+    ItemHeight = 13
     Mask = '*.jpg;*.png;*.bmp;*.gif;*.jpeg'
     OnSelectionChange = FListBox1SelectionChange
     TabOrder = 0

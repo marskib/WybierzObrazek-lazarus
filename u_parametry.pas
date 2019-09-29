@@ -383,7 +383,7 @@ begin
   FOperacje.LNazwa.Font.Color := skib_InvertColor(FOperacje.Color);
   if Ramka <> nil then begin
     Ramka.UstawKolorObramowania(FOperacje.Color);
-    Ramka.Brush.Color := Ramka.Pen.Colorxxxxx; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
+    Ramka.Brush.Color := Ramka.Pen.Colorxxxxxyyyy; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
   end;
   for i := 1 to TMojImage.liczbaOb do
     if FOperacje.tabOb[i].JestLapka then
