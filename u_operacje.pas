@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Menus, LazFileUtils,
+  StdCtrls, Menus, Buttons, LazFileUtils,
   u_parametry, u_sprawdzacz,  u_tmimage, u_ramka,  u_odtwarzacz, uoprogramie, windows;
 
 
@@ -21,13 +21,13 @@ uses
 
   TFOperacje = class(TForm)
     BGraj: TButton;
+    BitBtnGraj: TBitBtn;
     Button1: TButton;
     Button2: TButton;
     BRebuildAll: TButton;
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
-    ImSpeaker: TImage;
     LNazwa: TLabel;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
@@ -348,6 +348,7 @@ Begin
   MPlayer.Play(SciezkaZasoby+plikWava,0);
 End;
 
+
 procedure TFOperacje.BPodpClick(Sender: TObject);
 (* Udzielenie podpowiedzi - wystawienie Lapek na Ramce i wlasciwym Obrazku *)
 (* (dziala takze jak switch on/off                                         *)
@@ -443,8 +444,7 @@ Begin
   //Pokazanie wylosowanego obrazka w Ramce w OG:
   GenerujPojemnikNaWzorzec(); //powstanie obiekt o nazwie TImWzorzec (niszczony/odnawiany w kazdym cyklu)
 
-  //TImWzorzec.Picture := tabOb[nrWylos].Picture; //->usuwam - przerobka dla WybierzObrazek 2019.09.27
-  TImWzorzec.Picture := ImSpeaker.Picture;
+  TImWzorzec.Picture := tabOb[nrWylos].Picture;
 
   TImWzorzec.Proportional:= tabOb[nrWylos].Proportional;
   TImWzorzec.Stretch     := tabOb[nrWylos].Stretch;
@@ -453,6 +453,14 @@ Begin
   TImWzorzec.Width  := tabOb[nrWylos].Width;
   TImWzorzec.Height := tabOb[nrWylos].Height;
   TImWzorzec.Left   := FOperacje.Width div 2 - TImWzorzec.Width - 20;
+
+  TImWzorzec.Visible := FALSE;                  //->ukrywam - przerobka  WybierzObrazek 2019.09.30
+
+  //Zamiast TImWzorzec powyże, BitBtn ponizej (na potrzebt WybierzObrazek):
+  BitBtnGraj.Left := TImWzorzec.Left;
+  BitBtnGraj.Top  := TImWzorzec.Top;
+  BitBtnGraj.Width := TImWzorzec.Width;
+  BitBtnGraj.Height:= TImWzorzec.Height;
 
   //Ustalenie polozenia Ramki (zalezne od Obrazka wymiarów:
   x :=  TImWzorzec.Left + TImWzorzec.Width + 1*(TImWzorzec.Width div 6);
