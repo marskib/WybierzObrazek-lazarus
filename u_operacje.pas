@@ -27,6 +27,7 @@ uses
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
+    ImSpeaker: TImage;
     LNazwa: TLabel;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
@@ -443,6 +444,7 @@ Begin
   GenerujPojemnikNaWzorzec(); //powstanie obiekt o nazwie TImWzorzec (niszczony/odnawiany w kazdym cyklu)
 
   //TImWzorzec.Picture := tabOb[nrWylos].Picture; //->usuwam - przerobka dla WybierzObrazek 2019.09.27
+  TImWzorzec.Picture := ImSpeaker.Picture;
 
   TImWzorzec.Proportional:= tabOb[nrWylos].Proportional;
   TImWzorzec.Stretch     := tabOb[nrWylos].Stretch;
