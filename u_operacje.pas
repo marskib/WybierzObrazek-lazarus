@@ -431,6 +431,7 @@ var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
     plikWav : string;    //na ewentualne odegranie nazwy (if any)
     jestPlik:Boolean; //na potrzeby sledzenia
+    odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
   {Losowanie obrazka ze zmniejszeniem p-stwa wylosowania tego samego:}
@@ -458,27 +459,31 @@ Begin
 
   TImWzorzec.Visible := FALSE;                  //->ukrywam - przerobka  WybierzObrazek 2019.09.30
 
-  //Zamiast TImWzorzec powyże, BitBtn ponizej (na potrzeby WybierzObrazek):
-  BitBtnGraj.Left := TImWzorzec.Left;
+  //Zamiast TImWzorzec powyżej, BitBtn ponizej (na potrzeby WybierzObrazek):
+  //BitBtnGraj.Left := TImWzorzec.Left;
   BitBtnGraj.Top  := TImWzorzec.Top;
-  BitBtnGraj.Width := TImWzorzec.Width;
+  //BitBtnGraj.Width := TImWzorzec.Width;
   BitBtnGraj.Height:= TImWzorzec.Height;
 
   //Ustalenie polozenia Ramki (zalezne od Obrazka wymiarów:
-  x :=  TImWzorzec.Left + TImWzorzec.Width + 1*(TImWzorzec.Width div 6);
+  //x :=  TImWzorzec.Left + TImWzorzec.Width + 1*(TImWzorzec.Width div 6);
   y :=  TImWzorzec.Top;
-  Ramka.PolozNaXY(x,y);
+  //Ramka.PolozNaXY(x,y);
+
+    SpeedButton1.Height:=BitBtnGraj.Height;
+      BitBtn1.Height:=BitBtnGraj.Height;
 
 
-  {nowe 2019.10.30:}
-  x := (FOperacje.Width - (BitBtnGraj.Width + 20 + TImWzorzec.Width)) div 2;
-  BitBtnGraj.Left:=x;
-  Ramka.PolozNaXY(x+BitBtnGraj.Width + 20,y);
-
-
-
-
+  {nowe 2019.10.30:}                 {6}
+  //Dazymy, zeby 'kompleks' BitBtnGraj + Ramka lezaly centralnie (w poziomie) na Foperacje:
   Ramka.UstalWidthHeight(tabOb[nrWylos]);
+  odstep := 1*(TImWzorzec.Width div 2);
+  x := (FOperacje.Width - (BitBtnGraj.Width + odstep + TImWzorzec.Width)) div 2;
+  BitBtnGraj.Left:=x;
+  Ramka.PolozNaXY(x+BitBtnGraj.Width + odstep, y);
+
+
+
   Ramka.Visible := True;
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;

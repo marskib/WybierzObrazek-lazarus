@@ -5361,7 +5361,7 @@ object FOperacje: TFOperacje
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     }
-    GlyphShowMode = gsmSystem
+    GlyphShowMode = gsmAlways
     TabOrder = 8
   end
   object MainMenu1: TMainMenu
