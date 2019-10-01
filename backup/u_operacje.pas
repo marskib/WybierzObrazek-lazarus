@@ -21,6 +21,7 @@ uses
 
   TFOperacje = class(TForm)
     BGraj: TButton;
+    BitBtn1: TBitBtn;
     BitBtnGraj: TBitBtn;
     Button1: TButton;
     Button2: TButton;
@@ -29,6 +30,7 @@ uses
     BAgain: TButton;
     BNextCwicz: TButton;
     LNazwa: TLabel;
+    SpeedButton1: TSpeedButton;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
     TimerLosuj: TTimer;
@@ -39,7 +41,6 @@ uses
     SLinia: TShape;
     procedure BAgainClick(Sender: TObject);
     procedure BGrajClick(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
     procedure Naczytaj();
     procedure BNextCwiczClick(Sender: TObject);
     procedure BPodpClick(Sender: TObject);
@@ -451,13 +452,13 @@ Begin
   TImWzorzec.Stretch     := tabOb[nrWylos].Stretch;
   TImWzorzec.Center      := tabOb[nrWylos].Center;
 
-  TImWzorzec.Width  := tabOb[nrWylos].Width;
+  TImWzorzec.Width  := BitBtnGraj.Width; // zmiana na potrzeby WybierzObrazek 2019.10.01tabOb[nrWylos].Width;
   TImWzorzec.Height := tabOb[nrWylos].Height;
   TImWzorzec.Left   := FOperacje.Width div 2 - TImWzorzec.Width - 20;
 
   TImWzorzec.Visible := FALSE;                  //->ukrywam - przerobka  WybierzObrazek 2019.09.30
 
-  //Zamiast TImWzorzec powyże, BitBtn ponizej (na potrzebt WybierzObrazek):
+  //Zamiast TImWzorzec powyże, BitBtn ponizej (na potrzeby WybierzObrazek):
   BitBtnGraj.Left := TImWzorzec.Left;
   BitBtnGraj.Top  := TImWzorzec.Top;
   BitBtnGraj.Width := TImWzorzec.Width;
@@ -467,6 +468,15 @@ Begin
   x :=  TImWzorzec.Left + TImWzorzec.Width + 1*(TImWzorzec.Width div 6);
   y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x,y);
+
+
+  {nowe 2019.10.30:}
+  x := (FOperacje.Width - (BitBtnGraj.Width + 20 + TImWzorzec.Width)) div 2;
+  BitBtnGraj.Left:=x;
+  Ramka.PolozNaXY(x+BitBtnGraj.Width + 20,y);
+
+
+
 
   Ramka.UstalWidthHeight(tabOb[nrWylos]);
   Ramka.Visible := True;
