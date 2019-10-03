@@ -472,6 +472,7 @@ Begin
   y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := True;
+  SpeedBtnGraj.Visible := jestPlik;
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
@@ -481,7 +482,6 @@ Begin
       plikWav := tabOb[idWylos].DajEwentualnyPlikWav();  //nazwa Potencjalnego(!) pliku
       MPlayer.Play(SciezkaZasoby+plikWav,1);             //odegra, albo cisza :)
       jestPlik := FileExists(SciezkaZasoby+plikWav);     //zeby mozna bylo odgrywac ponownie
-      SpeedBtnGraj.Visible := jestPlik;
     end;
   end;
 

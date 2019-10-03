@@ -432,7 +432,6 @@ procedure TFOperacje.LosujUmiescObrazek();
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
     plikWav : string;    //na ewentualne odegranie nazwy (if any)
-    jestPlik:Boolean; //na potrzeby sledzenia
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
@@ -472,6 +471,7 @@ Begin
   y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := True;
+  SpeedBtnGraj.Visible := True;
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
@@ -480,8 +480,6 @@ Begin
     if FParametry.CBOdgrywaj.Checked then begin
       plikWav := tabOb[idWylos].DajEwentualnyPlikWav();  //nazwa Potencjalnego(!) pliku
       MPlayer.Play(SciezkaZasoby+plikWav,1);             //odegra, albo cisza :)
-      jestPlik := FileExists(SciezkaZasoby+plikWav);     //zeby mozna bylo odgrywac ponownie
-      SpeedBtnGraj.Visible := jestPlik;
     end;
   end;
 

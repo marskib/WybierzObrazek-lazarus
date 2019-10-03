@@ -18,8 +18,9 @@
         <ComponentName Value="FOperacje"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="460"/>
-        <CursorPos Y="484"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="450"/>
+        <CursorPos Y="475"/>
         <UsageCount Value="33"/>
         <Bookmarks Count="2">
           <Item0 X="16" Y="469" ID="1"/>
@@ -34,10 +35,9 @@
         <ComponentName Value="FParametry"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <TopLine Value="284"/>
-        <CursorPos Y="309"/>
+        <CursorPos X="18" Y="304"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
