@@ -1261,8 +1261,8 @@ object FParametry: TFParametry
     Left = 97
     Height = 20
     Top = 134
-    Width = 241
-    Caption = 'Pokaz nazwę pod obrazkiem reczny2'
+    Width = 192
+    Caption = 'Pokaz nazwę pod obrazkiem'
     Checked = True
     Font.Color = clWindowText
     Font.Height = -14

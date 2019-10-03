@@ -20,7 +20,6 @@ uses
   { TFOperacje }
 
   TFOperacje = class(TForm)
-    BGraj: TButton;
     Button1: TButton;
     Button2: TButton;
     BRebuildAll: TButton;
@@ -49,6 +48,7 @@ uses
     procedure FormShow(Sender: TObject);
     procedure OProgramieClick(Sender: TObject);
     procedure ParametryClick(Sender: TObject);
+    procedure SpeedBtnGrajClick(Sender: TObject);
     procedure TimerKlawiszeTimer(Sender: TObject);
     procedure TimerLosujTimer(Sender: TObject);
     procedure TimerNazwaTimer(Sender: TObject);
@@ -160,6 +160,7 @@ begin
   FParametry.Left := Left + 8;
   FParametry.ShowModal;
 end;
+
 
 procedure TFOperacje.TimerKlawiszeTimer(Sender: TObject);
 (* pokazanie klawiszy nawigacyjnych *)
@@ -302,7 +303,7 @@ var i:SmallInt;
 Begin
   //Aktywacja wylaczonych handlerow + 'sprzatanie':
   UkryjKlawisze();
-  BGraj.Visible:=False; //tego lepiej nie upychac do UktyjKlawisze(), bo problemik...
+  SpeedBtnGraj.Visible:=False; // j.w.;
   TImWzorzec.Destructor_Generic();   //usuwam obrazkek-wzorzec
   LNazwa.Visible := False;           //znika podpis pod obrazkiem (if any)
   Ramka.JestLapka := False;   //gdyby byla...
@@ -348,6 +349,13 @@ Begin
   MPlayer.Play(SciezkaZasoby+plikWava,0);
 End;
 
+procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
+(* Odegranie nazwy obrazka (if any) *)
+var plikWava : string;
+Begin
+  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
+  MPlayer.Play(SciezkaZasoby+plikWava,0);
+End;
 
 procedure TFOperacje.BPodpClick(Sender: TObject);
 (* Udzielenie podpowiedzi - wystawienie Lapek na Ramce i wlasciwym Obrazku *)
@@ -409,10 +417,6 @@ Begin
   BPodp.Left := FOperacje.Width - Bpodp.Width -2;
   BPodp.Top  := BNextCwicz.Top - BNextCwicz.Height -1;
 
-  BGraj.Width:= BPodp.Width-2;
-  BGraj.Left := BPodp.Left+1;//FOperacje.Width - BGraj.Width -2;
-  BGraj.Top  := BPodp.Top - BGraj.Height -1;
-
   //Zeby TShape nie mrugal (blinking, flickering) za bardzo, kiedy przesuwany :
   FOperacje.DoubleBuffered:=True;
   (**)
@@ -455,32 +459,18 @@ Begin
   TImWzorzec.Height := tabOb[nrWylos].Height;
   TImWzorzec.Left   := FOperacje.Width div 2 - TImWzorzec.Width - 20;
 
-  TImWzorzec.Visible := FALSE;                  //->ukrywam - przerobka  WybierzObrazek 2019.09.30
+  TImWzorzec.Visible := FALSE;  //->ukrywam - przerobka  WybierzObrazek 2019.09.30
 
-  //Zamiast TImWzorzec powyżej, BitBtn ponizej (na potrzeby WybierzObrazek):
-  //BitBtnGraj.Left := TImWzorzec.Left;
-  SpeedBtnGraj.Top  := TImWzorzec.Top;
-  //BitBtnGraj.Width := TImWzorzec.Width;
-  SpeedBtnGraj.Height:= TImWzorzec.Height;
-
-  //Ustalenie polozenia Ramki (zalezne od Obrazka wymiarów:
-  //x :=  TImWzorzec.Left + TImWzorzec.Width + 1*(TImWzorzec.Width div 6);
-  y :=  TImWzorzec.Top;
-  //Ramka.PolozNaXY(x,y);
-
-
-
-
-  {nowe 2019.10.30:}                 {byla wartosc 6}
-  //Dazymy, zeby 'kompleks' "BitBtnGraj + Ramka" lezaly centralnie (w poziomie) na Foperacje:
-  Ramka.UstalWidthHeight(tabOb[nrWylos]);
-  odstep := 1*(TImWzorzec.Width div 2);
-  x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + TImWzorzec.Width)) div 2;
+  {nowe 2019.10.30:}
+  //Dazymy to tego, zeby 'kompleks' ["BitBtnGraj + Ramka"] lezal centralnie (w poziomie) na Foperacje:
+  Ramka.UstalWidthHeight(tabOb[nrWylos]);  //wielkosc Ramki ustalamy na pdst. obrazka, ktory ma do niej trafic
+  SpeedBtnGraj.Top   := Ramka.Top;
+  SpeedBtnGraj.Height:= Ramka.Height;
+  odstep := 1*(SpeedBtnGraj.Width div 2);
+  x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
   SpeedBtnGraj.Left := x;
+  y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
-
-
-
   Ramka.Visible := True;
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
@@ -491,7 +481,7 @@ Begin
       plikWav := tabOb[idWylos].DajEwentualnyPlikWav();  //nazwa Potencjalnego(!) pliku
       MPlayer.Play(SciezkaZasoby+plikWav,1);             //odegra, albo cisza :)
       jestPlik := FileExists(SciezkaZasoby+plikWav);     //zeby mozna bylo odgrywac ponownie
-      BGraj.Visible := jestPlik;
+      SpeedBtnGraj.Visible := jestPlik;
     end;
   end;
 

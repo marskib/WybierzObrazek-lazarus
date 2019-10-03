@@ -306,7 +306,7 @@ end;
 
 procedure TFParametry.CBOdgrywajChange(Sender: TObject);
 begin
-  FOperacje.BGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
+  FOperacje.SpeedBtnGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
 end;
 
 
