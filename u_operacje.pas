@@ -555,15 +555,15 @@ End;
 
 
 procedure TFOperacje.PokazNazwePodObrazkiem();
-(* Pod Obrazkiem-wzorcem pokazuje jego nazwe *)
+(* Pod Ikoną z glosnikiem pokazuje polecenie z nim zwiazane (=nazwe obrazka) *)
 var rob:string;
 Begin
-  With TImWzorzec do begin
+  With SpeedBtnGraj do begin
     rob:=ExtractFileNameOnly( FOperacje.tabOb[FOperacje.nrWylos].DajEwentualnyPlikWav() ); //daje z roszerz. *.wav, wiec ucinam
     LNazwa.Caption := rob;
-    LNazwa.Top := Top+Height+10;
+    LNazwa.Top := Top+Height+20;
     LNazwa.Visible:=True;  //Visible MUSI byc przed LNazwa.Width, bo inaczej źle zmierzy szerokosc LNazwa'y...
-    LNazwa.Left:= Left+(Width div 2) - (LNazwa.Width div 2);
+    LNazwa.Left:= Left-((LNazwa.Width div 2) - (Width div 2));
   End;
 End; (* Procedure *)
 

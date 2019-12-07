@@ -1,13 +1,12 @@
 object FOperacje: TFOperacje
   Left = 334
-  Height = 682
+  Height = 546
   Top = 178
-  Width = 1015
+  Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'DopasujObrazek'
-  ClientHeight = 657
-  ClientWidth = 1015
-  DesignTimePPI = 120
+  ClientHeight = 526
+  ClientWidth = 812
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
@@ -15,19 +14,19 @@ object FOperacje: TFOperacje
   ShowHint = True
   LCLVersion = '2.0.4.0'
   object SLinia: TShape
-    Left = 75
-    Height = 5
-    Top = 391
-    Width = 829
+    Left = 60
+    Height = 4
+    Top = 313
+    Width = 663
     Brush.Color = clMaroon
     Pen.Color = clGradientActiveCaption
   end
   object Button1: TButton
-    Left = 80
-    Height = 40
+    Left = 64
+    Height = 32
     Hint = 'powtórz to samo ćwiczenie'
-    Top = 176
-    Width = 130
+    Top = 141
+    Width = 104
     Caption = 'Destroy All'
     OnClick = Button1Click
     ParentFont = False
@@ -35,10 +34,10 @@ object FOperacje: TFOperacje
     Visible = False
   end
   object Button2: TButton
-    Left = 80
-    Height = 25
-    Top = 224
-    Width = 144
+    Left = 64
+    Height = 20
+    Top = 179
+    Width = 115
     Caption = 'Destroy Last'
     OnClick = Button2Click
     ParentFont = False
@@ -46,10 +45,10 @@ object FOperacje: TFOperacje
     Visible = False
   end
   object BRebuildAll: TButton
-    Left = 80
-    Height = 40
-    Top = 272
-    Width = 130
+    Left = 64
+    Height = 32
+    Top = 218
+    Width = 104
     Caption = 'Rebuild All'
     OnClick = BRebuildAllClick
     ParentFont = False
@@ -57,11 +56,11 @@ object FOperacje: TFOperacje
     Visible = False
   end
   object BPodp: TButton
-    Left = 949
-    Height = 38
+    Left = 759
+    Height = 30
     Hint = 'Podpowiedź'
-    Top = 160
-    Width = 62
+    Top = 128
+    Width = 50
     Caption = '?'
     Font.Style = [fsBold]
     OnClick = BPodpClick
@@ -69,15 +68,15 @@ object FOperacje: TFOperacje
     TabOrder = 3
   end
   object BAgain: TButton
-    Left = 824
-    Height = 51
+    Left = 659
+    Height = 41
     Hint = 'powtórz Ćwiczenie'
-    Top = 264
-    Width = 188
+    Top = 211
+    Width = 150
     Caption = '@'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -16
+    Font.Height = -13
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -87,15 +86,15 @@ object FOperacje: TFOperacje
     TabOrder = 4
   end
   object BNextCwicz: TButton
-    Left = 840
-    Height = 38
+    Left = 672
+    Height = 30
     Hint = 'nowe Ćwiczenie'
-    Top = 210
-    Width = 171
+    Top = 168
+    Width = 137
     Caption = '>>>'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -16
+    Font.Height = -13
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -105,13 +104,13 @@ object FOperacje: TFOperacje
     TabOrder = 5
   end
   object LNazwa: TLabel
-    Left = 370
-    Height = 41
-    Top = 120
-    Width = 131
+    Left = 296
+    Height = 33
+    Top = 96
+    Width = 106
     Caption = 'LNazwa'
     Font.CharSet = EASTEUROPE_CHARSET
-    Font.Height = -35
+    Font.Height = -28
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -121,10 +120,10 @@ object FOperacje: TFOperacje
     Visible = False
   end
   object SpeedBtnGraj: TSpeedButton
-    Left = 264
-    Height = 140
-    Top = 180
-    Width = 138
+    Left = 211
+    Height = 112
+    Top = 144
+    Width = 110
     Glyph.Data = {
       CEC80000424DCEC8000000000000360000002800000062000000830000000100
       20000000000098C8000064000000640000000000000000000000FFFFFFFFFFFF
@@ -1738,8 +1737,8 @@ object FOperacje: TFOperacje
     ParentFont = False
   end
   object MainMenu1: TMainMenu
-    left = 84
-    top = 44
+    left = 67
+    top = 35
     object Parametry: TMenuItem
       Caption = 'Ustawienia'
       OnClick = ParametryClick
@@ -1756,21 +1755,21 @@ object FOperacje: TFOperacje
     Enabled = False
     Interval = 1500
     OnTimer = TimerLosujTimer
-    left = 558
-    top = 114
+    left = 446
+    top = 91
   end
   object TimerKlawisze: TTimer
     Enabled = False
     Interval = 3000
     OnTimer = TimerKlawiszeTimer
-    left = 558
-    top = 193
+    left = 446
+    top = 154
   end
   object TimerNazwa: TTimer
     Enabled = False
     Interval = 100
     OnTimer = TimerNazwaTimer
-    left = 558
-    top = 288
+    left = 446
+    top = 230
   end
 end

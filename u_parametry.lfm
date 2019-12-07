@@ -1261,15 +1261,13 @@ object FParametry: TFParametry
     Left = 97
     Height = 20
     Top = 134
-    Width = 192
-    Caption = 'Pokaz nazwę pod obrazkiem'
-    Checked = True
+    Width = 214
+    Caption = 'Pokaż polecenie pod obrazkiem'
     Font.Color = clWindowText
     Font.Height = -14
     Font.Name = 'MS Sans Serif'
     OnChange = CBNazwaChange
     ParentFont = False
-    State = cbChecked
     TabOrder = 14
   end
 end

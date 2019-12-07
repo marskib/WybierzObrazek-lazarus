@@ -432,7 +432,6 @@ procedure TFOperacje.LosujUmiescObrazek();
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
     plikWav : string;    //na ewentualne odegranie nazwy (if any)
-    jestPlik:Boolean; //na potrzeby sledzenia
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
@@ -472,7 +471,7 @@ Begin
   y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := True;
-  SpeedBtnGraj.Visible := jestPlik;
+  SpeedBtnGraj.Visible := True;
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
@@ -481,7 +480,6 @@ Begin
     if FParametry.CBOdgrywaj.Checked then begin
       plikWav := tabOb[idWylos].DajEwentualnyPlikWav();  //nazwa Potencjalnego(!) pliku
       MPlayer.Play(SciezkaZasoby+plikWav,1);             //odegra, albo cisza :)
-      jestPlik := FileExists(SciezkaZasoby+plikWav);     //zeby mozna bylo odgrywac ponownie
     end;
   end;
 
@@ -557,15 +555,19 @@ End;
 
 
 procedure TFOperacje.PokazNazwePodObrazkiem();
-(* Pod Obrazkiem-wzorcem pokazuje jego nazwe *)
+(* Pod Ikoną z glosnikiem pokazuje polecenie z nim zwiazane (=nazwe obrazka) *)
 var rob:string;
 Begin
-  With TImWzorzec do begin
+  With SpeedBtnGraj do begin
     rob:=ExtractFileNameOnly( FOperacje.tabOb[FOperacje.nrWylos].DajEwentualnyPlikWav() ); //daje z roszerz. *.wav, wiec ucinam
     LNazwa.Caption := rob;
     LNazwa.Top := Top+Height+10;
     LNazwa.Visible:=True;  //Visible MUSI byc przed LNazwa.Width, bo inaczej źle zmierzy szerokosc LNazwa'y...
-    LNazwa.Left:= Left+(Width div 2) - (LNazwa.Width div 2);
+
+    //LNazwa.Left:= Left+(Width div 2) - (LNazwa.Width div 2);
+        LNazwa.Left:= Left- (-(Width div 2) + (LNazwa.Width div 2));
+
+
   End;
 End; (* Procedure *)
 
