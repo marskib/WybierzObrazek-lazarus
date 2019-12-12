@@ -1,11 +1,11 @@
 object FParametry: TFParametry
   Left = 65
-  Height = 510
+  Height = 550
   Top = 147
   Width = 836
   BorderIcons = []
   Caption = 'Ustawienia'
-  ClientHeight = 510
+  ClientHeight = 550
   ClientWidth = 836
   Color = clForm
   Font.Color = clWindowText
@@ -876,7 +876,7 @@ object FParametry: TFParametry
   object BOK: TButton
     Left = 26
     Height = 53
-    Top = 422
+    Top = 438
     Width = 240
     Caption = 'OK'
     Font.Color = clWindowText
@@ -901,9 +901,9 @@ object FParametry: TFParametry
   end
   object LKatalog: TLabel
     Left = 460
-    Height = 19
+    Height = 17
     Top = 288
-    Width = 170
+    Width = 174
     Caption = 'Wczytaj obrazki z dysku :'
     Font.Height = -14
     Font.Style = [fsBold]
@@ -937,8 +937,8 @@ object FParametry: TFParametry
   object BDomyslne: TButton
     Left = 278
     Height = 53
-    Top = 422
-    Width = 89
+    Top = 438
+    Width = 106
     Caption = 'Wartości domyśne'
     Font.Color = clWindowText
     Font.Height = -9
@@ -953,15 +953,15 @@ object FParametry: TFParametry
     Top = 172
     Width = 122
     Caption = 'Nagroda'
-    ClientHeight = 94
+    ClientHeight = 96
     ClientWidth = 118
     ParentFont = False
     TabOrder = 3
     object RBOkrzyk: TRadioButton
       Left = 5
-      Height = 19
+      Height = 17
       Top = 5
-      Width = 106
+      Width = 96
       Caption = 'okrzyk ''tryumfu'''
       OnMouseUp = RBOkrzykMouseUp
       ParentFont = False
@@ -969,27 +969,27 @@ object FParametry: TFParametry
     end
     object RBOklaski: TRadioButton
       Left = 5
-      Height = 19
+      Height = 17
       Top = 25
-      Width = 56
+      Width = 51
       Caption = 'oklaski'
       ParentFont = False
       TabOrder = 0
     end
     object RBNoAward: TRadioButton
       Left = 4
-      Height = 19
+      Height = 17
       Top = 69
-      Width = 85
+      Width = 80
       Caption = 'bez nagrody'
       ParentFont = False
       TabOrder = 2
     end
     object RBPochwala: TRadioButton
       Left = 5
-      Height = 19
+      Height = 17
       Top = 46
-      Width = 71
+      Width = 66
       Caption = 'Pochwała'
       Checked = True
       ParentFont = False
@@ -1000,7 +1000,7 @@ object FParametry: TFParametry
   object ComboBoxKolor: TComboBox
     Left = 454
     Height = 16
-    Top = 438
+    Top = 504
     Width = 122
     Font.Color = clWindowText
     Font.Height = -9
@@ -1015,7 +1015,7 @@ object FParametry: TFParametry
   object Label7: TLabel
     Left = 454
     Height = 13
-    Top = 426
+    Top = 492
     Width = 54
     Caption = 'Kolor Tła'
     Font.Color = clWindowText
@@ -1187,15 +1187,15 @@ object FParametry: TFParametry
     Top = 307
     Width = 169
     Caption = ' Jeśli 4 obrazki, to '
-    ClientHeight = 63
+    ClientHeight = 65
     ClientWidth = 165
     ParentFont = False
     TabOrder = 11
     object RB1W: TRadioButton
       Left = 6
-      Height = 19
+      Height = 17
       Top = 11
-      Width = 130
+      Width = 120
       Caption = 'rozmieść w 1 wierszu'
       OnMouseUp = RBOkrzykMouseUp
       ParentFont = False
@@ -1203,9 +1203,9 @@ object FParametry: TFParametry
     end
     object RB2W: TRadioButton
       Left = 6
-      Height = 19
+      Height = 17
       Top = 37
-      Width = 142
+      Width = 131
       Caption = 'rozmieść w 2 wierszach'
       Checked = True
       OnChange = RB2WChange
@@ -1218,8 +1218,8 @@ object FParametry: TFParametry
     Left = 454
     Height = 20
     Top = 338
-    Width = 249
-    Caption = 'Umożliwiaj odgrywanie nazwy obrazka'
+    Width = 310
+    Caption = 'Odgrywj polecenie po naciśnięciu ikony głośnika'
     Checked = True
     Font.Color = clWindowText
     Font.Height = -14
@@ -1232,7 +1232,7 @@ object FParametry: TFParametry
   object CBShrink: TCheckBox
     Left = 454
     Height = 20
-    Top = 389
+    Top = 455
     Width = 140
     Caption = 'Pomniejszaj obrazki'
     Font.Color = clWindowText
@@ -1261,13 +1261,40 @@ object FParametry: TFParametry
     Left = 97
     Height = 20
     Top = 134
-    Width = 214
-    Caption = 'Pokaż polecenie pod obrazkiem'
+    Width = 231
+    Caption = 'Pokaż polecenie w formie pisemnej'
     Font.Color = clWindowText
     Font.Height = -14
     Font.Name = 'MS Sans Serif'
     OnChange = CBNazwaChange
     ParentFont = False
     TabOrder = 14
+  end
+  object CBAutomat: TCheckBox
+    Left = 454
+    Height = 20
+    Top = 384
+    Width = 307
+    Caption = 'Odgrywaj polecenie automatycznie, co 5 sekund'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'MS Sans Serif'
+    ParentFont = False
+    TabOrder = 15
+  end
+  object Label10: TLabel
+    Left = 474
+    Height = 13
+    Top = 406
+    Width = 106
+    Caption = '(jeżeli istnieje plik wav)'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'MS Sans Serif'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
   end
 end

@@ -39,6 +39,7 @@ type
     CBPodp: TCheckBox;
     CBShrink: TCheckBox;
     CBNazwa: TCheckBox;
+    CBAutomat: TCheckBox;
     ComboBoxKolor: TComboBox;
     DEKatalogSkib : TMojDirectoryEdit;
     {}
@@ -47,6 +48,7 @@ type
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     Label1: TLabel;
+    Label10: TLabel;
     Label9: TLabel;
     LKatalog: TLabel;
     Label3: TLabel;
