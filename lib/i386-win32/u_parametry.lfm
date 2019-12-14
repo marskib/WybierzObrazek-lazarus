@@ -1,11 +1,11 @@
 object FParametry: TFParametry
   Left = 65
-  Height = 550
+  Height = 734
   Top = 147
   Width = 836
   BorderIcons = []
   Caption = 'Ustawienia'
-  ClientHeight = 550
+  ClientHeight = 734
   ClientWidth = 836
   Color = clForm
   Font.Color = clWindowText
@@ -1000,7 +1000,7 @@ object FParametry: TFParametry
   object ComboBoxKolor: TComboBox
     Left = 454
     Height = 16
-    Top = 504
+    Top = 570
     Width = 122
     Font.Color = clWindowText
     Font.Height = -9
@@ -1015,7 +1015,7 @@ object FParametry: TFParametry
   object Label7: TLabel
     Left = 454
     Height = 13
-    Top = 492
+    Top = 558
     Width = 54
     Caption = 'Kolor Tła'
     Font.Color = clWindowText
@@ -1214,25 +1214,10 @@ object FParametry: TFParametry
       TabStop = True
     end
   end
-  object CBOdgrywaj: TCheckBox
-    Left = 454
-    Height = 20
-    Top = 338
-    Width = 310
-    Caption = 'Odgrywj polecenie po naciśnięciu ikony głośnika'
-    Checked = True
-    Font.Color = clWindowText
-    Font.Height = -14
-    Font.Name = 'MS Sans Serif'
-    OnChange = CBOdgrywajChange
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 12
-  end
   object CBShrink: TCheckBox
     Left = 454
     Height = 20
-    Top = 455
+    Top = 521
     Width = 140
     Caption = 'Pomniejszaj obrazki'
     Font.Color = clWindowText
@@ -1240,22 +1225,7 @@ object FParametry: TFParametry
     Font.Name = 'MS Sans Serif'
     OnChange = CBShrinkChange
     ParentFont = False
-    TabOrder = 13
-  end
-  object Label9: TLabel
-    Left = 474
-    Height = 13
-    Top = 359
-    Width = 106
-    Caption = '(jeżeli istnieje plik wav)'
-    Font.CharSet = EASTEUROPE_CHARSET
-    Font.Color = clBlack
-    Font.Height = -12
-    Font.Name = 'MS Sans Serif'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    ParentColor = False
-    ParentFont = False
+    TabOrder = 12
   end
   object CBNazwa: TCheckBox
     Left = 97
@@ -1268,29 +1238,73 @@ object FParametry: TFParametry
     Font.Name = 'MS Sans Serif'
     OnChange = CBNazwaChange
     ParentFont = False
-    TabOrder = 14
+    TabOrder = 13
   end
-  object CBAutomat: TCheckBox
-    Left = 454
-    Height = 17
-    Top = 384
-    Width = 249
-    Caption = 'Odgrywaj polecenie automatycznie, co 5 sekund'
-    TabOrder = 15
-  end
-  object Label10: TLabel
-    Left = 474
-    Height = 13
-    Top = 402
-    Width = 106
-    Caption = '(jeżeli istnieje plik wav)'
-    Font.CharSet = EASTEUROPE_CHARSET
-    Font.Color = clBlack
-    Font.Height = -12
-    Font.Name = 'MS Sans Serif'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+  object Panel1: TPanel
+    Left = 460
+    Height = 140
+    Top = 344
+    Width = 355
+    ClientHeight = 140
+    ClientWidth = 355
+    Color = clGradientActiveCaption
     ParentColor = False
-    ParentFont = False
+    TabOrder = 14
+    object CBOdgrywaj: TCheckBox
+      Left = 13
+      Height = 20
+      Top = 20
+      Width = 310
+      Caption = 'Odgrywj polecenie po naciśnięciu ikony głośnika'
+      Checked = True
+      Font.Color = clWindowText
+      Font.Height = -14
+      Font.Name = 'MS Sans Serif'
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 0
+    end
+    object Label9: TLabel
+      Left = 32
+      Height = 13
+      Top = 43
+      Width = 106
+      Caption = '(jeżeli istnieje plik wav)'
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'MS Sans Serif'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
+    end
+    object CBAutomat: TCheckBox
+      Left = 13
+      Height = 20
+      Top = 80
+      Width = 307
+      Caption = 'Odgrywaj polecenie automatycznie, co 5 sekund'
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'MS Sans Serif'
+      ParentFont = False
+      TabOrder = 1
+    end
+    object Label10: TLabel
+      Left = 32
+      Height = 13
+      Top = 104
+      Width = 106
+      Caption = '(jeżeli istnieje plik wav)'
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'MS Sans Serif'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
+    end
   end
 end

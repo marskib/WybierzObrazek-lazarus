@@ -35,11 +35,11 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
+    CBAutomat: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;
     CBShrink: TCheckBox;
     CBNazwa: TCheckBox;
-    CBAutomat: TCheckBox;
     ComboBoxKolor: TComboBox;
     DEKatalogSkib : TMojDirectoryEdit;
     {}
@@ -58,6 +58,7 @@ type
     Label7: TLabel;
     Label8: TLabel;
     LCount: TLabel;
+    Panel1: TPanel;
     RB2W: TRadioButton;
     RB1W: TRadioButton;
     RBPochwala: TRadioButton;
@@ -71,7 +72,7 @@ type
     procedure BSelDownClick(Sender: TObject);
     procedure BSelUpClick(Sender: TObject);
     procedure CBNazwaChange(Sender: TObject);
-    procedure CBOdgrywajChange(Sender: TObject);
+    //procedure CBOdgrywajChange(Sender: TObject);
     procedure CBPodpChange(Sender: TObject);
     procedure CBShrinkChange(Sender: TObject);
     procedure ComboBoxKolorChange(Sender: TObject);
@@ -306,11 +307,11 @@ begin
   Zmieniono_Nazwa := not Zmieniono_Nazwa; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
 end;
 
-procedure TFParametry.CBOdgrywajChange(Sender: TObject);
-begin
-  FOperacje.SpeedBtnGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
-end;
-
+//procedure TFParametry.CBOdgrywajChange(Sender: TObject);
+//begin
+//  FOperacje.SpeedBtnGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
+//end;
+//
 
 
 procedure TFParametry.CBPodpChange(Sender: TObject);

@@ -353,6 +353,7 @@ procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
 (* Odegranie nazwy obrazka (if any) *)
 var plikWava : string;
 Begin
+  if not FParametry.CBOdgrywaj.Checked then Exit;
   plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
   MPlayer.Play(SciezkaZasoby+plikWava,0);
 End;
