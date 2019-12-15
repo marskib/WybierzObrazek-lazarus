@@ -73,6 +73,7 @@ type
     procedure BSelUpClick(Sender: TObject);
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
+    //procedure CBOdgrywajChange(Sender: TObject);
     procedure CBPodpChange(Sender: TObject);
     procedure CBShrinkChange(Sender: TObject);
     procedure ComboBoxKolorChange(Sender: TObject);
@@ -307,9 +308,15 @@ begin
   Zmieniono_Nazwa := not Zmieniono_Nazwa; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
 end;
 
+procedure TFParametry.CBOdgrywajChange(Sender: TObject);
+begin
+  Foperacje.SpeedBtnGraj.Enabled:=FParametry.CBOdgrywaj.Checked;
+
+end;
+
 //procedure TFParametry.CBOdgrywajChange(Sender: TObject);
 //begin
-//  FOperacje.SpeedBtnGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
+  //FOperacje.SpeedBtnGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
 //end;
 //
 

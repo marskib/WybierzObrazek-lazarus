@@ -18,9 +18,8 @@
         <ComponentName Value="FOperacje"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="280"/>
-        <CursorPos X="22" Y="306"/>
+        <CursorPos X="115" Y="313"/>
         <UsageCount Value="45"/>
         <Bookmarks Count="2">
           <Item0 X="9" Y="360" ID="2"/>
@@ -35,8 +34,10 @@
         <ComponentName Value="FParametry"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
-        <CursorPos X="71" Y="84"/>
+        <TopLine Value="304"/>
+        <CursorPos X="97" Y="314"/>
         <UsageCount Value="45"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -111,120 +112,120 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="563" TopLine="550"/>
+        <Caret Line="565" TopLine="552"/>
       </Position1>
       <Position2>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="565" TopLine="552"/>
+        <Caret Line="564" TopLine="551"/>
       </Position2>
       <Position3>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="564" TopLine="551"/>
+        <Caret Line="563" TopLine="550"/>
       </Position3>
       <Position4>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="563" TopLine="550"/>
+        <Caret Line="564" TopLine="551"/>
       </Position4>
       <Position5>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="564" TopLine="551"/>
+        <Caret Line="565" TopLine="552"/>
       </Position5>
       <Position6>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="565" TopLine="552"/>
+        <Caret Line="564" TopLine="551"/>
       </Position6>
       <Position7>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="564" TopLine="551"/>
+        <Caret Line="565" TopLine="552"/>
       </Position7>
       <Position8>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="565" TopLine="552"/>
+        <Caret Line="564" TopLine="551"/>
       </Position8>
       <Position9>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="564" TopLine="551"/>
+        <Caret Line="565" TopLine="552"/>
       </Position9>
       <Position10>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="565" TopLine="552"/>
+        <Caret Line="564" TopLine="551"/>
       </Position10>
       <Position11>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="564" TopLine="551"/>
+        <Caret Line="565" TopLine="552"/>
       </Position11>
       <Position12>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="565" TopLine="552"/>
+        <Caret Line="564" TopLine="551"/>
       </Position12>
       <Position13>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="564" TopLine="551"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="90" Column="24" TopLine="74"/>
       </Position13>
       <Position14>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="90" Column="24" TopLine="74"/>
+        <Caret Line="357" Column="14" TopLine="352"/>
       </Position14>
       <Position15>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="357" Column="14" TopLine="352"/>
+        <Caret Line="356" Column="39" TopLine="340"/>
       </Position15>
       <Position16>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="356" Column="39" TopLine="340"/>
+        <Caret Line="304" Column="3" TopLine="300"/>
       </Position16>
       <Position17>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="304" Column="3" TopLine="300"/>
-      </Position17>
-      <Position18>
         <Filename Value="u_tmimage.pas"/>
         <Caret Line="24" Column="30" TopLine="8"/>
+      </Position17>
+      <Position18>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="306" Column="10" TopLine="300"/>
       </Position18>
       <Position19>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="306" Column="10" TopLine="300"/>
       </Position19>
       <Position20>
         <Filename Value="u_operacje.pas"/>
+        <Caret Line="307" Column="9" TopLine="300"/>
       </Position20>
       <Position21>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="307" Column="9" TopLine="300"/>
       </Position21>
       <Position22>
         <Filename Value="u_operacje.pas"/>
+        <Caret Line="306" Column="22" TopLine="262"/>
       </Position22>
       <Position23>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="306" Column="22" TopLine="262"/>
+        <Caret Line="475" Column="22" TopLine="444"/>
       </Position23>
       <Position24>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="475" Column="22" TopLine="444"/>
+        <Caret Line="306" Column="22" TopLine="280"/>
       </Position24>
       <Position25>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="306" Column="22" TopLine="280"/>
+        <Caret Line="475" Column="22" TopLine="432"/>
       </Position25>
       <Position26>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="475" Column="22" TopLine="432"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="563" Column="81" TopLine="552"/>
       </Position26>
       <Position27>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="563" Column="81" TopLine="552"/>
+        <Caret Line="217" Column="3" TopLine="208"/>
       </Position27>
       <Position28>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="217" Column="3" TopLine="208"/>
       </Position28>
       <Position29>
         <Filename Value="u_parametry.pas"/>
+        <Caret Line="308" Column="74" TopLine="268"/>
       </Position29>
       <Position30>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="308" Column="74" TopLine="268"/>
+        <Caret Line="85" Column="71" TopLine="35"/>
       </Position30>
     </JumpHistory>
     <RunParams>
