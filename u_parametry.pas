@@ -310,9 +310,9 @@ end;
 
 procedure TFParametry.CBOdgrywajChange(Sender: TObject);
 begin
-  Foperacje.SpeedBtnGraj.Enabled:=FParametry.CBOdgrywaj.Checked;
-  if not FParametry.CBOdgrywaj.Checked then  //jak nie mozna powiedziec, to trzeba pokazac napis
-    FParametry.CBNazwa.Checked :=True;;
+  Foperacje.SpeedBtnGraj.Enabled:=FParametry.CBOdgrywaj.Checked;  //jak nie odgrywamy, to wyszarzony
+  if not FParametry.CBOdgrywaj.Checked then  //jak nie wolno powiedziec, to trzeba chociaz pokazac napis
+    FParametry.CBNazwa.Checked :=True;
 end;
 
 //procedure TFParametry.CBOdgrywajChange(Sender: TObject);

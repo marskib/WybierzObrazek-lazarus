@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="42" Y="15"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
       </Unit0>
       <Unit1>
         <Filename Value="u_operacje.pas"/>
@@ -20,7 +20,7 @@
         <ResourceBaseClass Value="Form"/>
         <TopLine Value="280"/>
         <CursorPos X="115" Y="313"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Bookmarks Count="2">
           <Item0 X="9" Y="360" ID="2"/>
           <Item1 Y="484" ID="1"/>
@@ -36,9 +36,9 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
-        <TopLine Value="304"/>
-        <CursorPos X="97" Y="314"/>
-        <UsageCount Value="45"/>
+        <TopLine Value="295"/>
+        <CursorPos X="39" Y="315"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
@@ -46,7 +46,7 @@
         <Filename Value="u_sprawdzacz.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -55,7 +55,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="664"/>
         <CursorPos X="3" Y="728"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -63,7 +63,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos X="25" Y="15"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -72,7 +72,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="150"/>
         <CursorPos X="3" Y="152"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -83,7 +83,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="61"/>
         <CursorPos X="62" Y="73"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -91,7 +91,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_Lapka"/>
         <EditorIndex Value="6"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -99,14 +99,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2061"/>
         <CursorPos Y="2072"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit9>
       <Unit10>
         <Filename Value="c:\Lazarus-2-0-4\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4218"/>
         <CursorPos Y="4229"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit10>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
