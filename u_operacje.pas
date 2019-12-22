@@ -28,6 +28,7 @@ uses
     BNextCwicz: TButton;
     LNazwa: TLabel;
     SpeedBtnGraj: TSpeedButton;
+    Timer5sek: TTimer;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
     TimerLosuj: TTimer;
@@ -49,6 +50,7 @@ uses
     procedure OProgramieClick(Sender: TObject);
     procedure ParametryClick(Sender: TObject);
     procedure SpeedBtnGrajClick(Sender: TObject);
+    procedure Timer5sekTimer(Sender: TObject);
     procedure TimerKlawiszeTimer(Sender: TObject);
     procedure TimerLosujTimer(Sender: TObject);
     procedure TimerNazwaTimer(Sender: TObject);
@@ -87,7 +89,7 @@ var
 
 CONST
     PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
-    JESTEM_W_105 = TRUE;        //zeby nie grac, gdy jestem w 1.05
+    JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
     MAX_OBR_OD :SmallInt;        //maxymalna dozwolona liczba obrazkow w Obszarze Dolnym (jak za duzo, to dziecko nie da rady...); zalezy tez od PELNA_WERSJA=True/False
@@ -171,10 +173,11 @@ End;
 
 
 procedure TFOperacje.TimerLosujTimer(Sender: TObject);
-(* Losowanie obrazka, wyswietlenie wylosowanego *)
+(* Losowanie obrazka, wyswietlenie wylosowanego, odblokowanie ewentualnego odgrywania co 5 sek (ostanie na potrzeby WybierzObrazek - 2019.12.20)*)
 Begin
   LosujUmiescObrazek();
   BPodp.Visible := FParametry.CBPodp.Checked;
+  Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   TimerLosuj.Enabled := False;
 End;
 
@@ -358,6 +361,13 @@ Begin
   MPlayer.Play(SciezkaZasoby+plikWava,0);
 End;
 
+procedure TFOperacje.Timer5sekTimer(Sender: TObject);
+(* Odegranie nazwy obrazka (if any) *)
+var plikWava : string;
+Begin
+  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
+  MPlayer.Play(SciezkaZasoby+plikWava,0);
+End;
 procedure TFOperacje.BPodpClick(Sender: TObject);
 (* Udzielenie podpowiedzi - wystawienie Lapek na Ramce i wlasciwym Obrazku *)
 (* (dziala takze jak switch on/off                                         *)
@@ -402,6 +412,9 @@ Begin
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :
+
+  BAgain.Height := Trunc(1.5*Bagain.Height);   //dla WybierzObrazek troche powiekszam - 2019.12.20
+  BAgain.Width  := Trunc(1.5*Bagain.Width);
 
   BAgain.Top := SLinia.Top - BAgain.Height-2;;
   BAgain.Left:= FOperacje.Width - BAgain.Width -2;
