@@ -113,7 +113,7 @@ var
   Zmieniono_Poziom: Boolean;       //zeby bylo wiadomo, jezeli user zmieni poziom (liczbe wyswietlanych obrazkow)
   Zmieniono_Shrink: Boolean;       //zeby bylo wiadomo, jezeli user zmienil chec pomniejszania/zwiekszania obrazkow
   Zmieniono_2_na_1_Wierz: Boolean; //zeby bylo wiadomo, jezeli user zmienil rozmieszczenie 4-ch obrazkow z defaultopwych 2 na 1 wiersz
-  Zmieniono_Nazwa:Boolean;         //zeby bylo wiadomo, jesli user zmienil pokaywanie/nie pokazywanie nazw/podpisow pod obrazkiem gornym
+  Zmieniono_Nazwa: Boolean;        //zeby bylo wiadomo, jesli user zmienil pokaywanie/nie pokazywanie nazw/podpisow pod obrazkiem gornym
   {}
   SesjaStartuje: boolean = True;  //zeby zroznicowac zachowanie i komunikat jezeli znajdziemy blad w Zasobach
   LiczbaObrazkow: integer;        //ile obrazkow w wybranym katalogu
@@ -241,6 +241,17 @@ Begin
       MessageDlg('Brak obrazków typu JPG,GIF,BMP w wybranym katalogu.' + #13#10 +
         'Wybierz inny katalog lub naciśnij klawisz ''Wartości domyślne'' !', mtError, [mbOK], 0);
   End;
+
+  //Zeby zaczal/przestal grac automatycznie (dokklejka dla WybierzObrazek - 2019.12.21):
+  FOperacje.Timer5sek.Enabled := CBAutomat.Checked;
+  if CBAutomat.Checked then   //1-sze odegranie przy wejsciu na FOperacje
+    FOperacje.Timer5sekTimer(Self);
+  //jezeli wylaczono wszelkie glosowe formy polecenia, to wymuszam napis:
+  if not (CBOdgrywaj.Checked or CBAutomat.Checked) then begin
+    CBNazwa.Checked:=True;
+    FOperacje.PokazNazwePodObrazkiem();
+  end;
+
 End;  (* Procedure *)
 
 procedure TFParametry.BPlusClick(Sender: TObject);
@@ -310,9 +321,9 @@ end;
 
 procedure TFParametry.CBOdgrywajChange(Sender: TObject);
 begin
-  Foperacje.SpeedBtnGraj.Enabled:=FParametry.CBOdgrywaj.Checked;
-  if not FParametry.CBOdgrywaj.Checked then  //jak nie mozna powiedziec, to trzeba pokazac napis
-    FParametry.CBNazwa.Checked :=True;;
+  Foperacje.SpeedBtnGraj.Enabled:=FParametry.CBOdgrywaj.Checked;  //jak nie odgrywamy, to wyszarzony
+  if not FParametry.CBOdgrywaj.Checked then  //jak nie wolno powiedziec, to trzeba chociaz pokazac napis
+    FParametry.CBNazwa.Checked :=True;
 end;
 
 //procedure TFParametry.CBOdgrywajChange(Sender: TObject);
@@ -569,6 +580,8 @@ Begin
   {}
   Zbior_pop := ZBior;  //zeby przy wychodzeniu z formy moc porownac i stwierdzic, czy zmieniono selekcje
   //Jezeli moglem zobaczyc (onShow) te forme, to znaczy, ze sesja z programem juz trwa (nie jest to 'zaraz po starcie'
+  //Zeby nie gral automatycznie (if granie ustawione) podczas pobytu na FParametry, bo przeszkadza... :
+  FOperacje.Timer5sek.Enabled := False;
   SesjaStartuje := False;   //zeby wiedziec jaki generowac kom. kiedy bledy w katalogu z Zasobami
 End;
 

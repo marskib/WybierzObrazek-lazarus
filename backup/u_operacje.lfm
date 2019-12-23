@@ -12,7 +12,7 @@ object FOperacje: TFOperacje
   OnShow = FormShow
   Position = poDesktopCenter
   ShowHint = True
-  LCLVersion = '2.0.4.0'
+  LCLVersion = '2.0.6.0'
   object SLinia: TShape
     Left = 60
     Height = 4
@@ -1755,21 +1755,28 @@ object FOperacje: TFOperacje
     Enabled = False
     Interval = 1500
     OnTimer = TimerLosujTimer
-    left = 446
-    top = 91
+    left = 448
+    top = 40
   end
   object TimerKlawisze: TTimer
     Enabled = False
     Interval = 3000
     OnTimer = TimerKlawiszeTimer
-    left = 446
-    top = 154
+    left = 450
+    top = 112
   end
   object TimerNazwa: TTimer
     Enabled = False
     Interval = 100
     OnTimer = TimerNazwaTimer
-    left = 446
-    top = 230
+    left = 450
+    top = 192
+  end
+  object Timer5sek: TTimer
+    Enabled = False
+    Interval = 5000
+    OnTimer = Timer5sekTimer
+    left = 450
+    top = 264
   end
 end

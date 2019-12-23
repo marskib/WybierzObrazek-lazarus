@@ -28,6 +28,7 @@ uses
     BNextCwicz: TButton;
     LNazwa: TLabel;
     SpeedBtnGraj: TSpeedButton;
+    Timer5sek: TTimer;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
     TimerLosuj: TTimer;
@@ -37,7 +38,6 @@ uses
     Parametry: TMenuItem;
     SLinia: TShape;
     procedure BAgainClick(Sender: TObject);
-    procedure BGrajClick(Sender: TObject);
     procedure Naczytaj();
     procedure BNextCwiczClick(Sender: TObject);
     procedure BPodpClick(Sender: TObject);
@@ -49,6 +49,7 @@ uses
     procedure OProgramieClick(Sender: TObject);
     procedure ParametryClick(Sender: TObject);
     procedure SpeedBtnGrajClick(Sender: TObject);
+    procedure Timer5sekTimer(Sender: TObject);
     procedure TimerKlawiszeTimer(Sender: TObject);
     procedure TimerLosujTimer(Sender: TObject);
     procedure TimerNazwaTimer(Sender: TObject);
@@ -56,6 +57,7 @@ uses
     procedure UstawEkranStartowy;
     procedure LosujUmiescObrazek();
     procedure RebuildAll();
+    procedure OdegrajPolecenie(delay: Byte);
   private
     { private declarations }
   public
@@ -87,7 +89,7 @@ var
 
 CONST
     PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
-    JESTEM_W_105 = TRUE;        //zeby nie grac, gdy jestem w 1.05
+    JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
     MAX_OBR_OD :SmallInt;        //maxymalna dozwolona liczba obrazkow w Obszarze Dolnym (jak za duzo, to dziecko nie da rady...); zalezy tez od PELNA_WERSJA=True/False
@@ -171,10 +173,11 @@ End;
 
 
 procedure TFOperacje.TimerLosujTimer(Sender: TObject);
-(* Losowanie obrazka, wyswietlenie wylosowanego *)
+(* Losowanie obrazka, wyswietlenie wylosowanego, odblokowanie ewentualnego odgrywania co 5 sek (ostanie na potrzeby WybierzObrazek - 2019.12.20)*)
 Begin
   LosujUmiescObrazek();
   BPodp.Visible := FParametry.CBPodp.Checked;
+  Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   TimerLosuj.Enabled := False;
 End;
 
@@ -339,25 +342,35 @@ Begin
     tabOb[i].WlaczHandlery();
   end;
   Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
+  //Ponowne odgrywanie co 5 sek (if any):
+  Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
+  if Fparametry.CBAutomat.Checked then
+    Timer5sekTimer(BAgain);
 End;
 
-procedure TFOperacje.BGrajClick(Sender: TObject);
-(* Odegranie nazwy obrazka (if any) *)
-var plikWava : string;
-Begin
-  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
-  MPlayer.Play(SciezkaZasoby+plikWava,0);
-End;
 
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
 (* Odegranie nazwy obrazka (if any) *)
-var plikWava : string;
 Begin
-  if not FParametry.CBOdgrywaj then Exit;
-  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
-  MPlayer.Play(SciezkaZasoby+plikWava,0);
+  if not FParametry.CBOdgrywaj.Checked then Exit;
+  OdegrajPolecenie(0);
 End;
 
+procedure TFOperacje.OdegrajPolecenie(delay: Byte);
+(* Odegranie nazwy obrazka=polecenia (if any); delay - wielokrotnosc 750 ms *)
+var plikWava : string;
+Begin
+  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
+  MPlayer.Play(SciezkaZasoby+plikWava,delay);
+End;
+
+procedure TFOperacje.Timer5sekTimer(Sender: TObject);
+Begin
+  if ((Sender=FParametry) or (Sender=BAgain)) then
+    OdegrajPolecenie(1)    //weszlismy z Fparametry - wypada troche odczekac..
+  else
+    OdegrajPolecenie(0);
+End;
 procedure TFOperacje.BPodpClick(Sender: TObject);
 (* Udzielenie podpowiedzi - wystawienie Lapek na Ramce i wlasciwym Obrazku *)
 (* (dziala takze jak switch on/off                                         *)
@@ -403,6 +416,9 @@ Begin
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :
 
+  BAgain.Height := Trunc(1.5*Bagain.Height);   //dla WybierzObrazek troche powiekszam - 2019.12.20
+  BAgain.Width  := Trunc(1.5*Bagain.Width);
+
   BAgain.Top := SLinia.Top - BAgain.Height-2;;
   BAgain.Left:= FOperacje.Width - BAgain.Width -2;
 
@@ -432,7 +448,6 @@ procedure TFOperacje.LosujUmiescObrazek();
 (* ************************************************************************************ *)
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
-    plikWav : string;    //na ewentualne odegranie nazwy (if any)
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
@@ -479,8 +494,7 @@ Begin
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
     if FParametry.CBOdgrywaj.Checked then begin
-      plikWav := tabOb[idWylos].DajEwentualnyPlikWav();  //nazwa Potencjalnego(!) pliku
-      MPlayer.Play(SciezkaZasoby+plikWav,1);             //odegra, albo cisza :)
+      OdegrajPolecenie(1);             //odegra, albo cisza :)
     end;
   end;
 

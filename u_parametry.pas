@@ -245,8 +245,8 @@ Begin
   //Zeby zaczal/przestal grac automatycznie (dokklejka dla WybierzObrazek - 2019.12.21):
   FOperacje.Timer5sek.Enabled := CBAutomat.Checked;
   if CBAutomat.Checked then   //1-sze odegranie przy wejsciu na FOperacje
-    FOperacje.Timer5sekTimer(FParametry);
-  //jezeli wylaczono wszelkie glosowae formy polecenia, to wymuszam napis"
+    FOperacje.Timer5sekTimer(Self); //Self - ywolywana proc. będzie wiedziala, co z tym zrobic
+  //jezeli wylaczono wszelkie glosowe formy polecenia, to wymuszam napis:
   if not (CBOdgrywaj.Checked or CBAutomat.Checked) then begin
     CBNazwa.Checked:=True;
     FOperacje.PokazNazwePodObrazkiem();
