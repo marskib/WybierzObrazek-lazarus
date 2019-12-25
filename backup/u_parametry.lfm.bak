@@ -1015,7 +1015,7 @@ object FParametry: TFParametry
   object Label7: TLabel
     Left = 94
     Height = 13
-    Top = 451
+    Top = 450
     Width = 54
     Caption = 'Kolor Tła'
     Font.Color = clWindowText

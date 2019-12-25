@@ -1,0 +1,122 @@
+unit u_Lapka;
+
+(* Kreowanie 'Lapki'-podpowiedzi; Moze byc albo stCircle, albo stRectangle  *)
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, ExtCtrls, Graphics;
+
+TYPE
+
+  { TLapka }
+
+  TLapka = class(TShape)
+
+    private Timer : TTimer;
+    private procedure MrugajLapka(Sender:TObject);   //UWAGA - parametr formalny (typu TObject) MUSI byc, bo inaczej kompilator nie puszcza przypisywania handlera (sygnatura metody sztywna?)
+
+    public constructor WlasnyCreate(Ksztalt:TShapeType);
+    public destructor Destroy; override;
+
+    public procedure Mrugaj();
+    public procedure Zgas();
+    public procedure NieMrugaj();
+    public procedure WznowMruganie();
+    public procedure PolozNaXY_i_Wymiaruj(x,y, szer,wys : SmallInt);
+    public procedure UstawKolorObramowania(JakieJestTlo : TColor);
+  end;
+
+
+implementation
+
+uses u_operacje, u_parametry;
+
+{ TLapka }
+
+constructor TLapka.WlasnyCreate(Ksztalt: TShapeType);
+Begin
+  inherited Create(nil);
+  Self.Shape := Ksztalt;
+  Self.Brush.Style := bsClear;  //zeby nie zaslanialo innych
+  Self.Visible := False;
+  {Kreowanie timera do mrugania Lapką: }
+  Timer := TTimer.Create(Self); //kazda Lapka powinna miec wlasny Timer (lepiej 'mruga')
+  Timer.Interval := 100;
+  Timer.OnTimer:=@MrugajLapka;
+  Timer.Enabled:=False;
+
+
+
+  Self.BringToFront;
+
+
+End;
+
+destructor TLapka.Destroy;
+begin
+  FreeAndNil(Timer);
+  inherited Destroy;
+end;
+
+procedure TLapka.Mrugaj();
+Begin
+  Self.Visible :=True;
+  Timer.Enabled:=True;
+End;
+
+procedure TLapka.Zgas();
+Begin
+ Self.Visible :=False;
+ Timer.Enabled:=False;
+End;
+
+procedure TLapka.NieMrugaj();
+(* Przestaje mrugac, ale Lapka nadal widoczna *)
+Begin
+  Timer.Enabled:=False;
+End;
+
+procedure TLapka.WznowMruganie();
+(* Wznawia mruganie juz widoczna Lapka *)
+Begin
+  Timer.Enabled:=True;
+End;
+
+procedure TLapka.PolozNaXY_i_Wymiaruj(x, y, szer, wys : SmallInt);
+Begin
+ Left := x;
+ Top  := y;
+ Width := szer;
+ Height:= wys;
+End;
+
+procedure TLapka.UstawKolorObramowania(JakieJestTlo: TColor);
+(* Pen ma byc wyrazny - odwrotny niz JekieJestTlo=FOperacje.Color *)
+Begin
+ Self.Pen.Color := skib_InvertColor(JakieJestTlo);
+End;
+
+procedure TLapka.MrugajLapka(Sender: TObject);
+(* Mrugamy wystawiona lapka; wywolywana na onTimer *)
+Begin
+  //Try zabezpiecza przed sytuacja kiedy probujemy mrugac lapka, a obiektu juz nie ma -
+
+  Try
+   if Self.Pen.Style = psDot then
+     Self.Pen.Style := psDash
+   else
+     Self.Pen.Style := psDot;
+  Except
+  End;
+
+End;  (* MrugajLapka *)
+
+
+
+
+
+end.
+

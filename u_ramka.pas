@@ -12,7 +12,7 @@ type
   { TRamka }
 
 
-  (* Ramka po prawej stronie obrazka-wzorca. Do tej Ramki dziecko wklada zgadywany obrazek *)
+  (* Ramka po prawej stronie ikony-prostokata z glosnikiem. Do tej Ramki dziecko wklada zgadywany obrazek *)
 
   TRamka = class(TShape)
 
