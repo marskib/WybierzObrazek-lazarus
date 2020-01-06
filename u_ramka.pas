@@ -86,14 +86,16 @@ Begin
     end;
     Lapka1.UstawKolorObramowania(Self.Parent.Color);
 
-    //UWAGA - ponizej ustawic na invert koloru pustego obrazka, na razie na clRed:
+    //UWAGA - ponizej ustawic na invert samego siebie - zeby bylo widac na tle Ramki:
     Lapka2.UstawKolorObramowania(Self.Brush.Color);
 
+     //Ramkę wysylam w tlo, zeby bylo na niej widac lapke 2020-01-04:
+     //doswiadczalnie - te sama instrukcje trzeba jeszcze poworzyc w TMmimage.coNaMouseUP - bo nie ma efektu w pewbycgh warunkach....
+     Self.SendToBack();
 
     Lszer := 8*(min(Height,Width) div 10);
     Lwys  := Lszer;
-    Lapka1.PolozNaXY_i_Wymiaruj(Left-(Lszer div 2)+10, Top-(Lwys div 2)+10, Lszer , Lwys);
-    //Lapka2.PolozNaXY_i_Wymiaruj(Left-(Lszer div 2)+10, Top-(Lwys div 2)+10, Lszer+5 , Lwys+5);
+    Lapka1.PolozNaXY_i_Wymiaruj(Left-(Lszer div 2)+10,    Top-(Lwys div 2)+10,    Lszer ,     Lwys);
     Lapka2.PolozNaXY_i_Wymiaruj(Left-(Lszer div 2)+10 -1, Top-(Lwys div 2)+10 -1, Lszer+2*1 , Lwys+2*1);
     Lapka1.Mrugaj();
     Lapka2.Mrugaj();
@@ -197,7 +199,12 @@ procedure TRamka.UstawKolorObramowania(JakieJestTlo: TColor);
 (* Kolor odwrotny niz tlo, zeby mozna bylo cos widziec... *)
 Begin
   Self.Pen.Color   := skib_InvertColor(JakieJestTlo);
-  Lapka1.Pen.Color  := Self.Pen.Color;
+  Lapka1.Pen.Color := Self.Pen.Color;
+  //Lapka 2 - przeciwna nie do tla Formy, ale do tla Ramki, czyli jak tlo Formy... 2019.12.25 :
+  //mozna tak: Lapka2.Pen.Color := JakieJestTlo;
+  {mozna tak (b.elegancko):}
+  Lapka2.Pen.Color := skib_InvertColor(Self.Pen.Color);
+  {koniec 2019.12.25}
 End;
 
 procedure TRamka.PolozNaXY(X, Y: Integer);

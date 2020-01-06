@@ -199,6 +199,7 @@ Begin
 With FOperacje do begin
   BPodp.Visible := False; //zeby NIC zbednego nie pozostalo na ekranie (cieszymy sie Zwyciestwem!)
   {}
+  Timer5sek.Enabled := False;  //jezeli bylo automatyczne granie, to zatrzymujemy
   GrajDing(0);
   GrajNagrode(1); //opoznienie ze wzgledu na Ding //MPlayer.Play(tadaPath,1);
   {}

@@ -19,8 +19,9 @@
         <ComponentName Value="FOperacje"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="474"/>
-        <CursorPos Y="499"/>
+        <CursorPos X="110" Y="503"/>
         <UsageCount Value="60"/>
         <Bookmarks Count="2">
           <Item0 X="18" Y="483" ID="1"/>
@@ -90,10 +91,9 @@
         <Filename Value="u_lapka.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_Lapka"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <TopLine Value="4"/>
-        <CursorPos X="21" Y="53"/>
+        <CursorPos Y="50"/>
         <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit8>

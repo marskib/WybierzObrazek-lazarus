@@ -12,7 +12,7 @@ type
   { TRamka }
 
 
-  (* Ramka po prawej stronie obrazka-wzorca. Do tej Ramki dziecko wklada zgadywany obrazek *)
+  (* Ramka po prawej stronie ikony-prostokata z glosnikiem. Do tej Ramki dziecko wklada zgadywany obrazek *)
 
   TRamka = class(TShape)
 
@@ -159,11 +159,6 @@ Begin
   {}
   Lapka1 := TLapka.WlasnyCreate(stCircle); //Lapka 'Ramkowa' powinna byc okregiem (uzgodniono z Konsultantem)
   Lapka2 := TLapka.WlasnyCreate(stCircle); //na potrzeby WybierzObrazek -2-ga lapka, bedzie inny kolor, zeby lepiej widoczna na tle miejsca na obrazek 2019.09.27
-
-
-  Self.SendToBack;
-
-
 End;
 
 
