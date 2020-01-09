@@ -19,8 +19,9 @@
         <ComponentName Value="FOperacje"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="474"/>
-        <CursorPos X="110" Y="503"/>
+        <CursorPos X="79" Y="479"/>
         <UsageCount Value="62"/>
         <Bookmarks Count="2">
           <Item0 X="18" Y="483" ID="1"/>
@@ -70,10 +71,9 @@
       <Unit6>
         <Filename Value="u_ramka.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="180"/>
-        <CursorPos X="64" Y="197"/>
+        <CursorPos X="37" Y="189"/>
         <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit6>

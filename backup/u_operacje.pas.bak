@@ -494,11 +494,6 @@ Begin
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
 
-
-  Ramka.SendToBack; //ski ski ski
-
-
-
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
     if FParametry.CBOdgrywaj.Checked then begin
