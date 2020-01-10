@@ -345,7 +345,7 @@ Begin
   //Ponowne odgrywanie co 5 sek (if any):
   Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   if Fparametry.CBAutomat.Checked then
-    Timer5sekTimer(BAgain);
+    Timer5sekTimer(BAgain);  //parametr, zeby funkcja wywolywana wiedziala co z tym zrobic - lekko opozni granie
 End;
 
 
@@ -366,8 +366,9 @@ End;
 
 procedure TFOperacje.Timer5sekTimer(Sender: TObject);
 Begin
+  if FOperacje.BNextCwicz.Visible then Exit;  //Nie gram, jesli w trybie po "zwyciestwie"
   if ((Sender=FParametry) or (Sender=BAgain)) then
-    OdegrajPolecenie(1)    //weszlismy z Fparametry - wypada troche odczekac..
+    OdegrajPolecenie(1)    //weszlismy z Fparametry lub BAgain - wypada troche odczekac..
   else
     OdegrajPolecenie(0);
 End;
@@ -442,8 +443,9 @@ End; (*Procedure*)
 
 procedure TFOperacje.LosujUmiescObrazek();
 (* ************************************************************************************ *)
-(* Wylosowanie i wyswietlenie obrazka do zgadywania.                                    *)
-(* Sposrod obrazkow na dole ekranu losuje jeden i jego kopię umieszcza na gorze ekranu. *)
+(* Wylosowanie                obrazka do zgadywania.                                    *)
+(* Umieszczenie ramki na wylosowany obrazek                                             *)
+(* Sposrod obrazkow na dole ekranu losuje jeden.                                        *)
 (* Ewentualne odegranie pliku z nazwa obrazka.                                          *)
 (* ************************************************************************************ *)
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
@@ -491,6 +493,7 @@ Begin
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
+
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
     if FParametry.CBOdgrywaj.Checked then begin

@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos X="60" Y="21"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="474"/>
-        <CursorPos X="79" Y="479"/>
-        <UsageCount Value="62"/>
+        <CursorPos X="47" Y="476"/>
+        <UsageCount Value="72"/>
         <Bookmarks Count="2">
           <Item0 X="18" Y="483" ID="1"/>
           <Item1 X="29" Y="140" ID="2"/>
@@ -39,7 +39,7 @@
         <EditorIndex Value="8"/>
         <TopLine Value="236"/>
         <CursorPos X="35" Y="247"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
@@ -47,7 +47,7 @@
         <Filename Value="u_sprawdzacz.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="5"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -56,7 +56,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="939"/>
         <CursorPos Y="1032"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -65,7 +65,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="27"/>
         <CursorPos X="2" Y="31"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -74,7 +74,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="180"/>
         <CursorPos X="37" Y="189"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -85,7 +85,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="61"/>
         <CursorPos X="62" Y="73"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -95,7 +95,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="4"/>
         <CursorPos Y="50"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -103,28 +103,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2061"/>
         <CursorPos Y="2072"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit9>
       <Unit10>
         <Filename Value="c:\Lazarus-2-0-4\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4218"/>
         <CursorPos Y="4229"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus-2-0-6\lcl\interfaces\win32\interfaces.pp"/>
         <UnitName Value="Interfaces"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="19"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\WybierzObrazek-lazarus — kopia (2)\u_parametry.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="607"/>
         <CursorPos X="5" Y="629"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit12>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
