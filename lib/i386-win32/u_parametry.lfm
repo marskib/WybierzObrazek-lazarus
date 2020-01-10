@@ -867,7 +867,7 @@ object FParametry: TFParametry
     Font.Color = clWindowText
     Font.Height = -9
     Font.Name = 'MS Sans Serif'
-    ItemHeight = 0
+    ItemHeight = 13
     Mask = '*.jpg;*.png;*.bmp;*.gif;*.jpeg'
     OnSelectionChange = FListBox1SelectionChange
     ParentFont = False
@@ -1254,8 +1254,8 @@ object FParametry: TFParametry
       Left = 13
       Height = 20
       Top = 20
-      Width = 310
-      Caption = 'Odgrywj polecenie po naciśnięciu ikony głośnika'
+      Width = 132
+      Caption = 'Odgrywj polecenie'
       Checked = True
       Font.Color = clWindowText
       Font.Height = -14

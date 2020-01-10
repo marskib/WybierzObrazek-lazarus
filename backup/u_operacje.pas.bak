@@ -28,6 +28,8 @@ uses
     BNextCwicz: TButton;
     LNazwa: TLabel;
     SpeedBtnGraj: TSpeedButton;
+    SpeedBtn2: TSpeedButton;
+    SpeedBtn1: TSpeedButton;
     Timer5sek: TTimer;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
@@ -453,7 +455,7 @@ var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
-  {Losowanie obrazka ze zmniejszeniem p-stwa wylosowania tego samego:}
+  {Losowanie obrazka ze  m p-stwa wylosowania tego samego:}
   los := 1+ Random(TMojImage.liczbaOb);  //+1 bo Random(x) generuje w przedziale  0=< liczba <x
   if los=nrWylos then //sprawdzenie, czy nie taki sam jak poprzednio wylosowany
     los := 1+ Random(TMojImage.liczbaOb);

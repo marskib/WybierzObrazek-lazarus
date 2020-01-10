@@ -348,6 +348,11 @@ End;
 procedure TFParametry.CBShrinkChange(Sender: TObject);
 Begin
   Zmieniono_Shrink := not Zmieniono_Shrink; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
+  //Zmiejszenie/zwiekszenie ikon(y) glosnika (kosmetyka) 2020-01-10; ikony przechowuje w niewidzialnych SpeeBtn'ach :
+  if CBShrink.Checked then
+     FOperacje.SpeedBtnGraj.Glyph := FOperacje.SpeedBtn1.Glyph
+  else
+     FOperacje.SpeedBtnGraj.Glyph := FOperacje.SpeedBtn2.Glyph
 End;
 
 
