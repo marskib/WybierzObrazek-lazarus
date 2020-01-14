@@ -199,6 +199,25 @@ Begin
       Lapka2.Top :=Lapka2.Top+dy;
 
     end;
+
+
+    //2020.01.14 - blokowanie wyjscia poza bande (ekran):
+    If (Left<0) then begin
+
+      //if JestLapka then begin
+      //  Lapka1.Left:=10;
+      //  Lapka2.Left:=10;
+      //end;
+
+      Left:=10;
+
+      if JestLapka then begin
+        JestLapka:=false;
+        JestLapka:=true;
+      end;
+    End;
+    //koniec blokowania wyjscia poza bande
+
     {}
     GetCursorPos(poz);
   end;
