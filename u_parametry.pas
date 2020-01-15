@@ -234,7 +234,7 @@ Begin
       else begin
         MessageDlg('Zbyt dużo wybranych obrazków.' + #13#10 + '        ' + 'Popraw!',  mtWarning, [mbOK], 0);
         if not PELNA_WERSJA then
-          Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','DopasujObrazek');
+          Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','WybierzObrazek');
       end;
     end
     else
@@ -271,7 +271,7 @@ Begin
   else begin
     if not PELNA_WERSJA then begin
       MessageDlg('Próba przekroczenia limitu '+ IntToStr(MAX_OBR_OD)+' obrazków.', mtWarning, [mbOK], 0);
-      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','DopasujObrazek');
+      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','WybierzObrazek');
     end;
   end;
 End;
@@ -533,7 +533,7 @@ Begin
   if poziom>MAX_OBR_OD then begin
     MessageDlg('Przekroczono limit '+ IntToStr(MAX_OBR_OD)+' obrazków.' + #13#10 +  'Zmniejsz liczbę wybranych obrazków!', mtError, [mbOK], 0);
     if not PELNA_WERSJA then
-      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','DopasujObrazek');;
+      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','WybierzObrazek');;
   end;
   if poziom<4 then
     CBShrink.Checked:=True     //jak zjedziemy do 3 i mniej, to nalezaloby pomniejszyc....

@@ -40,7 +40,8 @@ type
     public property JestLapka : Boolean read FJestLapka write setJestLapka;
 
     private
-      Lapka : TLapka;      //Lapka/Podpowiedz wystawiana przez Obrazek (jesli jest to wlasciwy obrazek przebywajacy w OG)
+      Lapka1, Lapka2 : TLapka;      //Lapka/Podpowiedz wystawiana przez Obrazek (jesli jest to wlasciwy obrazek przebywajacy w OG)
+//      Lapka2 : TLapka;      //na potrzebt WybierzObrazek - 2-ga Lapka - (dwie) Lapki ("biala" i "czarna", żeby bylo widać na bialym tle ramki na obrazek) 2019.12.25
       mTimer: TTimer;      //Timer na odsuwanie od LG Ramki blednie polozonego obrazka
       lKrok : SmallInt;    //licznba Krokow /index mTimer'a
       TBlink: TTimer;      //Timer do mrugania 'Wskazem'
@@ -116,19 +117,37 @@ begin
 end;
 
 procedure TMojImage.setJestLapka(aValue: Boolean);
+(* Generowanie Lapek-podpowiedzi *)
+(* Generowanie 2-ch(!) Lapek, bardzo blisko siebie - 1 piksel odstepu.                                      *)
+(* 2 lapki, zeby po najechaniu na ramke ktoras byla widoczna na jej tle, dzieki swoim kolorom (patrz nizej) *)
+(* Lapki maja rozne kolory - Lapka1 ma przeciwny do tla formy; Lapka2 ma przeciwny do tla ramki.            *)
 Begin
   if aValue = FJestLapka then EXIT;
   FJestLapka := aValue;
   {}
   if FJestLapka then begin //Zaczynamy mrugac Lapka
-    if (Lapka.Parent = Nil) then Lapka.Parent := Self.Parent; //zeby bylo widac, jesli nie ma jeszcze Parenta; {parentem Self-a jest FOperacje)
-    Lapka.UstawKolorObramowania(Self.Parent.Color);
-    Lapka.PolozNaXY_i_Wymiaruj(Left-5,Top-5, Width+10,Height+10);
-    Lapka.SendToBack(); //bo inaczej Lapka przykrywa obrazek i nie da się przesuiwac obrazka ...
-    Lapka.Mrugaj();
+    if (Lapka1.Parent = Nil) then begin
+      Lapka1.Parent := Self.Parent; //zeby bylo widac, jesli nie ma jeszcze Parenta; {parentem Self-a jest FOperacje)
+      Lapka2.Parent := Self.Parent; //j.w.
+    end;
+
+    //Lapki maja rozne, "przeciwne" kolory, zeby daly sie zobaczyc na roznych tłach (Formy i Ramki):
+    Lapka1.UstawKolorObramowania(Self.Parent.Color); //przeciwny do tla Formy
+    Lapka2.UstawKolorObramowania(Ramka.Brush.Color); //przeciwny do tla Ramki
+
+    //Lapki w odstepie 1 piksela:
+    Lapka1.PolozNaXY_i_Wymiaruj(Left-5,Top-5, Width+10,Height+10);
+    Lapka2.PolozNaXY_i_Wymiaruj(Left-6,Top-6, Width+12,Height+12);
+
+    Lapka1.SendToBack(); //bo inaczej Lapka przykrywa obrazek i nie da się przesuiwac obrazka ...
+    Lapka2.SendToBack(); //j.w.
+
+    Lapka1.Mrugaj();
+    Lapka2.Mrugaj();
   end
   else begin      //chowamy Lapke
-    Lapka.Zgas();
+    Lapka1.Zgas();
+    Lapka2.Zgas();
   end;
 End;
 
@@ -173,9 +192,35 @@ Begin
     Top := Top  + dy;
     //ruch Lapka 'obrazkową':
     if JestLapka then begin
-      Lapka.Left:=Lapka.Left+dx;
-      Lapka.Top :=Lapka.Top+dy;
+      Lapka1.Left:=Lapka1.Left+dx;
+      Lapka1.Top :=Lapka1.Top+dy;
+
+      Lapka2.Left:=Lapka2.Left+dx;
+      Lapka2.Top :=Lapka2.Top+dy;
+
     end;
+
+
+    //2020.01.14 - blokowanie wyjscia poza bande (ekran):
+    //lewo i prawa banda:
+    If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin
+      Left := Left - dx;
+      //zeby Lapka zobrazowala sie nie przesunieta (if any):
+      if JestLapka then begin
+        JestLapka:=false;
+        JestLapka:=true;
+      end;
+    End;
+    //gorna i dolna banda:
+    IF (Top<0) or ((Top+Height)>(FOperacje.Top+FOperacje.Height)) then begin
+      Top := Top - dy;
+      if JestLapka then begin
+        JestLapka:=false;
+        JestLapka:=true;
+      end;
+    End;
+    //koniec blokowania wyjscia poza bande
+
     {}
     GetCursorPos(poz);
   end;
@@ -377,7 +422,13 @@ Begin
     //wystawienie Lapki (ewentualne); lapke wystawiam tylko jezeli w OG jest 1 (i to wlasciwy) obrazek:
     if Sprawdzacz.IlewObsz=1 then begin
       Ramka.JestLapka := FParametry.CBPodp.Checked;                  //Lapka 'ramkowa'
-      Self.JestLapka  := FParametry.CBPodp.Checked;
+      Self.JestLapka  := FParametry.CBPodp.Checked;                  //Lapka 'obrazkowa'
+
+      //Ramke wysylam w tlo, zeby bylo na niej widac Lapke 2020-01-04:
+      //doswiadczalne - podobna instrukcja w konstruktorze Lapki jest niewystarczajaca - ale wystarczy na BPodp.onClick....
+      Ramka.SendToBack();
+
+
     end; (* tu jeszcze nie ma Exita, bo moze Zwyciestwo? - patrz nizej*)
 
     //Warunek: Lewy Gorny róg obrazka w prostokącie Lapce 'ramkowej' (mniej wiecej)
@@ -416,7 +467,8 @@ Begin
   FreeAndNil(TBlink);
   FreeAndNil(arrowHead);
   FreeAndNil(arrowShaft);
-  Lapka.Destroy;
+  Lapka1.Destroy;
+  Lapka2.Destroy;
   inherited destroy;
 End;
 
@@ -435,9 +487,19 @@ end;
 
 
 procedure TMojImage.UstawKolorObramowaniaLapki(BiezaceTlo: TColor);
-(* Po zmianie tla na FParametry trzeba uczynic Lapke widzialną(!) *)
+(* tylko Po zmianie tla na FParametry trzeba uczynic Lapke widzialną(!) *)
 Begin
-  Lapka.UstawKolorObramowania(BiezaceTlo);
+  Lapka1.UstawKolorObramowania(BiezaceTlo);
+  Lapka2.UstawKolorObramowania(Ramka.Brush.Color);
+
+  //Lapka 2 - przeciwna nie do tla Formy, ale do tla Ramki, czyli jak tlo Formy... 2019.12.25 :
+  //mozna tak: Lapka2.Pen.Color := JakieJestTlo;
+  {mozna tak (b.elegancko):}
+  //Lapka2.Pen.Color := clRed;//skib_InvertColor(Ramka.Brush.Color);
+  {koniec 2019.12.25}
+
+
+
 End;
 
 function TMojImage.getXo(): SmallInt;
@@ -502,7 +564,8 @@ Begin
   inArea:= False;     //bo kreowany obiekt wyladuje w OD (Obszarze Dolnym)
 
   {Kreowanie Lapki obrazkowej:}
-  Lapka := TLapka.WlasnyCreate(stRectangle);
+  Lapka1 := TLapka.WlasnyCreate(stRectangle);
+  Lapka2 := TLapka.WlasnyCreate(stRectangle);
 
   //Ladowanie pojedynczego obrazka:
   //w niewidzialnej kontrolce ustawiam sie na tym pliku
@@ -823,8 +886,10 @@ Begin
   //Jesli sa podpowiedzi, to przestaje nimi mrugac, bo 'siada' wydajnosciowo... :
   if Ramka.JestLapka then begin
     Ramka.PrzestanMrugacLapka();
-    With FOperacje do
-      tabOb[idWylos].Lapka.NieMrugaj();
+    With FOperacje do begin
+      tabOb[idWylos].Lapka1.NieMrugaj();
+      tabOb[idWylos].Lapka2.NieMrugaj();
+    end;
   end;
 
   Self.mTimer.Enabled:=True; //rozpoczecie odsuwania
@@ -839,8 +904,10 @@ Begin
     mTimer.Enabled:=False;
     if Ramka.JestLapka then //wznawiamy przerwane mrugania
       Ramka.PonowMruganieLapka();
-    With FOperacje do
-      tabOb[idWylos].Lapka.WznowMruganie();
+    With FOperacje do begin
+      tabOb[idWylos].Lapka1.WznowMruganie();
+      tabOb[idWylos].Lapka2.WznowMruganie();
+    end;
   end;
 End;
 

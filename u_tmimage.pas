@@ -172,7 +172,8 @@ begin
   inherited Paint();
   with TGraphicControlAccess(Self).Canvas do  begin
     Brush.Style := bsClear;
-    Pen.Color   := clRed;
+    //Pen.Color   := clRed;
+    Pen.Color   := clGray;
     Rectangle(ClientRect);
   end;
 end;
@@ -205,7 +206,7 @@ Begin
     //lewo i prawa banda:
     If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin
       Left := Left - dx;
-      //zeby Lapka zobrazowala sie nie przesunieta:
+      //zeby Lapka zobrazowala sie nie przesunieta (if any):
       if JestLapka then begin
         JestLapka:=false;
         JestLapka:=true;

@@ -374,6 +374,7 @@ Begin
   else
     OdegrajPolecenie(0);
 End;
+
 procedure TFOperacje.BPodpClick(Sender: TObject);
 (* Udzielenie podpowiedzi - wystawienie Lapek na Ramce i wlasciwym Obrazku *)
 (* (dziala takze jak switch on/off                                         *)

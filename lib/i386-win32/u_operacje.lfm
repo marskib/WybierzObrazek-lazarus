@@ -4,7 +4,7 @@ object FOperacje: TFOperacje
   Top = 178
   Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
-  Caption = 'DopasujObrazek'
+  Caption = 'WybierzObrazek'
   ClientHeight = 526
   ClientWidth = 812
   Menu = MainMenu1
@@ -1010,9 +1010,9 @@ object FOperacje: TFOperacje
   object SpeedBtn1: TSpeedButton
     Cursor = crHandPoint
     Left = 80
-    Height = 102
+    Height = 116
     Top = 360
-    Width = 50
+    Width = 57
     AutoSize = True
     Glyph.Data = {
       36460000424D3646000000000000360000002800000035000000700000000100
