@@ -202,15 +202,18 @@ Begin
 
 
     //2020.01.14 - blokowanie wyjscia poza bande (ekran):
-    If (Left<0) then begin
-
-      //if JestLapka then begin
-      //  Lapka1.Left:=10;
-      //  Lapka2.Left:=10;
-      //end;
-
-      Left:=10;
-
+    //lewo i prawa banda:
+    If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin
+      Left := Left - dx;
+      //zeby Lapka zobrazowala sie nie przesunieta:
+      if JestLapka then begin
+        JestLapka:=false;
+        JestLapka:=true;
+      end;
+    End;
+    //gorna i dolna banda:
+    IF (Top<0) or ((Top+Height)>(FOperacje.Top+FOperacje.Height)) then begin
+      Top := Top - dy;
       if JestLapka then begin
         JestLapka:=false;
         JestLapka:=true;

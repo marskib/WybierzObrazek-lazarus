@@ -201,23 +201,22 @@ Begin
     end;
 
 
-    //2020.01.14
-    if (Left<0) then begin
-
-      //if JestLapka then begin
-      //  Lapka1.Left:=10;
-      //  Lapka2.Left:=10;
-      //end;
-
-      Left:=10;
-
+    //2020.01.14 - blokowanie wyjscia poza bande (ekran):
+    If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin  //lewo i prawa banda
+      Left := Left - dx;
       if JestLapka then begin
         JestLapka:=false;
         JestLapka:=true;
       end;
-
-
-    end;
+    End;
+    IF (Top<0) or ((Top+Height)>(FOperacje.Top+FOperacje.Height)) then begin
+      Top := Top - dy;
+      if JestLapka then begin
+        JestLapka:=false;
+        JestLapka:=true;
+      end;
+    End;
+    //koniec blokowania wyjscia poza bande
 
     {}
     GetCursorPos(poz);
