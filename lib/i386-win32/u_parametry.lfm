@@ -1308,4 +1308,13 @@ object FParametry: TFParametry
       ParentFont = False
     end
   end
+  object Button1: TButton
+    Left = 314
+    Height = 25
+    Top = 567
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 15
+  end
 end

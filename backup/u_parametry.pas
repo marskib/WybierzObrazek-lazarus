@@ -35,6 +35,7 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
+    Button1: TButton;
     CBAutomat: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;
@@ -71,6 +72,7 @@ type
     procedure BPlusClick(Sender: TObject);
     procedure BSelDownClick(Sender: TObject);
     procedure BSelUpClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
     //procedure CBOdgrywajChange(Sender: TObject);
@@ -234,7 +236,7 @@ Begin
       else begin
         MessageDlg('Zbyt dużo wybranych obrazków.' + #13#10 + '        ' + 'Popraw!',  mtWarning, [mbOK], 0);
         if not PELNA_WERSJA then
-          Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','DopasujObrazek');
+          Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','WybierzObrazek');
       end;
     end
     else
@@ -244,8 +246,9 @@ Begin
 
   //Zeby zaczal/przestal grac automatycznie (dokklejka dla WybierzObrazek - 2019.12.21):
   FOperacje.Timer5sek.Enabled := CBAutomat.Checked;
-  if CBAutomat.Checked then   //1-sze odegranie przy wejsciu na FOperacje
-    FOperacje.Timer5sekTimer(Self);
+  if CBAutomat.Checked then                  //1-sze odegranie przy wejsciu na FOperacje
+    FOperacje.Timer5sekTimer(Self);          //Self - wywolywana proc. będzie wiedziala, co z tym zrobic - zagrac z lekkim opoznieniem
+
   //jezeli wylaczono wszelkie glosowe formy polecenia, to wymuszam napis:
   if not (CBOdgrywaj.Checked or CBAutomat.Checked) then begin
     CBNazwa.Checked:=True;
@@ -270,7 +273,7 @@ Begin
   else begin
     if not PELNA_WERSJA then begin
       MessageDlg('Próba przekroczenia limitu '+ IntToStr(MAX_OBR_OD)+' obrazków.', mtWarning, [mbOK], 0);
-      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','DopasujObrazek');
+      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','WybierzObrazek');
     end;
   end;
 End;
@@ -314,6 +317,29 @@ Begin
   UstawSelekcjeWgZbioru(Zbior);
 End;
 
+
+var rob_color: integer = 200;
+procedure TFParametry.Button1Click(Sender: TObject);
+begin
+  //FOperacje.Color:=Fparametry.BOK.Color; -> bez zmian
+  //FOperacje.color := COLOR_clDark;  => czarny "gradientowy"?
+    //FOperacje.color := clDark;   //-> jasny szary
+
+      rob_color:=rob_color+1;
+      FOperacje.color := rob_color;
+
+      //rob_color:=RGB(100,100,100);
+
+      rob_color:=RGB(255, 204, 221);
+
+
+
+            FOperacje.color := rob_color;
+
+      Button1.Caption:=IntToStr(rob_color);
+
+end;
+
 procedure TFParametry.CBNazwaChange(Sender: TObject);
 begin
   Zmieniono_Nazwa := not Zmieniono_Nazwa; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
@@ -347,6 +373,11 @@ End;
 procedure TFParametry.CBShrinkChange(Sender: TObject);
 Begin
   Zmieniono_Shrink := not Zmieniono_Shrink; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
+  //Zmiejszenie/zwiekszenie ikon(y) glosnika (kosmetyka) 2020-01-10; ikony przechowuje w niewidzialnych SpeeBtn'ach :
+  if CBShrink.Checked then
+     FOperacje.SpeedBtnGraj.Glyph := FOperacje.SpeedBtn1.Glyph
+  else
+     FOperacje.SpeedBtnGraj.Glyph := FOperacje.SpeedBtn2.Glyph
 End;
 
 
@@ -527,7 +558,7 @@ Begin
   if poziom>MAX_OBR_OD then begin
     MessageDlg('Przekroczono limit '+ IntToStr(MAX_OBR_OD)+' obrazków.' + #13#10 +  'Zmniejsz liczbę wybranych obrazków!', mtError, [mbOK], 0);
     if not PELNA_WERSJA then
-      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','DopasujObrazek');;
+      Application.MessageBox('Większa liczba obrazków dostępna jest w pełnej wersji aplikacji.','WybierzObrazek');;
   end;
   if poziom<4 then
     CBShrink.Checked:=True     //jak zjedziemy do 3 i mniej, to nalezaloby pomniejszyc....

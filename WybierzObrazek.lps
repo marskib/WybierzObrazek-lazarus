@@ -8,10 +8,9 @@
       <Unit0>
         <Filename Value="WybierzObrazek.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="60" Y="21"/>
-        <UsageCount Value="79"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="16"/>
+        <UsageCount Value="87"/>
       </Unit0>
       <Unit1>
         <Filename Value="u_operacje.pas"/>
@@ -19,9 +18,9 @@
         <ComponentName Value="FOperacje"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="350"/>
-        <CursorPos X="49" Y="371"/>
-        <UsageCount Value="79"/>
+        <TopLine Value="106"/>
+        <CursorPos Y="114"/>
+        <UsageCount Value="87"/>
         <Bookmarks Count="1">
           <Item0 X="29" Y="142" ID="2"/>
         </Bookmarks>
@@ -34,28 +33,28 @@
         <ComponentName Value="FParametry"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="510"/>
-        <CursorPos X="135" Y="526"/>
-        <UsageCount Value="79"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="296"/>
+        <CursorPos X="35" Y="335"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="u_sprawdzacz.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
-        <UsageCount Value="79"/>
+        <EditorIndex Value="4"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="u_tmimage.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="169"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="168"/>
         <CursorPos X="106" Y="206"/>
-        <UsageCount Value="79"/>
+        <UsageCount Value="87"/>
         <Bookmarks Count="1">
           <Item0 X="27" Y="206" ID="1"/>
         </Bookmarks>
@@ -64,19 +63,19 @@
       <Unit5>
         <Filename Value="u_odtwarzacz.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="11"/>
         <CursorPos Y="49"/>
-        <UsageCount Value="79"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="u_ramka.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="180"/>
-        <CursorPos X="37" Y="189"/>
-        <UsageCount Value="79"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="11"/>
+        <CursorPos X="3" Y="154"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -85,10 +84,10 @@
         <ComponentName Value="FOprogramie"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="62"/>
         <CursorPos X="92" Y="78"/>
-        <UsageCount Value="79"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit7>
@@ -96,10 +95,10 @@
         <Filename Value="u_lapka.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_Lapka"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="4"/>
         <CursorPos Y="50"/>
-        <UsageCount Value="79"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -107,150 +106,150 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2061"/>
         <CursorPos Y="2072"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit9>
       <Unit10>
         <Filename Value="c:\Lazarus-2-0-4\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4218"/>
         <CursorPos Y="4229"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus-2-0-6\lcl\interfaces\win32\interfaces.pp"/>
         <UnitName Value="Interfaces"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="19"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\WybierzObrazek-lazarus — kopia (2)\u_parametry.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="607"/>
         <CursorPos X="5" Y="629"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit12>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="96" Column="89" TopLine="67"/>
+        <Caret Line="117" TopLine="106"/>
       </Position1>
       <Position2>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="357" Column="3" TopLine="354"/>
+        <Caret Line="114" TopLine="106"/>
       </Position2>
       <Position3>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="358" TopLine="350"/>
+        <Caret Line="117" TopLine="106"/>
       </Position3>
       <Position4>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="364" TopLine="350"/>
+        <Caret Line="114" TopLine="106"/>
       </Position4>
       <Position5>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="365" TopLine="350"/>
+        <Caret Line="117" TopLine="106"/>
       </Position5>
       <Position6>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="366" TopLine="350"/>
+        <Caret Line="114" TopLine="106"/>
       </Position6>
       <Position7>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="30" TopLine="5"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="117" TopLine="106"/>
       </Position7>
       <Position8>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="31" TopLine="5"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="114" TopLine="106"/>
       </Position8>
       <Position9>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="32" TopLine="5"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="117" TopLine="106"/>
       </Position9>
       <Position10>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="33" TopLine="5"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="114" TopLine="106"/>
       </Position10>
       <Position11>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="41" TopLine="5"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="416" Column="66" TopLine="390"/>
       </Position11>
       <Position12>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="43" TopLine="5"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="415" TopLine="391"/>
       </Position12>
       <Position13>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="44" TopLine="5"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="211" Column="3" TopLine="209"/>
       </Position13>
       <Position14>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="33" Column="19" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="93" Column="15" TopLine="69"/>
       </Position14>
       <Position15>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="358" TopLine="350"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="138" Column="3" TopLine="127"/>
       </Position15>
       <Position16>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="364" TopLine="350"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="211" Column="12" TopLine="209"/>
       </Position16>
       <Position17>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="365" TopLine="350"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="93" Column="15" TopLine="69"/>
       </Position17>
       <Position18>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="366" TopLine="350"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="138" Column="3" TopLine="133"/>
       </Position18>
       <Position19>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="30" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="211" Column="7" TopLine="209"/>
       </Position19>
       <Position20>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="31" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="68" Column="15" TopLine="76"/>
       </Position20>
       <Position21>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="32" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="211" Column="11" TopLine="209"/>
       </Position21>
       <Position22>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="33" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="93" Column="25" TopLine="69"/>
       </Position22>
       <Position23>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="41" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="165" Column="24" TopLine="133"/>
       </Position23>
       <Position24>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="43" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="79" Column="15" TopLine="55"/>
       </Position24>
       <Position25>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="44" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="397" Column="3" TopLine="392"/>
       </Position25>
       <Position26>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="45" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="440" Column="3" TopLine="421"/>
       </Position26>
       <Position27>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="46" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="397" Column="3" TopLine="393"/>
       </Position27>
       <Position28>
-        <Filename Value="u_odtwarzacz.pas"/>
-        <Caret Line="49" TopLine="11"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="404" Column="3" TopLine="400"/>
       </Position28>
       <Position29>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="371" Column="49" TopLine="350"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="322" Column="36" TopLine="320"/>
       </Position29>
       <Position30>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="82" Column="18" TopLine="57"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="328" Column="30" TopLine="296"/>
       </Position30>
     </JumpHistory>
     <RunParams>
