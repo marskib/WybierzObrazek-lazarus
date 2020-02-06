@@ -26,6 +26,9 @@ uses
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
+    BOPlus: TButton;
+    BOMinus: TButton;
+    CB1: TCheckBox;
     LNazwa: TLabel;
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
@@ -40,6 +43,8 @@ uses
     Parametry: TMenuItem;
     SLinia: TShape;
     procedure BAgainClick(Sender: TObject);
+    procedure BOPlusClick(Sender: TObject);
+    procedure CB1Change(Sender: TObject);
     procedure Naczytaj();
     procedure BNextCwiczClick(Sender: TObject);
     procedure BPodpClick(Sender: TObject);
@@ -351,6 +356,32 @@ Begin
 End;
 
 
+
+var obR,obG,obB: integer;
+procedure TFOperacje.BOPlusClick(Sender: TObject);
+var kolor : integer;
+begin
+    obR := obR+1;
+    obG := obG+1;
+    obB := obB+1;
+    kolor:=RGB(obR, obG, obB);
+    FOperacje.color := kolor;
+end;
+
+procedure TFOperacje.CB1Change(Sender: TObject);
+begin
+  if CB1.Checked then begin
+    CB1.Font.Color:=clBlack;
+    FOperacje.Color:=RGB(obR,obG,obB);
+    BOPlus.Enabled :=True;
+    BOMinus.Enabled:=True;
+  end
+  else begin
+
+  end;
+end;
+
+
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
 (* Odegranie nazwy obrazka (if any) *)
 Begin
@@ -402,6 +433,15 @@ Begin
     MAX_OBR_OD := 4;
   {}
   nrWylos := -1; //inicjacyjne, zeby sprawdzenie w LosujUmiescObrazek() zadzialalo jak trzeba (True)
+
+  {2020.02 - na doswiadczenia z kolorami:}
+  CB1.Font.Color:=clWhite;
+  obR := 100;
+  obG := 100;
+  obB := 100;
+  {koniec doswiadczen z kolorami}
+
+
 End;
 
 procedure TFOperacje.UstawEkranStartowy;

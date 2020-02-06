@@ -26,8 +26,13 @@ uses
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
+    BOPlus: TButton;
+    BOMinus: TButton;
+    CB1: TCheckBox;
     LNazwa: TLabel;
     SpeedBtnGraj: TSpeedButton;
+    SpeedBtn2: TSpeedButton;
+    SpeedBtn1: TSpeedButton;
     Timer5sek: TTimer;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
@@ -38,6 +43,8 @@ uses
     Parametry: TMenuItem;
     SLinia: TShape;
     procedure BAgainClick(Sender: TObject);
+    procedure BOPlusClick(Sender: TObject);
+    procedure CB1Change(Sender: TObject);
     procedure Naczytaj();
     procedure BNextCwiczClick(Sender: TObject);
     procedure BPodpClick(Sender: TObject);
@@ -349,6 +356,32 @@ Begin
 End;
 
 
+
+var obR,obG,obB: integer;
+procedure TFOperacje.BOPlusClick(Sender: TObject);
+var kolor : integer;
+begin
+    obR := obR+1;
+    obG := obG+1;
+    obB := obB+1;
+    kolor:=RGB(obR, obG, obB);
+    FOperacje.color := kolor;
+end;
+
+procedure TFOperacje.CB1Change(Sender: TObject);
+begin
+  if CB1.Checked then begin
+    CB1.Font.Color:=clBlack;
+    FOperacje.Color:=RGB(obR,obG,obB);
+    BOPlus.Enabled :=True;
+    BOMinus.Enabled:=True;
+  end
+  else begin
+                    ski ski
+  end;
+end;
+
+
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
 (* Odegranie nazwy obrazka (if any) *)
 Begin
@@ -372,6 +405,7 @@ Begin
   else
     OdegrajPolecenie(0);
 End;
+
 procedure TFOperacje.BPodpClick(Sender: TObject);
 (* Udzielenie podpowiedzi - wystawienie Lapek na Ramce i wlasciwym Obrazku *)
 (* (dziala takze jak switch on/off                                         *)
@@ -399,6 +433,15 @@ Begin
     MAX_OBR_OD := 4;
   {}
   nrWylos := -1; //inicjacyjne, zeby sprawdzenie w LosujUmiescObrazek() zadzialalo jak trzeba (True)
+
+  {2020.02 - na doswiadczenia z kolorami:}
+  CB1.Font.Color:=clWhite;
+  obR := 100;
+  obG := 100;
+  obB := 100;
+  {koniec doswiadczen z kolorami}
+
+
 End;
 
 procedure TFOperacje.UstawEkranStartowy;
@@ -453,7 +496,7 @@ var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
-  {Losowanie obrazka ze zmniejszeniem p-stwa wylosowania tego samego:}
+  {Losowanie obrazka ze  m p-stwa wylosowania tego samego:}
   los := 1+ Random(TMojImage.liczbaOb);  //+1 bo Random(x) generuje w przedziale  0=< liczba <x
   if los=nrWylos then //sprawdzenie, czy nie taki sam jak poprzednio wylosowany
     los := 1+ Random(TMojImage.liczbaOb);

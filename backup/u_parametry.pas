@@ -35,7 +35,6 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
-    Button1: TButton;
     CBAutomat: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;
@@ -72,7 +71,7 @@ type
     procedure BPlusClick(Sender: TObject);
     procedure BSelDownClick(Sender: TObject);
     procedure BSelUpClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
     //procedure CBOdgrywajChange(Sender: TObject);
@@ -318,27 +317,7 @@ Begin
 End;
 
 
-var rob_color: integer = 200;
-procedure TFParametry.Button1Click(Sender: TObject);
-begin
-  //FOperacje.Color:=Fparametry.BOK.Color; -> bez zmian
-  //FOperacje.color := COLOR_clDark;  => czarny "gradientowy"?
-    //FOperacje.color := clDark;   //-> jasny szary
 
-      rob_color:=rob_color+1;
-      FOperacje.color := rob_color;
-
-      //rob_color:=RGB(100,100,100);
-
-      rob_color:=RGB(255, 204, 221);
-
-
-
-            FOperacje.color := rob_color;
-
-      Button1.Caption:=IntToStr(rob_color);
-
-end;
 
 procedure TFParametry.CBNazwaChange(Sender: TObject);
 begin
