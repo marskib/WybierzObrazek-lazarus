@@ -20,16 +20,23 @@ uses
   { TFOperacje }
 
   TFOperacje = class(TForm)
+    BRMinus: TButton;
+    BEMinus: TButton;
+    BRPlus: TButton;
+    BEPlus: TButton;
     Button1: TButton;
     Button2: TButton;
     BRebuildAll: TButton;
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
-    BOPlus: TButton;
-    BOMinus: TButton;
-    CB1: TCheckBox;
+    CBRamka: TCheckBox;
+    CBEkran: TCheckBox;
+    LRGrayness: TLabel;
     LNazwa: TLabel;
+    LEGrayness: TLabel;
+    Panel1: TPanel;
+    Panel2: TPanel;
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;
@@ -43,8 +50,12 @@ uses
     Parametry: TMenuItem;
     SLinia: TShape;
     procedure BAgainClick(Sender: TObject);
-    procedure BOPlusClick(Sender: TObject);
-    procedure CB1Change(Sender: TObject);
+    procedure BEMinusClick(Sender: TObject);
+    procedure BEPlusClick(Sender: TObject);
+    procedure BRMinusClick(Sender: TObject);
+    procedure BRPlusClick(Sender: TObject);
+    procedure CBRamkaChange(Sender: TObject);
+    procedure CBEkranChange(Sender: TObject);
     procedure Naczytaj();
     procedure BNextCwiczClick(Sender: TObject);
     procedure BPodpClick(Sender: TObject);
@@ -54,6 +65,7 @@ uses
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure OProgramieClick(Sender: TObject);
+    procedure Panel1Click(Sender: TObject);
     procedure ParametryClick(Sender: TObject);
     procedure SpeedBtnGrajClick(Sender: TObject);
     procedure Timer5sekTimer(Sender: TObject);
@@ -133,6 +145,93 @@ Begin
 End;
 
 
+var raR,raG,raB: integer;  //ramkaRGB
+var ekR,ekG,ekB: integer;  //ekranRGB
+procedure TFOperacje.BRPlusClick(Sender: TObject);
+var kolor : integer;
+begin
+    raR := raR+1;
+    raG := raG+1;
+    raB := raB+1;
+    kolor:=RGB(raR, raG, raB);
+    Ramka.Brush.color := kolor;
+    LRGrayness.Caption:=IntToStr(raR);
+end;
+
+
+procedure TFOperacje.BRMinusClick(Sender: TObject);
+var kolor:integer;
+begin
+    raR := raR-1;
+    raG := raG-1;
+    raB := raB-1;
+    kolor:=RGB(raR, raG, raB);
+    Ramka.Brush.color := kolor;
+    LRGrayness.Caption:=IntToStr(raR);
+end;
+
+procedure TFOperacje.BEPlusClick(Sender: TObject);
+var kolor:integer;
+begin
+    ekR := ekR+1;
+    ekG := ekG+1;
+    ekB := ekB+1;
+    kolor:=RGB(ekR, ekG, ekB);
+    FOperacje.color := kolor;
+    LEGrayness.Caption:=IntToStr(ekR);
+end;
+
+
+procedure TFOperacje.BEMinusClick(Sender: TObject);
+var kolor:integer;
+begin
+    ekR := ekR-1;
+    ekG := ekG-1;
+    ekB := ekB-1;
+    kolor:=RGB(ekR, ekG, ekB);
+    FOperacje.Color := kolor;
+    LEGrayness.Caption:=IntToStr(ekR);
+end;
+
+
+procedure TFOperacje.CBRamkaChange(Sender: TObject);
+begin
+  if CBRamka.Checked then begin
+    Ramka.Brush.Color:=RGB(raR,raG,raB);
+    BRPlus.Enabled :=True;
+    BRMinus.Enabled:=True;
+    LRGrayness.Caption:=IntToStr(raR);
+  end
+  else begin
+    BRPlus.Enabled :=False;
+    BRMinus.Enabled:=False;
+    //Ramka dostosowuje sie do akt. koloru FOperascje:
+    Ramka.UstawKolorObramowania(FOperacje.Color);
+    Ramka.Brush.Color := Ramka.Pen.Color; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
+  end;
+end;
+
+procedure TFOperacje.CBEkranChange(Sender: TObject);
+begin
+  if CBEkran.Checked then begin
+    FOperacje.Color:=RGB(ekR,ekG,ekB);
+    BEPlus.Enabled :=True;
+    BEMinus.Enabled:=True;
+    LEGrayness.Caption:=IntToStr(ekR);
+  end
+  else begin
+    BEPlus.Enabled :=False;
+    BEMinus.Enabled:=False;
+    //Kolor FOperacje na czarny:
+    FParametry.ComboBoxKolor.ItemIndex := 9;
+    FParametry.ComboBoxKolorChange(FParametry.ComboBoxKolor);
+    //zeby ramka pozostala jaka byla:
+    if CBRamka.Checked then begin
+      Ramka.Brush.color := RGB(raR, raG, raB);
+    end;
+  end;
+end;
+
 
 procedure TFOperacje.FormShow(Sender: TObject);
 Begin
@@ -152,6 +251,21 @@ Begin
   UkryjKlawisze();
   BPodp.Visible:=FParametry.CBPodp.Checked;
   (**)
+
+  {2020.02 - na doswiadczenia z kolorami:}
+  //Ramka:
+  Panel1.Color:=clWhite;
+  CBRamka.Font.Color:=clWhite;
+  raR := 100;
+  raG := 100;
+  raB := 100;
+  //Ekran:
+  Panel2.Color:=clWhite;
+  CBEkran.Font.Color:=clWhite;
+  ekR := 100;
+  ekG := 100;
+  ekB := 100;
+  {koniec doswiadczen z kolorami}
 End; (* FormShow() *)
 
 procedure TFOperacje.OProgramieClick(Sender: TObject);
@@ -159,6 +273,11 @@ begin
   FOprogramie.Top  := (FOperacje.Height - FOprogramie.Height) div 2;
   FOprogramie.Left := (FOperacje.Width  - FOprogramie.Width)  div 2;
   FOprogramie.ShowModal;
+end;
+
+procedure TFOperacje.Panel1Click(Sender: TObject);
+begin
+
 end;
 
 
@@ -357,29 +476,6 @@ End;
 
 
 
-var obR,obG,obB: integer;
-procedure TFOperacje.BOPlusClick(Sender: TObject);
-var kolor : integer;
-begin
-    obR := obR+1;
-    obG := obG+1;
-    obB := obB+1;
-    kolor:=RGB(obR, obG, obB);
-    FOperacje.color := kolor;
-end;
-
-procedure TFOperacje.CB1Change(Sender: TObject);
-begin
-  if CB1.Checked then begin
-    CB1.Font.Color:=clBlack;
-    FOperacje.Color:=RGB(obR,obG,obB);
-    BOPlus.Enabled :=True;
-    BOMinus.Enabled:=True;
-  end
-  else begin
-                    ski ski
-  end;
-end;
 
 
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
@@ -433,14 +529,6 @@ Begin
     MAX_OBR_OD := 4;
   {}
   nrWylos := -1; //inicjacyjne, zeby sprawdzenie w LosujUmiescObrazek() zadzialalo jak trzeba (True)
-
-  {2020.02 - na doswiadczenia z kolorami:}
-  CB1.Font.Color:=clWhite;
-  obR := 100;
-  obG := 100;
-  obB := 100;
-  {koniec doswiadczen z kolorami}
-
 
 End;
 

@@ -30,8 +30,8 @@ uses
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
-    CB1: TCheckBox;
-    CB2: TCheckBox;
+    CBRamka: TCheckBox;
+    CBEkran: TCheckBox;
     LRGrayness: TLabel;
     LNazwa: TLabel;
     LEGrayness: TLabel;
@@ -54,8 +54,8 @@ uses
     procedure BEPlusClick(Sender: TObject);
     procedure BRMinusClick(Sender: TObject);
     procedure BRPlusClick(Sender: TObject);
-    procedure CB1Change(Sender: TObject);
-    procedure CB2Change(Sender: TObject);
+    procedure CBRamkaChange(Sender: TObject);
+    procedure CBEkranChange(Sender: TObject);
     procedure Naczytaj();
     procedure BNextCwiczClick(Sender: TObject);
     procedure BPodpClick(Sender: TObject);
@@ -194,31 +194,41 @@ begin
 end;
 
 
-procedure TFOperacje.CB1Change(Sender: TObject);
+procedure TFOperacje.CBRamkaChange(Sender: TObject);
 begin
-  if CB1.Checked then begin
-    //CB1.Font.Color:=clBlack;
+  if CBRamka.Checked then begin
     Ramka.Brush.Color:=RGB(raR,raG,raB);
     BRPlus.Enabled :=True;
     BRMinus.Enabled:=True;
     LRGrayness.Caption:=IntToStr(raR);
   end
   else begin
-
+    BRPlus.Enabled :=False;
+    BRMinus.Enabled:=False;
+    //Ramka dostosowuje sie do akt. koloru FOperascje:
+    //Ramka.UstawKolorObramowania(FOperacje.Color);
+    //Ramka.Brush.Color := Ramka.Pen.Color; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
   end;
 end;
 
-procedure TFOperacje.CB2Change(Sender: TObject);
+procedure TFOperacje.CBEkranChange(Sender: TObject);
 begin
-  if CB2.Checked then begin
-    //CB1.Font.Color:=clBlack;
+  if CBEkran.Checked then begin
     FOperacje.Color:=RGB(ekR,ekG,ekB);
     BEPlus.Enabled :=True;
     BEMinus.Enabled:=True;
     LEGrayness.Caption:=IntToStr(ekR);
   end
   else begin
-
+    BEPlus.Enabled :=False;
+    BEMinus.Enabled:=False;
+    //Kolor FOperacje na czarny:
+    FParametry.ComboBoxKolor.ItemIndex := 9;
+    FParametry.ComboBoxKolorChange(FParametry.ComboBoxKolor);
+    //zeby ramka pozostala jaka byla:
+    if CBRamka.Checked then begin
+      Ramka.Brush.color := RGB(raR, raG, raB);
+    end;
   end;
 end;
 
@@ -245,13 +255,13 @@ Begin
   {2020.02 - na doswiadczenia z kolorami:}
   //Ramka:
   Panel1.Color:=clWhite;
-  CB1.Font.Color:=clWhite;
+  CBRamka.Font.Color:=clWhite;
   raR := 100;
   raG := 100;
   raB := 100;
   //Ekran:
   Panel2.Color:=clWhite;
-  CB2.Font.Color:=clWhite;
+  CBEkran.Font.Color:=clWhite;
   ekR := 100;
   ekG := 100;
   ekB := 100;

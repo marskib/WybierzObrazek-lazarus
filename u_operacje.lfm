@@ -2498,12 +2498,12 @@ object FOperacje: TFOperacje
       OnClick = BRMinusClick
       TabOrder = 1
     end
-    object CB1: TCheckBox
+    object CBRamka: TCheckBox
       Left = 8
       Height = 19
       Top = 28
       Width = 95
-      Caption = 'Szarość RamkI'
+      Caption = 'Szarość Ramki'
       Color = clDefault
       Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clWhite
@@ -2511,7 +2511,7 @@ object FOperacje: TFOperacje
       Font.Name = 'Segoe UI'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
-      OnChange = CB1Change
+      OnChange = CBRamkaChange
       ParentColor = False
       ParentFont = False
       TabOrder = 2
@@ -2535,7 +2535,7 @@ object FOperacje: TFOperacje
     ClientHeight = 82
     ClientWidth = 264
     TabOrder = 7
-    object CB2: TCheckBox
+    object CBEkran: TCheckBox
       Left = 8
       Height = 19
       Top = 28
@@ -2548,7 +2548,7 @@ object FOperacje: TFOperacje
       Font.Name = 'Segoe UI'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
-      OnChange = CB2Change
+      OnChange = CBEkranChange
       ParentColor = False
       ParentFont = False
       TabOrder = 0
