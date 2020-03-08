@@ -35,6 +35,7 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
+    BDefColor: TButton;
     CBAutomat: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;
@@ -71,6 +72,7 @@ type
     procedure BPlusClick(Sender: TObject);
     procedure BSelDownClick(Sender: TObject);
     procedure BSelUpClick(Sender: TObject);
+    procedure BDefColorClick(Sender: TObject);
 
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
@@ -78,8 +80,6 @@ type
     procedure CBPodpChange(Sender: TObject);
     procedure CBShrinkChange(Sender: TObject);
     procedure ComboBoxKolorChange(Sender: TObject);
-    procedure ComboBoxKolorDrawItem(Control: TWinControl; Index: integer;
-      ARect: TRect; State: TOwnerDrawState);
     procedure DEKatalogMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure EPoziomChange(Sender: TObject);
@@ -162,9 +162,6 @@ Begin
   RBPochwala.Checked := True;
   //na wypadek, gdyby byl zablokowamy :
   BOK.Enabled := True;
-  //Kolor FOperacje na czarny:
-  ComboBoxKolor.ItemIndex := 9;
-  ComboBoxKolorChange(ComboBoxKolor);
 End;
 
 
@@ -316,6 +313,13 @@ Begin
   UstawSelekcjeWgZbioru(Zbior);
 End;
 
+procedure TFParametry.BDefColorClick(Sender: TObject);
+(* Przywrocenie domyslnych kolorow tla ekranu i ramki.    *)
+(* Kolory dobrane przez Konsultantkę - odcienie szarosci. *)
+Begin
+  FOperacje.UstawDefaultowyKolorRamki_i_Ekranu();
+End;
+
 
 
 
@@ -393,90 +397,6 @@ begin
     Zmieniono_Poziom := True; //dajemy znac, ze byla zmiana
   end;
 end;
-
-procedure TFParametry.ComboBoxKolorChange(Sender: TObject);
-var
-  i: integer;
-begin
-  case ComboBoxKolor.ItemIndex of
-    0: FOperacje.Color := clTeal;
-    1: FOperacje.Color := clGreen;
-    2: FOperacje.Color := clBlue;
-    3: FOperacje.Color := Random($1000000);
-    4: FOperacje.Color := clAqua;
-    5: FOperacje.Color := clYellow;
-    6: Foperacje.Color := clPink;
-    7: Foperacje.Color := clDefault;
-    //male 'oszustwo' - wybralism pikerem clGray, ale FOperacje ustawiamy na clDefault, bo Gray jest za szary, a w ComboBoxie clDefault prezentujae sie jako bialy kwadrat...
-    8: Foperacje.Color := clWhite;
-    9: FOperacje.Color := clBlack;
-  end;
-  //Zmieny kolorow obiektow na FOperacje, tak, zeby mozna nadal bylo je widac:
-  FOperacje.LNazwa.Font.Color := skib_InvertColor(FOperacje.Color);
-  if Ramka <> nil then begin
-    Ramka.UstawKolorObramowania(FOperacje.Color);
-    Ramka.Brush.Color := Ramka.Pen.Color; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
-  end;
-  for i := 1 to TMojImage.liczbaOb do
-    if FOperacje.tabOb[i].JestLapka then
-      FOperacje.tabOb[i].UstawKolorObramowaniaLapki(FOperacje.Color);
-end;
-
-procedure TFParametry.ComboBoxKolorDrawItem(Control: TWinControl;
-  Index: integer; ARect: TRect; State: TOwnerDrawState);
-var
-  ltRect: TRect;
-
-  procedure FillColorfulRect(aCanvas: TCanvas; myRect: TRect);
-  //paint random color
-  // Fills the rectangle with random colours
-  var
-    y: integer;
-  begin
-    for y := myRect.Top to myRect.Bottom - 1 do
-    begin
-      aCanvas.Pen.Color := Random($1000000);
-      aCanvas.Line(myRect.Left, y, myRect.Right, y);
-    end;
-  end;
-
-Begin
-  ComboBoxKolor.Canvas.FillRect(ARect);
-  //first paint normal background
-  ComboBoxKolor.Canvas.TextRect(ARect, 22, ARect.Top, ComboBoxKolor.Items[Index]);
-  //paint item text
-
-  ltRect.Left := ARect.Left + 2;
-  //rectangle for color
-  ltRect.Right := ARect.Left + 20;
-  ltRect.Top := ARect.Top + 1;
-  ltRect.Bottom := ARect.Bottom - 1;
-
-  ComboBoxKolor.Canvas.Pen.Color := clBlack;
-  ComboBoxKolor.Canvas.Rectangle(ltRect);
-  //draw a border
-
-  if InflateRect(ltRect, -1, -1) then
-    //resize rectangle by one pixel
-    if Index = 3 then
-      FillColorfulRect(ComboBoxKolor.Canvas, ltRect)
-    //paint random color
-    else begin
-      case Index of
-        0: ComboBoxKolor.Canvas.Brush.Color := clteal;
-        1: ComboBoxKolor.Canvas.Brush.Color := clGreen;
-        2: ComboBoxKolor.Canvas.Brush.Color := clBlue;
-        4: ComboBoxKolor.Canvas.Brush.Color := clAqua;
-        5: ComboBoxKolor.Canvas.Brush.Color := clYellow;
-        6: ComboBoxKolor.Canvas.Brush.Color := clPink;
-        7: ComboBoxKolor.Canvas.Brush.Color := clGray;//clDefault;
-        8: ComboBoxKolor.Canvas.Brush.Color := clWhite;
-        9: ComboBoxKolor.Canvas.Brush.Color := clBlack;
-      end;
-      ComboBoxKolor.Canvas.FillRect(ltRect);
-      //paint colors according to selection
-    end;
-End; (* ComboBox1DrawItem *)
 
 
 procedure TMojDirectoryEdit.CoNaDEKatalogChange(Sender: TObject);
@@ -561,21 +481,48 @@ procedure TFParametry.FormCreate(Sender: TObject);
 Begin
   //wypelnianie comboboxa na kolory tla formy Foperacje :
   ComboBoxKolor.Items.Clear;             //Delete all existing choices
-  ComboBoxKolor.Items.Add('  Teal');        //Add an choice
-  ComboBoxKolor.Items.Add('  Zielony');
-  ComboBoxKolor.Items.Add('  Niebieski');
-  ComboBoxKolor.Items.Add('  Losowy');
-  ComboBoxKolor.Items.Add('  Aqua');
-  ComboBoxKolor.Items.Add('  Żółty');
-  ComboBoxKolor.Items.Add('  Różowy');
-  ComboBoxKolor.Items.Add('  Szary');
-  ComboBoxKolor.Items.Add('  Biały');
-  ComboBoxKolor.Items.Add('  Czarny');
+  ComboBoxKolor.Items.Add('  Aqua');        //0
+  ComboBoxKolor.Items.Add('  Biały');       //1
+  ComboBoxKolor.Items.Add('  Czarny');      //2
+  ComboBoxKolor.Items.Add('  Domyślny');    //3
+  ComboBoxKolor.Items.Add('  Niebieski');   //4
+  ComboBoxKolor.Items.Add('  Różowy');      //5
+  ComboBoxKolor.Items.Add('  Szary');       //6
+  ComboBoxKolor.Items.Add('  Teal');        //7
+  ComboBoxKolor.Items.Add('  Zielony');     //8
+  ComboBoxKolor.Items.Add('  Żółty');       //9
 
   //Teraz domyslne ustawienia parametrow programu :
   UstawDomyslnie;
   DEKatalogSkib.CoNaDEKatalogChange(FParametry);
 End; (* FormCreate *)
+
+
+procedure TFParametry.ComboBoxKolorChange(Sender: TObject);
+var i: SmallInt;
+Begin
+  case ComboBoxKolor.ItemIndex of
+    0: FOperacje.Color := clAqua;
+    1: FOperacje.Color := clWhite;
+    2: FOperacje.Color := clBlack;
+    3: begin FOperacje.UstawDefaultowyKolorRamki_i_Ekranu(); exit; end;
+    4: FOperacje.Color := clBlue;
+    5: Foperacje.Color := clPink;
+    6: Foperacje.Color := clGray;
+    7: Foperacje.Color := clTeal;
+    8: FOperacje.Color := clGreen;
+    9: FOperacje.Color := clYellow;
+  end;
+  //Zmieny kolorow obiektow na FOperacje, tak, zeby mozna nadal bylo je widac:
+  FOperacje.LNazwa.Font.Color := skib_InvertColor(FOperacje.Color);
+  if Ramka <> nil then begin
+    Ramka.UstawKolorObramowania(FOperacje.Color);
+    Ramka.Brush.Color := Ramka.Pen.Color; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
+  end;
+  for i := 1 to TMojImage.liczbaOb do
+    if FOperacje.tabOb[i].JestLapka then
+      FOperacje.tabOb[i].UstawKolorObramowaniaLapki(FOperacje.Color);
+End;
 
 
 procedure TFParametry.FormShow(Sender: TObject);
@@ -606,8 +553,7 @@ procedure TFParametry.RBOkrzykMouseUp(Sender: TObject; Button: TMouseButton;
 Begin
   if RBOkrzyk.Checked and not FileExists('c:\windows\media\tada.wav') then
   begin
-    MessageDlg('Nie mogę znaleźć odpowiednigo pliku na tym komputerze!',
-      mtError, [mbOK], 0);
+    MessageDlg('Nie mogę znaleźć odpowiednigo pliku na tym komputerze!', mtError, [mbOK], 0);
     RBOkrzyk.Checked := False;
     //powrot do stanu sprzed klikniecia (ale tylko z tym RButtonem)
     RBOklaski.Checked := True;    //wymuszam opcje - 'Oklaski' (zeby sobie ulatwic nie sprawdzam co bylo przedtem...)

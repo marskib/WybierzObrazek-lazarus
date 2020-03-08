@@ -205,6 +205,7 @@ Begin
   {mozna tak (b.elegancko):}
   Lapka2.Pen.Color := skib_InvertColor(Self.Pen.Color);
   {koniec 2019.12.25}
+
 End;
 
 procedure TRamka.PolozNaXY(X, Y: Integer);

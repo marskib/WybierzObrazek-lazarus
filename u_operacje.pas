@@ -65,7 +65,6 @@ uses
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure OProgramieClick(Sender: TObject);
-    procedure Panel1Click(Sender: TObject);
     procedure ParametryClick(Sender: TObject);
     procedure SpeedBtnGrajClick(Sender: TObject);
     procedure Timer5sekTimer(Sender: TObject);
@@ -94,6 +93,9 @@ uses
     function  DajLosowaSekwencje():TtabSek;
     procedure GenerujPojemnikNaWzorzec();
     procedure PokazNazwePodObrazkiem();
+
+    procedure UstawDefaultowyKolorRamki_i_Ekranu();
+
   end;
 
 
@@ -102,9 +104,9 @@ Function skib_InvertColor(const myColor: TColor): TColor; (* Daje kolor 'odwrotn
 
 var
   FOperacje: TFOperacje;
-
-  Sprawdzacz : TSprawdzacz;      //na sprawdzanie na MouseUp na obrazku, a potem się ten obiekt odpytuje
   Ramka      : TRamka;           //Ramka na polozenie Obrazka; bedzie wystawiac Lapke
+  Sprawdzacz : TSprawdzacz;      //na sprawdzanie na MouseUp na obrazku, a potem się ten obiekt odpytuje
+
 
 CONST
     PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
@@ -241,8 +243,9 @@ Begin
   (* Obiekty potrzebne do dzialania: *)
   Sprawdzacz := TSprawdzacz.Create();
   Ramka := TRamka.WlasnyCreate(30,30,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
-  Ramka.UstawKolorObramowania(FOperacje.Color);
-  Ramka.Brush.Color := Ramka.Pen.Color; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
+  (**)
+  UstawDefaultowyKolorRamki_i_Ekranu();
+  (**)
   Ramka.Parent := FOperacje;
   MPlayer := TMediaPlayerSki.WlasnyCreate();
   (**)
@@ -250,22 +253,6 @@ Begin
   Naczytaj(); //naczytanie obrazków+wiele innych
   UkryjKlawisze();
   BPodp.Visible:=FParametry.CBPodp.Checked;
-  (**)
-
-  {2020.02 - na doswiadczenia z kolorami:}
-  //Ramka:
-  Panel1.Color:=clWhite;
-  CBRamka.Font.Color:=clWhite;
-  raR := 100;
-  raG := 100;
-  raB := 100;
-  //Ekran:
-  Panel2.Color:=clWhite;
-  CBEkran.Font.Color:=clWhite;
-  ekR := 100;
-  ekG := 100;
-  ekB := 100;
-  {koniec doswiadczen z kolorami}
 End; (* FormShow() *)
 
 procedure TFOperacje.OProgramieClick(Sender: TObject);
@@ -275,10 +262,6 @@ begin
   FOprogramie.ShowModal;
 end;
 
-procedure TFOperacje.Panel1Click(Sender: TObject);
-begin
-
-end;
 
 
 procedure TFOperacje.ParametryClick(Sender: TObject);
@@ -716,7 +699,17 @@ Begin
   End;
 End; (* Procedure *)
 
-
+procedure TFOperacje.UstawDefaultowyKolorRamki_i_Ekranu();
+(* Kolory - odcienie szarosci dobrane przez Konsultantke *)
+var kolor : Integer;
+begin
+  kolor:=RGB(170, 170, 170);
+  FOperacje.color := kolor;
+  kolor:=RGB(224, 224, 224);
+  Ramka.Brush.color := kolor;
+  //Ustawienie obramowania Ramki tak, zeby go de facto nie bylo...;) :
+  Ramka.Pen.Color := FOperacje.Color;
+End;
 
 Begin
   //Okreslenie polozenia plikow z nagrodami:

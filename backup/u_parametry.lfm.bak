@@ -999,23 +999,25 @@ object FParametry: TFParametry
   end
   object ComboBoxKolor: TComboBox
     Left = 94
-    Height = 16
+    Height = 21
     Top = 463
     Width = 122
-    Font.Color = clWindowText
-    Font.Height = -9
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
-    ItemHeight = 10
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ItemHeight = 13
     OnChange = ComboBoxKolorChange
-    OnDrawItem = ComboBoxKolorDrawItem
     ParentFont = False
-    Style = csOwnerDrawFixed
+    Style = csDropDownList
     TabOrder = 4
   end
   object Label7: TLabel
     Left = 94
     Height = 13
-    Top = 450
+    Top = 449
     Width = 54
     Caption = 'Kolor Tła'
     Font.Color = clWindowText
@@ -1307,5 +1309,15 @@ object FParametry: TFParametry
       ParentColor = False
       ParentFont = False
     end
+  end
+  object BDefColor: TButton
+    Left = 227
+    Height = 31
+    Hint = 'przywraca domyślne kolory'
+    Top = 457
+    Width = 75
+    Caption = 'Domyślny'
+    OnClick = BDefColorClick
+    TabOrder = 15
   end
 end
