@@ -35,7 +35,6 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
-    BDefColor: TButton;
     CBAutomat: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;
@@ -317,7 +316,7 @@ procedure TFParametry.BDefColorClick(Sender: TObject);
 (* Przywrocenie domyslnych kolorow tla ekranu i ramki.    *)
 (* Kolory dobrane przez Konsultantkę - odcienie szarosci. *)
 Begin
-  FOperacje.UstawDefaultowyKolorRamki_i_Ekranu();
+  FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
 End;
 
 
@@ -484,7 +483,7 @@ Begin
   ComboBoxKolor.Items.Add('  Aqua');        //0
   ComboBoxKolor.Items.Add('  Biały');       //1
   ComboBoxKolor.Items.Add('  Czarny');      //2
-  ComboBoxKolor.Items.Add('  Domyślny');    //3
+  ComboBoxKolor.Items.Add('  DOMYŚLNY');    //3
   ComboBoxKolor.Items.Add('  Niebieski');   //4
   ComboBoxKolor.Items.Add('  Różowy');      //5
   ComboBoxKolor.Items.Add('  Szary');       //6
@@ -493,7 +492,7 @@ Begin
   ComboBoxKolor.Items.Add('  Żółty');       //9
 
   //Teraz domyslne ustawienia parametrow programu :
-  UstawDomyslnie;
+  UstawDomyslnie();
   DEKatalogSkib.CoNaDEKatalogChange(FParametry);
 End; (* FormCreate *)
 
@@ -505,7 +504,10 @@ Begin
     0: FOperacje.Color := clAqua;
     1: FOperacje.Color := clWhite;
     2: FOperacje.Color := clBlack;
-    3: begin FOperacje.UstawDefaultowyKolorRamki_i_Ekranu(); exit; end;
+    3: Begin //przypadek Default'u wymaga szczegolnego potraktowanoia (w defolcie Ramka ma nie miec obramowania + Czarny text pod obrazkiem*)
+         FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
+         Exit; //szczegolne potraktowanie *(patrz wyzej) - dlatego exit
+       End;
     4: FOperacje.Color := clBlue;
     5: Foperacje.Color := clPink;
     6: Foperacje.Color := clGray;
@@ -513,15 +515,15 @@ Begin
     8: FOperacje.Color := clGreen;
     9: FOperacje.Color := clYellow;
   end;
-  //Zmieny kolorow obiektow na FOperacje, tak, zeby mozna nadal bylo je widac:
-  FOperacje.LNazwa.Font.Color := skib_InvertColor(FOperacje.Color);
+  //Zmiena Ramki tak, zeby mozna nadal bylo ja widac:
   if Ramka <> nil then begin
     Ramka.UstawKolorObramowania(FOperacje.Color);
-    Ramka.Brush.Color := Ramka.Pen.Color; //na potrzeby WybierzObrazek - zmiana tla Ramki - 2019.09.29
+    Ramka.Brush.Color := Ramka.Pen.Color;
   end;
-  for i := 1 to TMojImage.liczbaOb do
-    if FOperacje.tabOb[i].JestLapka then
-      FOperacje.tabOb[i].UstawKolorObramowaniaLapki(FOperacje.Color);
+  (**)
+  FOperacje.LNazwa.Font.Color := skib_InvertColor(FOperacje.Color);
+  (**)
+  FOperacje.DostosujKoloryPozostalychObiektow();
 End;
 
 

@@ -133,7 +133,7 @@ Begin
 
     //Lapki maja rozne, "przeciwne" kolory, zeby daly sie zobaczyc na roznych tłach (Formy i Ramki):
     Lapka1.UstawKolorObramowania(Self.Parent.Color); //przeciwny do tla Formy
-    Lapka2.UstawKolorObramowania(FOperacje.Ramka.Brush.Color); //przeciwny do tla Ramki
+    Lapka2.UstawKolorObramowania(Ramka.Brush.Color); //przeciwny do tla Ramki
 
     //Lapki w odstepie 1 piksela:
     Lapka1.PolozNaXY_i_Wymiaruj(Left-5,Top-5, Width+10,Height+10);
@@ -232,6 +232,8 @@ Begin
   Self.ZdejmijWskaz();  //zdjecie strzalki spod obrazka (if any):
   GetCursorPos(poz);    //niezbedne do prowadzenia Obrazka po ekranie
   Self.BringToFront();
+  //Wymuszam ewentualna Lapke PONAD ponizszym butonem (gdzie indziej sie nie daje....):
+ // FOperacje.SpeedBtnGraj.SendToBack();
 End;
 
 procedure PorzadkujEkranPoZwyciestwie();

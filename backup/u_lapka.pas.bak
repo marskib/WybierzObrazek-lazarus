@@ -47,12 +47,6 @@ Begin
   Timer.Interval := 100;
   Timer.OnTimer:=@MrugajLapka;
   Timer.Enabled:=False;
-
-
-
-  Self.BringToFront;
-
-
 End;
 
 destructor TLapka.Destroy;
@@ -65,6 +59,9 @@ procedure TLapka.Mrugaj();
 Begin
   Self.Visible :=True;
   Timer.Enabled:=True;
+
+  FOperacje.SpeedBtnGraj.SendToBack;
+
 End;
 
 procedure TLapka.Zgas();

@@ -30,6 +30,7 @@ uses
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
+    Button3: TButton;
     CBRamka: TCheckBox;
     CBEkran: TCheckBox;
     LRGrayness: TLabel;
@@ -54,6 +55,7 @@ uses
     procedure BEPlusClick(Sender: TObject);
     procedure BRMinusClick(Sender: TObject);
     procedure BRPlusClick(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
     procedure CBRamkaChange(Sender: TObject);
     procedure CBEkranChange(Sender: TObject);
     procedure Naczytaj();
@@ -94,7 +96,8 @@ uses
     procedure GenerujPojemnikNaWzorzec();
     procedure PokazNazwePodObrazkiem();
 
-    procedure UstawDefaultowyKolorRamki_i_Ekranu();
+    procedure UstawDefaultowyKolorRamki_Ekranu_Napisu();
+    procedure DostosujKoloryPozostalychObiektow();
 
   end;
 
@@ -158,6 +161,11 @@ begin
     kolor:=RGB(raR, raG, raB);
     Ramka.Brush.color := kolor;
     LRGrayness.Caption:=IntToStr(raR);
+end;
+
+procedure TFOperacje.Button3Click(Sender: TObject);
+begin
+    SpeedBtnGraj.SendToBack();
 end;
 
 
@@ -244,7 +252,7 @@ Begin
   Sprawdzacz := TSprawdzacz.Create();
   Ramka := TRamka.WlasnyCreate(30,30,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
   (**)
-  UstawDefaultowyKolorRamki_i_Ekranu();
+  UstawDefaultowyKolorRamki_Ekranu_Napisu();
   (**)
   Ramka.Parent := FOperacje;
   MPlayer := TMediaPlayerSki.WlasnyCreate();
@@ -699,16 +707,34 @@ Begin
   End;
 End; (* Procedure *)
 
-procedure TFOperacje.UstawDefaultowyKolorRamki_i_Ekranu();
+procedure TFOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
+(* ***************************************************** *)
 (* Kolory - odcienie szarosci dobrane przez Konsultantke *)
+(* Ramka nie ma miec obramowania(!)                      *)
+(* ***************************************************** *)
 var kolor : Integer;
-begin
+Begin
   kolor:=RGB(170, 170, 170);
   FOperacje.color := kolor;
   kolor:=RGB(224, 224, 224);
   Ramka.Brush.color := kolor;
   //Ustawienie obramowania Ramki tak, zeby go de facto nie bylo...;) :
   Ramka.Pen.Color := FOperacje.Color;
+  (**)
+  FOperacje.LNazwa.Font.Color := clBlack;
+  (**)
+  DostosujKoloryPozostalychObiektow();
+End;
+
+procedure TFOperacje.DostosujKoloryPozostalychObiektow();
+(* Wywolywana w odpowiedzi na zmiane Tła (ekran); Nie Dotyczy Ramki(!) *)
+(* tylko pozostalych obiektow (=ewentualne podpowiedzi-lapki).         *)
+(* Zmieny kolorow ww. obiektow, tak, zeby mozna nadal bylo je widac.   *)
+var i: SmallInt;
+Begin
+ for i := 1 to TMojImage.liczbaOb do
+   if FOperacje.tabOb[i].JestLapka then
+     FOperacje.tabOb[i].UstawKolorObramowaniaLapki(FOperacje.Color);
 End;
 
 Begin

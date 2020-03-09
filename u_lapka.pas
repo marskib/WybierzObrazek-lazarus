@@ -59,6 +59,8 @@ procedure TLapka.Mrugaj();
 Begin
   Self.Visible :=True;
   Timer.Enabled:=True;
+  //Wymuszam ewentualna Lapke PONAD ponizszym butonem (gdzie indziej sie nie daje....tak dobrze...):
+  FOperacje.SpeedBtnGraj.SendToBack();
 End;
 
 procedure TLapka.Zgas();

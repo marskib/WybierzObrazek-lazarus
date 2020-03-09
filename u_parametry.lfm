@@ -1310,14 +1310,4 @@ object FParametry: TFParametry
       ParentFont = False
     end
   end
-  object BDefColor: TButton
-    Left = 227
-    Height = 31
-    Hint = 'przywraca domyślne kolory'
-    Top = 457
-    Width = 75
-    Caption = 'Domyślny'
-    OnClick = BDefColorClick
-    TabOrder = 15
-  end
 end

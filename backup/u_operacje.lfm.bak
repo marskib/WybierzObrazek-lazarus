@@ -2477,6 +2477,7 @@ object FOperacje: TFOperacje
     ClientHeight = 82
     ClientWidth = 264
     TabOrder = 6
+    Visible = False
     object BRPlus: TButton
       Left = 141
       Height = 25
@@ -2534,6 +2535,7 @@ object FOperacje: TFOperacje
     ClientHeight = 82
     ClientWidth = 264
     TabOrder = 7
+    Visible = False
     object CBEkran: TCheckBox
       Left = 8
       Height = 19
@@ -2582,6 +2584,15 @@ object FOperacje: TFOperacje
       ParentColor = False
       ParentFont = False
     end
+  end
+  object Button3: TButton
+    Left = 149
+    Height = 25
+    Top = 207
+    Width = 75
+    Caption = 'Button3'
+    OnClick = Button3Click
+    TabOrder = 8
   end
   object MainMenu1: TMainMenu
     left = 752
