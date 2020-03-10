@@ -132,7 +132,7 @@ implementation
 function skib_InvertColor(const myColor: TColor): TColor;
 (* Daje kolor 'odwrotny' do zadanego - potrzebne pry rysowaniu ramek widocznych na nieznanym background'dzie *)
 Begin
-  if myColor = clDefault then
+  if (myColor = clDefault) or (myColor = clGray) then
     result := clBlack //doswiadczalnie
   else  //znalezione w Internecie:
     result := TColor(Windows.RGB(255 - GetRValue(myColor), 255 - GetGValue(myColor), 255 - GetBValue(myColor)));
@@ -252,6 +252,7 @@ Begin
   Ramka := TRamka.WlasnyCreate(30,30,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
   (**)
   UstawDefaultowyKolorRamki_Ekranu_Napisu();
+  FParametry.ComboBoxKolor.ItemIndex:=3; //kosmetyka - zeby na Fparametry.ComboBoxColor bylo widoczne, ze defaultowy
   (**)
   Ramka.Parent := FOperacje;
   MPlayer := TMediaPlayerSki.WlasnyCreate();

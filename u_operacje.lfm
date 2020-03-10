@@ -5,7 +5,7 @@ object FOperacje: TFOperacje
   Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'WybierzObrazek'
-  ClientHeight = 526
+  ClientHeight = 527
   ClientWidth = 812
   Menu = MainMenu1
   OnCreate = FormCreate
@@ -62,6 +62,12 @@ object FOperacje: TFOperacje
     Top = 128
     Width = 50
     Caption = '?'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     OnClick = BPodpClick
     ParentFont = False
@@ -76,7 +82,7 @@ object FOperacje: TFOperacje
     Caption = '@'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -13
+    Font.Height = -16
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -94,7 +100,7 @@ object FOperacje: TFOperacje
     Caption = '>>>'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -13
+    Font.Height = -16
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -2518,9 +2524,9 @@ object FOperacje: TFOperacje
     end
     object LRGrayness: TLabel
       Left = 186
-      Height = 15
+      Height = 13
       Top = 29
-      Width = 64
+      Width = 67
       Caption = 'LRGrayness'
       Font.Style = [fsBold]
       ParentColor = False
@@ -2576,9 +2582,9 @@ object FOperacje: TFOperacje
     end
     object LEGrayness: TLabel
       Left = 186
-      Height = 15
+      Height = 13
       Top = 29
-      Width = 62
+      Width = 65
       Caption = 'LEGrayness'
       Font.Style = [fsBold]
       ParentColor = False

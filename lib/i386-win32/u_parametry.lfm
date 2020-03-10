@@ -901,9 +901,9 @@ object FParametry: TFParametry
   end
   object LKatalog: TLabel
     Left = 460
-    Height = 19
+    Height = 17
     Top = 323
-    Width = 170
+    Width = 174
     Caption = 'Wczytaj obrazki z dysku :'
     Font.Height = -14
     Font.Style = [fsBold]
@@ -953,15 +953,15 @@ object FParametry: TFParametry
     Top = 172
     Width = 122
     Caption = 'Nagroda'
-    ClientHeight = 94
+    ClientHeight = 96
     ClientWidth = 118
     ParentFont = False
     TabOrder = 3
     object RBOkrzyk: TRadioButton
       Left = 5
-      Height = 19
+      Height = 17
       Top = 5
-      Width = 106
+      Width = 96
       Caption = 'okrzyk ''tryumfu'''
       OnMouseUp = RBOkrzykMouseUp
       ParentFont = False
@@ -969,27 +969,27 @@ object FParametry: TFParametry
     end
     object RBOklaski: TRadioButton
       Left = 5
-      Height = 19
+      Height = 17
       Top = 25
-      Width = 56
+      Width = 51
       Caption = 'oklaski'
       ParentFont = False
       TabOrder = 0
     end
     object RBNoAward: TRadioButton
       Left = 4
-      Height = 19
+      Height = 17
       Top = 69
-      Width = 85
+      Width = 80
       Caption = 'bez nagrody'
       ParentFont = False
       TabOrder = 2
     end
     object RBPochwala: TRadioButton
       Left = 5
-      Height = 19
+      Height = 17
       Top = 46
-      Width = 71
+      Width = 66
       Caption = 'Pochwała'
       Checked = True
       ParentFont = False
@@ -1002,6 +1002,7 @@ object FParametry: TFParametry
     Height = 21
     Top = 463
     Width = 122
+    DropDownCount = 10
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
     Font.Height = -11
@@ -1189,15 +1190,15 @@ object FParametry: TFParametry
     Top = 307
     Width = 169
     Caption = ' Jeśli 4 obrazki, to '
-    ClientHeight = 63
+    ClientHeight = 65
     ClientWidth = 165
     ParentFont = False
     TabOrder = 11
     object RB1W: TRadioButton
       Left = 6
-      Height = 19
+      Height = 17
       Top = 11
-      Width = 130
+      Width = 120
       Caption = 'rozmieść w 1 wierszu'
       OnMouseUp = RBOkrzykMouseUp
       ParentFont = False
@@ -1205,9 +1206,9 @@ object FParametry: TFParametry
     end
     object RB2W: TRadioButton
       Left = 6
-      Height = 19
+      Height = 17
       Top = 37
-      Width = 142
+      Width = 131
       Caption = 'rozmieść w 2 wierszach'
       Checked = True
       OnChange = RB2WChange
