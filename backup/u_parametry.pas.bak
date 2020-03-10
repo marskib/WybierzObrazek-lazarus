@@ -90,6 +90,7 @@ type
     type TPowod = (spacje, dlugosc);
     //procedure SprawdzPoprawnoscZasobow(var ZasobyPoprawne: boolean; var bledny_wyraz: string);
   private
+    procedure WypelnijComoBoxKolory();
     procedure UstawDomyslnie();
     { Private declarations }
   public
@@ -206,6 +207,9 @@ End;
 procedure TFParametry.BDomyslneClick(Sender: TObject);
 begin
   UstawDomyslnie();
+  //ustawienie koloru (nie robimy w proc. wyzej, bo ona jest wywolywania, kiedy jeszcze nie ma Ranki):
+  ComboBoxKolor.ItemIndex := 3;
+  ComboBoxKolorChange(Nil);
 end;
 
 
@@ -316,7 +320,7 @@ procedure TFParametry.BDefColorClick(Sender: TObject);
 (* Przywrocenie domyslnych kolorow tla ekranu i ramki.    *)
 (* Kolory dobrane przez Konsultantkę - odcienie szarosci. *)
 Begin
-  FOperacje.UstawDefaultowyKolorRamki_i_Ekranu();
+  FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
 End;
 
 
@@ -476,9 +480,9 @@ Begin
 End;
 
 
-procedure TFParametry.FormCreate(Sender: TObject);
+procedure TFParametry.WypelnijComoBoxKolory();
+(* wypelnianie comboboxa na kolory Tla  *)
 Begin
-  //wypelnianie comboboxa na kolory tla formy Foperacje :
   ComboBoxKolor.Items.Clear;             //Delete all existing choices
   ComboBoxKolor.Items.Add('  Aqua');        //0
   ComboBoxKolor.Items.Add('  Biały');       //1
@@ -490,10 +494,14 @@ Begin
   ComboBoxKolor.Items.Add('  Teal');        //7
   ComboBoxKolor.Items.Add('  Zielony');     //8
   ComboBoxKolor.Items.Add('  Żółty');       //9
+End;
 
-  //Teraz domyslne ustawienia parametrow programu :
-  UstawDomyslnie();
+procedure TFParametry.FormCreate(Sender: TObject);
+Begin
+  UstawDomyslnie();  //Teraz domyslne ustawienia parametrow programu WybierzObrazek
   DEKatalogSkib.CoNaDEKatalogChange(FParametry);
+  (**)
+  WypelnijComoBoxKolory();
 End; (* FormCreate *)
 
 
@@ -504,7 +512,10 @@ Begin
     0: FOperacje.Color := clAqua;
     1: FOperacje.Color := clWhite;
     2: FOperacje.Color := clBlack;
-    3: begin FOperacje.UstawDefaultowyKolorRamki_i_Ekranu(); exit; end;
+    3: Begin //przypadek Default'u wymaga szczegolnego potraktowanoia (w defolcie Ramka ma nie miec obramowania + Czarny text pod obrazkiem*)
+         FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
+         Exit; //szczegolne potraktowanie *(patrz wyzej) - dlatego exit
+       End;
     4: FOperacje.Color := clBlue;
     5: Foperacje.Color := clPink;
     6: Foperacje.Color := clGray;
@@ -512,14 +523,15 @@ Begin
     8: FOperacje.Color := clGreen;
     9: FOperacje.Color := clYellow;
   end;
-  //Zmiena Ramki tak, zeby mozna nadal bylo je widac:
+  //Zmiena Ramki tak, zeby mozna nadal bylo ja widac:
   if Ramka <> nil then begin
     Ramka.UstawKolorObramowania(FOperacje.Color);
     Ramka.Brush.Color := Ramka.Pen.Color;
   end;
   (**)
+  FOperacje.LNazwa.Font.Color := skib_InvertColor(FOperacje.Color);
+  (**)
   FOperacje.DostosujKoloryPozostalychObiektow();
-
 End;
 
 

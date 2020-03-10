@@ -1002,12 +1002,14 @@ object FParametry: TFParametry
     Height = 21
     Top = 463
     Width = 122
+    DropDownCount = 10
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
+    Font.Style = [fsBold]
     ItemHeight = 13
     OnChange = ComboBoxKolorChange
     ParentFont = False
