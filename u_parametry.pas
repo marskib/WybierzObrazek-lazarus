@@ -487,7 +487,7 @@ Begin
   ComboBoxKolor.Items.Add(' Aqua');        //0
   ComboBoxKolor.Items.Add(' Biały');       //1
   ComboBoxKolor.Items.Add(' Czarny');      //2
-  ComboBoxKolor.Items.Add(' DOMYŚLNY');    //3
+  ComboBoxKolor.Items.Add(' DOMYŚLNY');    //3 -> defaultowy
   ComboBoxKolor.Items.Add(' Niebieski');   //4
   ComboBoxKolor.Items.Add(' Różowy');      //5
   ComboBoxKolor.Items.Add(' Szary');       //6

@@ -90,6 +90,7 @@ type
     type TPowod = (spacje, dlugosc);
     //procedure SprawdzPoprawnoscZasobow(var ZasobyPoprawne: boolean; var bledny_wyraz: string);
   private
+    procedure WypelnijComoBoxKolory();
     procedure UstawDomyslnie();
     { Private declarations }
   public
@@ -206,6 +207,9 @@ End;
 procedure TFParametry.BDomyslneClick(Sender: TObject);
 begin
   UstawDomyslnie();
+  //ustawienie koloru (nie robimy w proc. wyzej, bo ona jest wywolywania, kiedy jeszcze nie ma Ranki):
+  ComboBoxKolor.ItemIndex := 3;
+  ComboBoxKolorChange(Nil);
 end;
 
 
@@ -476,24 +480,28 @@ Begin
 End;
 
 
+procedure TFParametry.WypelnijComoBoxKolory();
+(* wypelnianie comboboxa na kolory Tla  *)
+Begin
+  ComboBoxKolor.Items.Clear;             //Delete all existing choices
+  ComboBoxKolor.Items.Add(' Aqua');        //0
+  ComboBoxKolor.Items.Add(' Biały');       //1
+  ComboBoxKolor.Items.Add(' Czarny');      //2
+  ComboBoxKolor.Items.Add(' DOMYŚLNY');    //3
+  ComboBoxKolor.Items.Add(' Niebieski');   //4
+  ComboBoxKolor.Items.Add(' Różowy');      //5
+  ComboBoxKolor.Items.Add(' Szary');       //6
+  ComboBoxKolor.Items.Add(' Teal');        //7
+  ComboBoxKolor.Items.Add(' Zielony');     //8
+  ComboBoxKolor.Items.Add(' Żółty');       //9
+End;
+
 procedure TFParametry.FormCreate(Sender: TObject);
 Begin
-  //wypelnianie comboboxa na kolory tla formy Foperacje :
-  ComboBoxKolor.Items.Clear;             //Delete all existing choices
-  ComboBoxKolor.Items.Add('  Aqua');        //0
-  ComboBoxKolor.Items.Add('  Biały');       //1
-  ComboBoxKolor.Items.Add('  Czarny');      //2
-  ComboBoxKolor.Items.Add('  DOMYŚLNY');    //3
-  ComboBoxKolor.Items.Add('  Niebieski');   //4
-  ComboBoxKolor.Items.Add('  Różowy');      //5
-  ComboBoxKolor.Items.Add('  Szary');       //6
-  ComboBoxKolor.Items.Add('  Teal');        //7
-  ComboBoxKolor.Items.Add('  Zielony');     //8
-  ComboBoxKolor.Items.Add('  Żółty');       //9
-
-  //Teraz domyslne ustawienia parametrow programu :
-  UstawDomyslnie();
+  UstawDomyslnie();  //Teraz domyslne ustawienia parametrow programu WybierzObrazek
   DEKatalogSkib.CoNaDEKatalogChange(FParametry);
+  (**)
+  WypelnijComoBoxKolory();
 End; (* FormCreate *)
 
 
@@ -510,7 +518,7 @@ Begin
        End;
     4: FOperacje.Color := clBlue;
     5: Foperacje.Color := clPink;
-    6: Foperacje.Color := clGrey;
+    6: Foperacje.Color := clGray;
     7: Foperacje.Color := clTeal;
     8: FOperacje.Color := clGreen;
     9: FOperacje.Color := clYellow;
