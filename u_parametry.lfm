@@ -2,11 +2,11 @@ object FParametry: TFParametry
   Left = 65
   Height = 612
   Top = 147
-  Width = 836
+  Width = 862
   BorderIcons = []
   Caption = 'Ustawienia'
   ClientHeight = 612
-  ClientWidth = 836
+  ClientWidth = 862
   Color = clForm
   Font.Color = clWindowText
   Font.Height = -9
@@ -1247,9 +1247,9 @@ object FParametry: TFParametry
     Left = 460
     Height = 140
     Top = 413
-    Width = 355
+    Width = 380
     ClientHeight = 140
-    ClientWidth = 355
+    ClientWidth = 380
     Color = clGradientActiveCaption
     ParentColor = False
     TabOrder = 14
@@ -1257,8 +1257,8 @@ object FParametry: TFParametry
       Left = 13
       Height = 20
       Top = 20
-      Width = 132
-      Caption = 'Odgrywj polecenie'
+      Width = 140
+      Caption = 'Odgrywaj polecenie'
       Checked = True
       Font.Color = clWindowText
       Font.Height = -14

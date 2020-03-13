@@ -132,7 +132,7 @@ implementation
 function skib_InvertColor(const myColor: TColor): TColor;
 (* Daje kolor 'odwrotny' do zadanego - potrzebne pry rysowaniu ramek widocznych na nieznanym background'dzie *)
 Begin
-  if myColor = clDefault then
+  if (myColor = clDefault) or (myColor = clGray) then
     result := clBlack //doswiadczalnie
   else  //znalezione w Internecie:
     result := TColor(Windows.RGB(255 - GetRValue(myColor), 255 - GetGValue(myColor), 255 - GetBValue(myColor)));
