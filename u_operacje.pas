@@ -40,6 +40,7 @@ uses
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;
+    TimerBlokGraj: TTimer;
     Timer5sek: TTimer;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
@@ -69,6 +70,7 @@ uses
     procedure ParametryClick(Sender: TObject);
     procedure SpeedBtnGrajClick(Sender: TObject);
     procedure Timer5sekTimer(Sender: TObject);
+    procedure TimerBlokGrajTimer(Sender: TObject);
     procedure TimerKlawiszeTimer(Sender: TObject);
     procedure TimerLosujTimer(Sender: TObject);
     procedure TimerNazwaTimer(Sender: TObject);
@@ -111,7 +113,7 @@ var
 
 
 CONST
-    PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
+    PELNA_WERSJA = FALSE;         //na etapie kompilacji okreslam czy pelna czy demo
     JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
@@ -474,6 +476,9 @@ procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
 Begin
   if not FParametry.CBOdgrywaj.Checked then Exit;
   OdegrajPolecenie(0);
+  //blokuję na chwilę, zeby nie klikal jak wsciekly.. :
+  SpeedBtnGraj.Enabled := False;
+  TimerBlokGraj.Enabled:= True;
 End;
 
 procedure TFOperacje.OdegrajPolecenie(delay: Byte);
@@ -491,6 +496,13 @@ Begin
     OdegrajPolecenie(1)    //weszlismy z Fparametry lub BAgain - wypada troche odczekac..
   else
     OdegrajPolecenie(0);
+End;
+
+procedure TFOperacje.TimerBlokGrajTimer(Sender: TObject);
+(* Odblokowanie mozliwosci naciskania klawisza do odgrywania (zeby nie klikal jak wsciekly...)  *)
+Begin
+  SpeedBtnGraj.Enabled := True;
+  TimerBlokGraj.Enabled:= False;
 End;
 
 procedure TFOperacje.BPodpClick(Sender: TObject);
