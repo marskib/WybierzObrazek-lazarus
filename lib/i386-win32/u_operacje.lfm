@@ -5,7 +5,7 @@ object FOperacje: TFOperacje
   Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'WybierzObrazek'
-  ClientHeight = 527
+  ClientHeight = 526
   ClientWidth = 812
   Menu = MainMenu1
   OnCreate = FormCreate
@@ -2524,9 +2524,9 @@ object FOperacje: TFOperacje
     end
     object LRGrayness: TLabel
       Left = 186
-      Height = 13
+      Height = 15
       Top = 29
-      Width = 67
+      Width = 64
       Caption = 'LRGrayness'
       Font.Style = [fsBold]
       ParentColor = False
@@ -2582,9 +2582,9 @@ object FOperacje: TFOperacje
     end
     object LEGrayness: TLabel
       Left = 186
-      Height = 13
+      Height = 15
       Top = 29
-      Width = 65
+      Width = 62
       Caption = 'LEGrayness'
       Font.Style = [fsBold]
       ParentColor = False

@@ -30,7 +30,6 @@ uses
     BPodp: TButton;
     BAgain: TButton;
     BNextCwicz: TButton;
-    Button3: TButton;
     CBRamka: TCheckBox;
     CBEkran: TCheckBox;
     LRGrayness: TLabel;
@@ -41,6 +40,7 @@ uses
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;
+    TimerBlokGraj: TTimer;
     Timer5sek: TTimer;
     TimerNazwa: TTimer;
     TimerKlawisze: TTimer;
@@ -70,6 +70,7 @@ uses
     procedure ParametryClick(Sender: TObject);
     procedure SpeedBtnGrajClick(Sender: TObject);
     procedure Timer5sekTimer(Sender: TObject);
+    procedure TimerBlokGrajTimer(Sender: TObject);
     procedure TimerKlawiszeTimer(Sender: TObject);
     procedure TimerLosujTimer(Sender: TObject);
     procedure TimerNazwaTimer(Sender: TObject);
@@ -78,6 +79,7 @@ uses
     procedure LosujUmiescObrazek();
     procedure RebuildAll();
     procedure OdegrajPolecenie(delay: Byte);
+    procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     { private declarations }
   public
@@ -112,7 +114,7 @@ var
 
 
 CONST
-    PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
+    PELNA_WERSJA = FALSE;         //na etapie kompilacji okreslam czy pelna czy demo
     JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
@@ -133,7 +135,7 @@ implementation
 function skib_InvertColor(const myColor: TColor): TColor;
 (* Daje kolor 'odwrotny' do zadanego - potrzebne pry rysowaniu ramek widocznych na nieznanym background'dzie *)
 Begin
-  if myColor = clDefault then
+  if (myColor = clDefault) or (myColor = clGray) then
     result := clBlack //doswiadczalnie
   else  //znalezione w Internecie:
     result := TColor(Windows.RGB(255 - GetRValue(myColor), 255 - GetGValue(myColor), 255 - GetBValue(myColor)));
@@ -253,6 +255,7 @@ Begin
   Ramka := TRamka.WlasnyCreate(30,30,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
   (**)
   UstawDefaultowyKolorRamki_Ekranu_Napisu();
+  FParametry.ComboBoxKolor.ItemIndex:=3; //kosmetyka - zeby na Fparametry.ComboBoxColor bylo widoczne, ze defaultowy
   (**)
   Ramka.Parent := FOperacje;
   MPlayer := TMediaPlayerSki.WlasnyCreate();
@@ -275,7 +278,7 @@ end;
 procedure TFOperacje.ParametryClick(Sender: TObject);
 (* Pokazanie formy FParametry *)
 begin
-  FParametry.Top := Top + 20;
+  FParametry.Top  := Top + 20;
   FParametry.Left := Left + 8;
   FParametry.ShowModal;
 end;
@@ -345,7 +348,7 @@ Begin
   liczZbO:=FParametry.DajLicznoscZbioru(Zbior);
   k:=1;
   for i:=0 to liczbaObrWKatalogu-1 do begin
-    if i in Zbior then begin  //kreowanie pojedynczego Obrazka (z wymiartowaniem)
+    if i in Zbior then begin  //kreowanie pojedynczego Obrazka (z wymiarowaniem)
       tabOb[k] := TMojImage.WlasnyCreate_ze_Skalowaniem(FParametry.FListBox1, i, liczZbO);
       k:=k+1;
     end;
@@ -408,11 +411,31 @@ begin
   RebuildAll();
 end;
 
+
+procedure TFOperacje.PokazUkryjBGrajOnWavExistsDependent();
+(* Blokuje BGraj jesli na dysku nie istnieje odpowiedni plik vaw *)
+(* Bierze rowniez po uwage stosowne ustawienia na FParametry.    *)
+var plikWava : string;
+Begin
+  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
+  if not FileExists(SciezkaZasoby+plikWava) then begin
+    SpeedBtnGraj.Enabled := False;
+    PokazNazwePodObrazkiem(); //jak nie ma dzwieku, to niech przynajmniej wypisze nazwe/polecenie....
+  end
+  //jezeli plik dzwiekowy istnieje, to stosuj takie zasady jak okreslono w Settingsach:
+  //else begin
+  //  FParametry.CBOdgrywajChange(nil);
+  //end;
+End;
+
 procedure TFOperacje.Naczytaj();
 Begin
   UkryjKlawisze();
   RebuildAll();
   LosujUmiescObrazek();
+  //
+  //PokazUkryjBGrajOnWavExistsDependent();
+  //
   Sprawdzacz.Resetuj();
   BPodp.Visible := FParametry.CBPodp.Checked;
 End;
@@ -474,6 +497,9 @@ procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
 Begin
   if not FParametry.CBOdgrywaj.Checked then Exit;
   OdegrajPolecenie(0);
+  //blokuję na chwilę, zeby nie klikal jak wsciekly.. :
+  SpeedBtnGraj.Enabled := False;
+  TimerBlokGraj.Enabled:= True;
 End;
 
 procedure TFOperacje.OdegrajPolecenie(delay: Byte);
@@ -491,6 +517,13 @@ Begin
     OdegrajPolecenie(1)    //weszlismy z Fparametry lub BAgain - wypada troche odczekac..
   else
     OdegrajPolecenie(0);
+End;
+
+procedure TFOperacje.TimerBlokGrajTimer(Sender: TObject);
+(* Odblokowanie mozliwosci naciskania klawisza do odgrywania (zeby nie klikal jak wsciekly...)  *)
+Begin
+  SpeedBtnGraj.Enabled := True;
+  TimerBlokGraj.Enabled:= False;
 End;
 
 procedure TFOperacje.BPodpClick(Sender: TObject);
@@ -567,7 +600,7 @@ procedure TFOperacje.LosujUmiescObrazek();
 (* ************************************************************************************ *)
 (* Wylosowanie                obrazka do zgadywania.                                    *)
 (* Umieszczenie ramki na wylosowany obrazek                                             *)
-(* Sposrod obrazkow na dole ekranu losuje jeden.                                        *)
+(* Sposrod obrazkow NA DOLE EKRANU losuje jeden. (NIE LOSUJEMY Z KATALOGU!!!)           *)
 (* Ewentualne odegranie pliku z nazwa obrazka.                                          *)
 (* ************************************************************************************ *)
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
@@ -575,7 +608,7 @@ var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
 
 Begin
-  {Losowanie obrazka ze  m p-stwa wylosowania tego samego:}
+  {Losowanie obrazka ze zmiejszeniemm p-stwa wylosowania tego samego:}
   los := 1+ Random(TMojImage.liczbaOb);  //+1 bo Random(x) generuje w przedziale  0=< liczba <x
   if los=nrWylos then //sprawdzenie, czy nie taki sam jak poprzednio wylosowany
     los := 1+ Random(TMojImage.liczbaOb);

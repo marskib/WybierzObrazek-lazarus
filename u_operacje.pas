@@ -79,7 +79,7 @@ uses
     procedure LosujUmiescObrazek();
     procedure RebuildAll();
     procedure OdegrajPolecenie(delay: Byte);
-    procedure PokazUkryjBGrajWav_x_ExistsDependent();
+    procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     { private declarations }
   public
@@ -278,7 +278,7 @@ end;
 procedure TFOperacje.ParametryClick(Sender: TObject);
 (* Pokazanie formy FParametry *)
 begin
-  FParametry.Top := Top + 20;
+  FParametry.Top  := Top + 20;
   FParametry.Left := Left + 8;
   FParametry.ShowModal;
 end;
@@ -412,7 +412,7 @@ begin
 end;
 
 
-procedure TFOperacje.PokazUkryjBGrajWavExistsDependent();
+procedure TFOperacje.PokazUkryjBGrajOnWavExistsDependent();
 (* Blokuje BGraj jesli na dysku nie istnieje odpowiedni plik vaw *)
 (* Bierze rowniez po uwage stosowne ustawienia na FParametry.    *)
 var plikWava : string;
@@ -420,12 +420,12 @@ Begin
   plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
   if not FileExists(SciezkaZasoby+plikWava) then begin
     SpeedBtnGraj.Enabled := False;
-    PokazNazwePodObrazkiem();
+    PokazNazwePodObrazkiem(); //jak nie ma dzwieku, to niech przynajmniej wypisze nazwe/polecenie....
   end
   //jezeli plik dzwiekowy istnieje, to stosuj takie zasady jak okreslono w Settingsach:
-  else begin
-    FParametry.CBOdgrywajChange(nil);
-  end;
+  //else begin
+  //  FParametry.CBOdgrywajChange(nil);
+  //end;
 End;
 
 procedure TFOperacje.Naczytaj();
@@ -433,9 +433,9 @@ Begin
   UkryjKlawisze();
   RebuildAll();
   LosujUmiescObrazek();
-
-    PokazUkryjBGraj_WavExistsDependent();
-
+  //
+  //PokazUkryjBGrajOnWavExistsDependent();
+  //
   Sprawdzacz.Resetuj();
   BPodp.Visible := FParametry.CBPodp.Checked;
 End;
@@ -661,6 +661,10 @@ Begin
     TimerNazwa.Enabled:=True
   else
     LNazwa.Visible:=False;
+  {}
+  //Wstawka, jesli nie ma pliku z dzwiekiem, blokujemy BGraj, pokazujemy napis:
+  PokazUkryjBGrajOnWavExistsDependent();
+  //
 End; (* Procedure *)
 
 

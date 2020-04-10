@@ -62,6 +62,12 @@ object FOperacje: TFOperacje
     Top = 128
     Width = 50
     Caption = '?'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     OnClick = BPodpClick
     ParentFont = False
@@ -76,7 +82,7 @@ object FOperacje: TFOperacje
     Caption = '@'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -13
+    Font.Height = -16
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -94,7 +100,7 @@ object FOperacje: TFOperacje
     Caption = '>>>'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -13
+    Font.Height = -16
     Font.Name = 'Arial'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -2585,15 +2591,6 @@ object FOperacje: TFOperacje
       ParentFont = False
     end
   end
-  object Button3: TButton
-    Left = 149
-    Height = 25
-    Top = 207
-    Width = 75
-    Caption = 'Button3'
-    OnClick = Button3Click
-    TabOrder = 8
-  end
   object MainMenu1: TMainMenu
     left = 752
     top = 8
@@ -2636,5 +2633,12 @@ object FOperacje: TFOperacje
     OnTimer = Timer5sekTimer
     left = 450
     top = 264
+  end
+  object TimerBlokGraj: TTimer
+    Enabled = False
+    Interval = 2800
+    OnTimer = TimerBlokGrajTimer
+    left = 336
+    top = 48
   end
 end
