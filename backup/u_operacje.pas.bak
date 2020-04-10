@@ -481,15 +481,16 @@ Begin
     tabOb[i].JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
     tabOb[i].WlaczHandlery();
   end;
+
+  if FParametry.CBOdgrywaj.Checked then
+    OdegrajPolecenie(2);
+
   Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
   //Ponowne odgrywanie co 5 sek (if any):
   Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   if Fparametry.CBAutomat.Checked then
     Timer5sekTimer(BAgain);  //parametr, zeby funkcja wywolywana wiedziala co z tym zrobic - lekko opozni granie
 End;
-
-
-
 
 
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
@@ -661,6 +662,10 @@ Begin
     TimerNazwa.Enabled:=True
   else
     LNazwa.Visible:=False;
+  {}
+  //Wstawka, jesli nie ma pliku z dzwiekiem, blokujemy BGraj, pokazujemy napis:
+  PokazUkryjBGrajOnWavExistsDependent();
+  //
 End; (* Procedure *)
 
 

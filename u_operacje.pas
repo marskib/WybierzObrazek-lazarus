@@ -482,14 +482,15 @@ Begin
     tabOb[i].WlaczHandlery();
   end;
   Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
+
+  if FParametry.CBOdgrywaj.Checked then
+    OdegrajPolecenie(1);
+
   //Ponowne odgrywanie co 5 sek (if any):
   Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   if Fparametry.CBAutomat.Checked then
     Timer5sekTimer(BAgain);  //parametr, zeby funkcja wywolywana wiedziala co z tym zrobic - lekko opozni granie
 End;
-
-
-
 
 
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
