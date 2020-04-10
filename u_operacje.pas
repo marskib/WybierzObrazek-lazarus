@@ -79,6 +79,7 @@ uses
     procedure LosujUmiescObrazek();
     procedure RebuildAll();
     procedure OdegrajPolecenie(delay: Byte);
+    procedure PokazUkryjBGrajWav_x_ExistsDependent();
   private
     { private declarations }
   public
@@ -410,11 +411,31 @@ begin
   RebuildAll();
 end;
 
+
+procedure TFOperacje.PokazUkryjBGrajWavExistsDependent();
+(* Blokuje BGraj jesli na dysku nie istnieje odpowiedni plik vaw *)
+(* Bierze rowniez po uwage stosowne ustawienia na FParametry.    *)
+var plikWava : string;
+Begin
+  plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
+  if not FileExists(SciezkaZasoby+plikWava) then begin
+    SpeedBtnGraj.Enabled := False;
+    PokazNazwePodObrazkiem();
+  end
+  //jezeli plik dzwiekowy istnieje, to stosuj takie zasady jak okreslono w Settingsach:
+  else begin
+    FParametry.CBOdgrywajChange(nil);
+  end;
+End;
+
 procedure TFOperacje.Naczytaj();
 Begin
   UkryjKlawisze();
   RebuildAll();
   LosujUmiescObrazek();
+
+    PokazUkryjBGraj_WavExistsDependent();
+
   Sprawdzacz.Resetuj();
   BPodp.Visible := FParametry.CBPodp.Checked;
 End;

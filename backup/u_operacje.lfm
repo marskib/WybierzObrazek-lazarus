@@ -2636,7 +2636,7 @@ object FOperacje: TFOperacje
   end
   object TimerBlokGraj: TTimer
     Enabled = False
-    Interval = 3000
+    Interval = 2800
     OnTimer = TimerBlokGrajTimer
     left = 336
     top = 48

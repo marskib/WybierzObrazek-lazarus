@@ -338,11 +338,6 @@ begin
     FParametry.CBNazwa.Checked :=True;
 end;
 
-//procedure TFParametry.CBOdgrywajChange(Sender: TObject);
-//begin
-  //FOperacje.SpeedBtnGraj.Visible := CBOdgrywaj.Checked; //nawet jak nie ma dzwieku, to co? Niech sie pokazuje...
-//end;
-//
 
 
 procedure TFParametry.CBPodpChange(Sender: TObject);

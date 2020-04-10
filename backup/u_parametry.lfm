@@ -1153,8 +1153,8 @@ object FParametry: TFParametry
     Left = 461
     Height = 13
     Top = 246
-    Width = 233
-    Caption = 'Ctrl Click - wybór obrazków do ćwiczenia'
+    Width = 288
+    Caption = 'Ctrl i Click myszką - wybór pojedynczych obrazków'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
     Font.Height = -10
