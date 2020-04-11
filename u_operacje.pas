@@ -114,7 +114,7 @@ var
 
 
 CONST
-    PELNA_WERSJA = FALSE;         //na etapie kompilacji okreslam czy pelna czy demo
+    PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
     JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
@@ -423,9 +423,9 @@ Begin
     PokazNazwePodObrazkiem(); //jak nie ma dzwieku, to niech przynajmniej wypisze nazwe/polecenie....
   end
   //jezeli plik dzwiekowy istnieje, to stosuj takie zasady jak okreslono w Settingsach:
-  //else begin
-  //  FParametry.CBOdgrywajChange(nil);
-  //end;
+  else begin
+    FParametry.CBOdgrywajChange(nil);
+  end;
 End;
 
 procedure TFOperacje.Naczytaj();
@@ -433,9 +433,6 @@ Begin
   UkryjKlawisze();
   RebuildAll();
   LosujUmiescObrazek();
-  //
-  //PokazUkryjBGrajOnWavExistsDependent();
-  //
   Sprawdzacz.Resetuj();
   BPodp.Visible := FParametry.CBPodp.Checked;
 End;

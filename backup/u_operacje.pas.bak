@@ -423,9 +423,9 @@ Begin
     PokazNazwePodObrazkiem(); //jak nie ma dzwieku, to niech przynajmniej wypisze nazwe/polecenie....
   end
   //jezeli plik dzwiekowy istnieje, to stosuj takie zasady jak okreslono w Settingsach:
-  //else begin
-  //  FParametry.CBOdgrywajChange(nil);
-  //end;
+  else begin
+    FParametry.CBOdgrywajChange(nil);
+  end;
 End;
 
 procedure TFOperacje.Naczytaj();
@@ -433,9 +433,6 @@ Begin
   UkryjKlawisze();
   RebuildAll();
   LosujUmiescObrazek();
-  //
-  //PokazUkryjBGrajOnWavExistsDependent();
-  //
   Sprawdzacz.Resetuj();
   BPodp.Visible := FParametry.CBPodp.Checked;
 End;
@@ -481,11 +478,11 @@ Begin
     tabOb[i].JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
     tabOb[i].WlaczHandlery();
   end;
+  Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
 
   if FParametry.CBOdgrywaj.Checked then
-    OdegrajPolecenie(2);
+    OdegrajPolecenie(1);
 
-  Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
   //Ponowne odgrywanie co 5 sek (if any):
   Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   if Fparametry.CBAutomat.Checked then
