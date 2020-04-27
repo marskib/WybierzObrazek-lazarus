@@ -675,6 +675,7 @@ var los : Integer;
     sl  : TStringList;
     plik: String;
     liczbaPlikow:Integer;
+    finalPath : string;
 Begin
   if JESTEM_W_105 then EXIT; //nie gram gdy jestem w pracy...
   if FParametry.RBNoAward.Checked then begin
@@ -689,7 +690,8 @@ Begin
     Exit;
   end;
   IF FParametry.RBPochwala.Checked then begin
-    sl := FindAllFiles(komciePath, '0*-*.wav', True); //taki wzorzec nazwy przyjalem dla plikow z nagroda - np. '03-dobrze-brawo.wav'
+    finalPath := komciePath+'pozytywy\';
+    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem dla plikow z nagroda - np. 'x03-dobrze-brawo.wav'
     Try
       liczbaPlikow:=sl.Count;
       los := 1+Random(liczbaPlikow);
@@ -709,13 +711,25 @@ End; (* Procedure *)
 procedure TFOperacje.GrajNagane(opoznienie:SmallInt);
 (* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
 var plik:string;
+    finalPath : string;
+    los : Integer;
+    sl  : TStringList;
+    liczbaPlikow:Integer;
 Begin
   if JESTEM_W_105 then Exit; //nie gram gdy jestem w pracy...
-  Case Random(2) of          //zakladam, ze na 'naganę' będą tylko 2 pliki
-    0 : plik:= komciePath+'nie-e2.wav';
-    1 : plik:= komciePath+'nie-e-probuj-dalej-2.wav';
-  End;
-  MPlayer.Play(plik,opoznienie);
+    finalPath := komciePath+'negatywy\';
+    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-proboj-dalej.wav'
+    Try
+      liczbaPlikow:=sl.Count;
+      los := 1+Random(liczbaPlikow);
+      try     //musi byc wewnetrzny try z pustym except, bo jak nie ma plikow w sl, to zgalaszany jest wyjatek, ktory przebija sie do usera...
+        plik:= sl.Strings[los-1]; // -1 bo indeksowanie jest od 0 zera
+        MPlayer.Play(plik,opoznienie);
+      except
+      end;
+    Finally
+      sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
+    End;
 End;
 
 procedure TFOperacje.GrajZle(opoznienie:SmallInt);

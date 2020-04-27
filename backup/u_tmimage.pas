@@ -5,7 +5,7 @@ unit u_tmimage;
 interface
 
 uses
-  Classes, SysUtils, ExtCtrls, FileCtrl, math, u_parametry,
+  Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, math, u_parametry,
   LCLIntf, LazFileUtils, Controls, Graphics, u_Lapka;
 
 const LSHAKES_CONST = 10; //ile razy ma lshakespotrzasnac niewlasciwym obrazkiem
@@ -57,6 +57,8 @@ type
       arrowShaft:TShape;  //do wygenerowania strzalki/'wskazu' pod obrazkiem, wskazujacej, ze obrazek powinien zostac wyprowadzony z OG
       zeWskazem: Boolean; //Czy po zakonczeniu Potrzasania do obrazka ma byc doklejony Wskaz
       mamWskaz : Boolean; //czy obrazek ma doklejony Wskaz pod spodem
+
+      private LPodpis : TLabel; //podpis pod obrazkiem, pokazywany na FOperacje
 
 
       function DajMaxymWymiarPoziomy(ileObrazkow:Integer):Integer;
@@ -172,7 +174,8 @@ begin
   inherited Paint();
   with TGraphicControlAccess(Self).Canvas do  begin
     Brush.Style := bsClear;
-    Pen.Color   := clRed;
+    //Pen.Color   := clRed;
+    Pen.Color   := clGray;
     Rectangle(ClientRect);
   end;
 end;
@@ -202,13 +205,16 @@ Begin
 
 
     //2020.01.14 - blokowanie wyjscia poza bande (ekran):
-    If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin  //lewo i prawa banda
+    //lewo i prawa banda:
+    If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin
       Left := Left - dx;
+      //zeby Lapka zobrazowala sie nie przesunieta (if any):
       if JestLapka then begin
         JestLapka:=false;
         JestLapka:=true;
       end;
     End;
+    //gorna i dolna banda:
     IF (Top<0) or ((Top+Height)>(FOperacje.Top+FOperacje.Height)) then begin
       Top := Top - dy;
       if JestLapka then begin
@@ -634,6 +640,19 @@ Begin
   //DOLOZENIE STRZALKI (na razie niewidzialnej) W DOL:
   Self.dodajWskazNaEtapieKonstruktora();
   {}
+// 2020-04-27  ****************************************
+  LPodpis:=TLabel.Create(nil) ;
+  LPodpis.Caption := plik;
+  Lpodpis.Left:=Self.Left;
+  LPodpis.Top:=Self.Top+Self.Height;
+
+    LPodpis.Parent :=FOperacje;
+
+    LPodpis.Visible:=True;
+
+
+
+//  ****************************************
   WlaczHandlery();
 End; (* WlasnyCreate_ze_Skalowaniem() *)
 
@@ -863,6 +882,11 @@ KONIEC: //tuz przed wyjsciem zapamietanie wyliczonych wyzej 'porządnych' poloze
   for i:=0 to TMojImage.liczbaOb-1 do begin
     tab[sek[i]-1].Xo := tab[sek[i]-1].Left;
     tab[sek[i]-1].Yo := tab[sek[i]-1].Top;
+
+    //ski ski ski
+    tab[sek[i]-1].LPodpis.Left := tab[sek[i]-1].Left;
+    tab[sek[i]-1].LPodpis.Top  := tab[sek[i]-1].Top;
+
   end;
 
 End; (* RozmiescObrazki_v2() *)

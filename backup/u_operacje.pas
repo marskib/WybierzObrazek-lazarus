@@ -79,7 +79,7 @@ uses
     procedure LosujUmiescObrazek();
     procedure RebuildAll();
     procedure OdegrajPolecenie(delay: Byte);
-    procedure PokazUkryjBGrajWavExistsDependent();
+    procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     { private declarations }
   public
@@ -114,7 +114,7 @@ var
 
 
 CONST
-    PELNA_WERSJA = FALSE;         //na etapie kompilacji okreslam czy pelna czy demo
+    PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
     JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
@@ -278,7 +278,7 @@ end;
 procedure TFOperacje.ParametryClick(Sender: TObject);
 (* Pokazanie formy FParametry *)
 begin
-  FParametry.Top := Top + 20;
+  FParametry.Top  := Top + 20;
   FParametry.Left := Left + 8;
   FParametry.ShowModal;
 end;
@@ -412,7 +412,7 @@ begin
 end;
 
 
-procedure TFOperacje.PokazUkryjBGrajWavExistsDependent();
+procedure TFOperacje.PokazUkryjBGrajOnWavExistsDependent();
 (* Blokuje BGraj jesli na dysku nie istnieje odpowiedni plik vaw *)
 (* Bierze rowniez po uwage stosowne ustawienia na FParametry.    *)
 var plikWava : string;
@@ -420,7 +420,7 @@ Begin
   plikWava := tabOb[idWylos].DajEwentualnyPlikWav();
   if not FileExists(SciezkaZasoby+plikWava) then begin
     SpeedBtnGraj.Enabled := False;
-    PokazNazwePodObrazkiem();
+    PokazNazwePodObrazkiem(); //jak nie ma dzwieku, to niech przynajmniej wypisze nazwe/polecenie....
   end
   //jezeli plik dzwiekowy istnieje, to stosuj takie zasady jak okreslono w Settingsach:
   else begin
@@ -433,9 +433,6 @@ Begin
   UkryjKlawisze();
   RebuildAll();
   LosujUmiescObrazek();
-
-    PokazUkryjBGrajWavExistsDependent();
-
   Sprawdzacz.Resetuj();
   BPodp.Visible := FParametry.CBPodp.Checked;
 End;
@@ -464,8 +461,6 @@ Begin
   TMojImage.RozmiescObrazki_v2(tabOb, sek);
   //Wylosowanie i pokazanie wylosowanego w OG (lekkie opoznienie - efekciarstwo ;)):
   TimerLosuj.Enabled := True;
-  //
-  PokazUkryjBGrajWavExistsDependent();
 End;
 
 procedure TFOperacje.BAgainClick(Sender: TObject);
@@ -484,14 +479,15 @@ Begin
     tabOb[i].WlaczHandlery();
   end;
   Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
+
+  if FParametry.CBOdgrywaj.Checked then
+    OdegrajPolecenie(1);
+
   //Ponowne odgrywanie co 5 sek (if any):
   Timer5sek.Enabled := Fparametry.CBAutomat.Checked;
   if Fparametry.CBAutomat.Checked then
     Timer5sekTimer(BAgain);  //parametr, zeby funkcja wywolywana wiedziala co z tym zrobic - lekko opozni granie
 End;
-
-
-
 
 
 procedure TFOperacje.SpeedBtnGrajClick(Sender: TObject);
@@ -663,6 +659,10 @@ Begin
     TimerNazwa.Enabled:=True
   else
     LNazwa.Visible:=False;
+  {}
+  //Wstawka, jesli nie ma pliku z dzwiekiem, blokujemy BGraj, pokazujemy napis:
+  PokazUkryjBGrajOnWavExistsDependent();
+  //
 End; (* Procedure *)
 
 
@@ -675,6 +675,7 @@ var los : Integer;
     sl  : TStringList;
     plik: String;
     liczbaPlikow:Integer;
+    finalPath : string;
 Begin
   if JESTEM_W_105 then EXIT; //nie gram gdy jestem w pracy...
   if FParametry.RBNoAward.Checked then begin
@@ -689,7 +690,8 @@ Begin
     Exit;
   end;
   IF FParametry.RBPochwala.Checked then begin
-    sl := FindAllFiles(komciePath, '0*-*.wav', True); //taki wzorzec nazwy przyjalem dla plikow z nagroda - np. '03-dobrze-brawo.wav'
+    finalPath := komciePath+'pozytywy\';
+    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem dla plikow z nagroda - np. 'x03-dobrze-brawo.wav'
     Try
       liczbaPlikow:=sl.Count;
       los := 1+Random(liczbaPlikow);
@@ -709,13 +711,42 @@ End; (* Procedure *)
 procedure TFOperacje.GrajNagane(opoznienie:SmallInt);
 (* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
 var plik:string;
+    finalPath : string;
+    los : Integer;
+    sl  : TStringList;
+    liczbaPlikow:Integer;
 Begin
   if JESTEM_W_105 then Exit; //nie gram gdy jestem w pracy...
+
+
+ // ***************************
+    finalPath := komciePath+'negatywy\';
+    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-proboj-dalej.wav'
+    Try
+      liczbaPlikow:=sl.Count;
+      los := 1+Random(liczbaPlikow);
+      try     //musi byc wewnetrzny try z pustym except, bo jak nie ma plikow w sl, to zgalaszany jest wyjatek, ktory przebija sie do usera...
+        plik:= sl.Strings[los-1]; // -1 bo indeksowanie jest od 0 zera
+        MPlayer.Play(plik,opoznienie);
+      except
+      end;
+    Finally
+      sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
+    End;
+    Exit;
+
+
+
+
+
+{
+  ***********************
   Case Random(2) of          //zakladam, ze na 'naganę' będą tylko 2 pliki
-    0 : plik:= komciePath+'nie-e2.wav';
-    1 : plik:= komciePath+'nie-e-probuj-dalej-2.wav';
+    0 : plik:= finalPath+'nie-e2.wav';
+    1 : plik:= finalPath+'nie-e-probuj-dalej-2.wav';
   End;
   MPlayer.Play(plik,opoznienie);
+}
 End;
 
 procedure TFOperacje.GrajZle(opoznienie:SmallInt);

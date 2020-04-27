@@ -12,7 +12,7 @@ object FOperacje: TFOperacje
   OnShow = FormShow
   Position = poDesktopCenter
   ShowHint = True
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.8.0'
   object SLinia: TShape
     Left = 60
     Height = 4

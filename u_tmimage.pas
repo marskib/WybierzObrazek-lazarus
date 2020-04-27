@@ -5,7 +5,7 @@ unit u_tmimage;
 interface
 
 uses
-  Classes, SysUtils, ExtCtrls, FileCtrl, math, u_parametry,
+  Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, math, u_parametry,
   LCLIntf, LazFileUtils, Controls, Graphics, u_Lapka;
 
 const LSHAKES_CONST = 10; //ile razy ma lshakespotrzasnac niewlasciwym obrazkiem
@@ -57,6 +57,8 @@ type
       arrowShaft:TShape;  //do wygenerowania strzalki/'wskazu' pod obrazkiem, wskazujacej, ze obrazek powinien zostac wyprowadzony z OG
       zeWskazem: Boolean; //Czy po zakonczeniu Potrzasania do obrazka ma byc doklejony Wskaz
       mamWskaz : Boolean; //czy obrazek ma doklejony Wskaz pod spodem
+
+      private LPodpis : TLabel; //podpis pod obrazkiem, pokazywany na FOperacje
 
 
       function DajMaxymWymiarPoziomy(ileObrazkow:Integer):Integer;
@@ -638,6 +640,15 @@ Begin
   //DOLOZENIE STRZALKI (na razie niewidzialnej) W DOL:
   Self.dodajWskazNaEtapieKonstruktora();
   {}
+/2020-04-27  ****************************************
+  LPodpis:=TLabel.Create(nil) ;
+  LPodpis.Caption := plik;
+
+    LPodpis.Parent :=FOperacje;
+
+    LPodpis.Visible:=True;
+
+//  ****************************************
   WlaczHandlery();
 End; (* WlasnyCreate_ze_Skalowaniem() *)
 
@@ -867,6 +878,11 @@ KONIEC: //tuz przed wyjsciem zapamietanie wyliczonych wyzej 'porządnych' poloze
   for i:=0 to TMojImage.liczbaOb-1 do begin
     tab[sek[i]-1].Xo := tab[sek[i]-1].Left;
     tab[sek[i]-1].Yo := tab[sek[i]-1].Top;
+
+    ski ski ski - pozycjonowanie podpisu; ale powinien byc przeciez "przyklejony" do obiektu..... jak to zapewnic?
+    tab[sek[i]-1].LPodpis.Left := tab[sek[i]-1].Left;
+    tab[sek[i]-1].LPodpis.Top  := tab[sek[i]-1].Top;
+
   end;
 
 End; (* RozmiescObrazki_v2() *)
