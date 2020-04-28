@@ -102,7 +102,8 @@ type
         procedure ZdejmijWskaz();
         procedure PotrzasnijBezWskazu();
         procedure PotrzasnijZeWskazem();
-        procedure WypozycjonujLPodpis(x,y:Integer); //zapewnia pozycje LPodpis pod obrazkiem
+        procedure WypozycjonujLPodpis(x,y:Integer);     //zapewnia pozycje LPodpis pod obrazkiem
+        procedure PokazUkryjLPodpis(czyPokazac:Boolean);
 
   End;  //TMojImage
 
@@ -257,7 +258,7 @@ With FOperacje do begin
   {}
   Timer5sek.Enabled := False;  //jezeli bylo automatyczne granie, to zatrzymujemy
   GrajDing(0);
-  GrajNagrode(1); //opoznienie ze wzgledu na Ding //MPlayer.Play(tadaPath,1);
+  DajNagrode(); //wewnatrz opoznienie ze wzgledu na Ding //MPlayer.Play(tadaPath,1);
   {}
   for i:=1 to TMojImage.liczbaOb do begin
     tabOb[i].inArea := False;
@@ -425,7 +426,7 @@ Begin
       Ramka.JestLapka         := False;
       //jesli proba dopasowania zlego obrazka do Ramki:
       if ObrazekJestWOkregu(Self, Ramka.JestLapka) then begin
-        GrajNagane(1);  //'nagana-zachęta' do dalszych prob
+        DajNagane();  //'nagana-zachęta' do dalszych prob
         //self.odsunOdRamki();
       end;
       EXIT;
@@ -833,7 +834,7 @@ Begin
   maxHeight_w1 := -1;
   for i:=0 to lo_w1-1 do if tab[sek[i]-1].Height>maxHeight_w1 then maxHeight_w1:=tab[sek[i]-1].Height;
   (**)
-  Top_w2 := Top_w1 + maxHeight_w1 + trunc(150/100*odSLinii);// dawniej wyliczany jako: imHeight div 5;
+  Top_w2 := Top_w1 + maxHeight_w1 + trunc(190/100*odSLinii);// dawniej wyliczany jako: imHeight div 5;
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w2 := 0;
   start_w2 := IleKolumnWWierszu(TMojImage.liczbaOb,1); //bo za chwile bedziemy przegladac/iterowac 2-gi wiersz:
@@ -860,7 +861,7 @@ Begin
   maxHeight_w2 := -1;
   for i:=start_w2 to start_w2+lo_w2 do if tab[sek[i]-1].Height>maxHeight_w2 then maxHeight_w2:=tab[sek[i]-1].Height;
   (**)
-  Top_w3 := Top_w2 + maxHeight_w2 + odSLinii;
+  Top_w3 := Top_w2 + maxHeight_w2 + trunc(190/100*odSLinii);
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w3 := 0;
   start_w3 := IleKolumnWWierszu(TMojImage.liczbaOb,1)+IleKolumnWWierszu(TMojImage.liczbaOb,2); //bo za chwile bedziemy przegladac/iterowac 3-cim wierszu:
@@ -897,6 +898,11 @@ procedure TMojImage.WypozycjonujLPodpis(x,y:Integer);
 Begin
   Self.LPodpis.Left := x;
   Self.LPodpis.Top  := y;
+End;
+
+procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
+Begin
+ LPodpis.Visible := czyPokazac;
 End;
 
 procedure TMojImage.Odjedz();
@@ -1021,8 +1027,9 @@ Begin
   LPodpis:=TLabel.Create(nil) ;
   LPodpis.Caption := ExtractFileNameOnly(plikNzw);
   LPodpis.Parent  := FOperacje;
-  LPodpis.Visible := True;
-  Lpodpis.Font.Size:=11;
+  LPodpis.Visible := False;
+  LPodpis.Font.Size:=11;
+  LPodpis.Font.Style:=[fsBold];
 End;
 
 

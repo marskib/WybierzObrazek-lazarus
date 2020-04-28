@@ -36,6 +36,7 @@ type
     BSelUp: TButton;
     BSelDown: TButton;
     CBAutomat: TCheckBox;
+    CBPictNames: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;
     CBShrink: TCheckBox;
@@ -59,6 +60,9 @@ type
     Label8: TLabel;
     LCount: TLabel;
     Panel1: TPanel;
+    RBNegYes: TRadioButton;
+    RBNegNo: TRadioButton;
+    RadioGroup1: TRadioGroup;
     RB2W: TRadioButton;
     RB1W: TRadioButton;
     RBPochwala: TRadioButton;
@@ -75,6 +79,7 @@ type
 
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
+    procedure CBPictNamesChange(Sender: TObject);
     //procedure CBOdgrywajChange(Sender: TObject);
     procedure CBPodpChange(Sender: TObject);
     procedure CBShrinkChange(Sender: TObject);
@@ -214,12 +219,14 @@ end;
 
 
 procedure TFParametry.BOKClick(Sender: TObject);
-var BylyZmiany : Boolean;
+var BylyZmiany : Boolean; //czy byly "powazne" zmiany
+
 Begin
   BylyZmiany := Zmieniono_Katalog  or Zmieniono_Poziom or Zmieniono_Shrink or
                 Zmieniono_Nazwa or Zmieniono_2_na_1_Wiersz or (Zbior<>Zbior_pop);
-  If not BylyZmiany then
-    Close //wtedy na FOperacje pozostaje dotychczasowy uklad
+  If not BylyZmiany then begin
+    Close; //wtedy na FOperacje pozostaje dotychczasowy uklad
+  end
   Else begin
     if Zbior=[] then begin
       MessageDlg('Nie wybrano żadnego obrazka.' + #13#10 +
@@ -253,6 +260,7 @@ Begin
     CBNazwa.Checked:=True;
     FOperacje.PokazNazwePodObrazkiem();
   end;
+
 
 End;  (* Procedure *)
 
@@ -337,6 +345,15 @@ begin
   if not FParametry.CBOdgrywaj.Checked then  //jak nie wolno powiedziec, to trzeba chociaz pokazac napis
     FParametry.CBNazwa.Checked :=True;
 end;
+
+procedure TFParametry.CBPictNamesChange(Sender: TObject);
+var i : SmallInt;
+Begin
+  With FOperacje do begin
+     for i:=1 to TMojImage.liczbaOb do
+       tabOb[i].PokazUkryjLPodpis(CBPictNames.Checked);
+  end;
+End;
 
 
 

@@ -90,8 +90,10 @@ uses
     liczbaObrWKatalogu : Integer;                 //Liczba obrazkow wczytanych z dysku do katalogu
     procedure PokazKlawisze();
     procedure UkryjKlawisze();
-    procedure GrajNagrode(opoznienie:SmallInt);
-    procedure GrajNagane(opoznienie:SmallInt);
+    procedure DajNagrode();
+    procedure DajNagane();
+    procedure GrajKomentarz(katalog:String; opoznienie:SmallInt);
+
     procedure GrajZle(opoznienie:SmallInt);
     procedure GrajDing(opoznienie:SmallInt);
     function  DajLosowaSekwencje():TtabSek;
@@ -565,11 +567,12 @@ Begin
   FOperacje.Top := 5; //zeby FOperacje byla w miare na gorze
   //Forma na wiekszosc ekranu :
   FOperacje.Width := Trunc(0.98*Screen.Width);
-  FOperacje.Height:= Trunc(0.95*Screen.Height); //bylo 93
+  FOperacje.Height:= Trunc(0.92*Screen.Height); //bylo 93
   FOperacje.Left  := (Screen.Width-Width) div 2;
 
   SLinia.Left := 0;
-  SLinia.Top  := 1*(FOperacje.Height div 2.2); //bylo div 2
+  //SLinia.Top  := 1*(FOperacje.Height div 2); //tak bylo do 2020-04-28
+  SLinia.Top  := trunc(43/100*FOperacje.Height);
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :
@@ -670,7 +673,7 @@ Begin
 End; (* Procedure *)
 
 
-procedure TFOperacje.GrajNagrode(opoznienie:SmallInt);
+procedure TFOperacje.DajNagrode();
 (* ************************************************************* *)
 (* Odegranie (losowej) nagrody z podkatalogu 'Zasoby/komentarze' *)
 (* Par. 'opoznienie' - ile opoznic granie (wielokrotnosc 750 ms) *)
@@ -686,43 +689,36 @@ Begin
     Exit;
   end;
   if FParametry.RBOkrzyk.Checked then begin
-    MPlayer.Play(tadaPath,opoznienie);
+    MPlayer.Play(tadaPath,1);
     Exit;
   end;
   if FParametry.RBOklaski.Checked then begin
-    MPlayer.Play(oklaskiPath,opoznienie);
+    MPlayer.Play(oklaskiPath,1);
     Exit;
   end;
   IF FParametry.RBPochwala.Checked then begin
-    finalPath := komciePath+'pozytywy\';
-    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem dla plikow z nagroda - np. 'x03-dobrze-brawo.wav'
-    Try
-      liczbaPlikow:=sl.Count;
-      los := 1+Random(liczbaPlikow);
-      try     //musi byc wewnetrzny try z p ustym except, bo jak nie ma plikow w sl, to zgalaszany jest wyjatek, ktory przebija sie do usera...
-        plik:= sl.Strings[los-1]; // -1 bo indeksowanie jest od 0 zera
-        MPlayer.Play(plik,opoznienie);
-      except
-      end;
-    Finally
-      sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
-    End;
-    Exit;
+    GrajKomentarz(komciePath+'pozytywy',1);
   End;  //IF
 End; (* Procedure *)
 
 
-procedure TFOperacje.GrajNagane(opoznienie:SmallInt);
+procedure TFOperacje.DajNagane();
 (* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
-var plik:string;
-    finalPath : string;
-    los : Integer;
-    sl  : TStringList;
-    liczbaPlikow:Integer;
+Begin
+  if FParametry.RBNegNo.Checked then Exit;
+  GrajKomentarz(komciePath+'negatywy',1);
+End;
+
+procedure TFOperacje.GrajKomentarz(katalog: String; opoznienie: SmallInt);
+(* Odegranie nagany/ badz nagrody = jednego z plikow w 'katalog' *)
+var
+  pli : String;
+  sl  : TStringList;
+  los : Integer;
+  liczbaPlikow:Integer;
 Begin
   if JESTEM_W_105 then Exit; //nie gram gdy jestem w pracy...
-    finalPath := komciePath+'negatywy\';
-    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-probuj-dalej.wav'
+    sl := FindAllFiles(katalog, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-probuj-dalej.wav'
     Try
       liczbaPlikow:=sl.Count;
       los := 1+Random(liczbaPlikow);

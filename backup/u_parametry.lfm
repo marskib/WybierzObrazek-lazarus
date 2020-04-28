@@ -857,7 +857,7 @@ object FParametry: TFParametry
   OnCreate = FormCreate
   OnShow = FormShow
   ShowHint = True
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.8.0'
   object FListBox1: TFileListBox
     Left = 461
     Height = 218
@@ -876,7 +876,7 @@ object FParametry: TFParametry
   object BOK: TButton
     Left = 26
     Height = 53
-    Top = 500
+    Top = 537
     Width = 240
     Caption = 'OK'
     Font.Color = clWindowText
@@ -901,9 +901,9 @@ object FParametry: TFParametry
   end
   object LKatalog: TLabel
     Left = 460
-    Height = 17
-    Top = 323
-    Width = 174
+    Height = 19
+    Top = 360
+    Width = 170
     Caption = 'Wczytaj obrazki z dysku :'
     Font.Height = -14
     Font.Style = [fsBold]
@@ -937,7 +937,7 @@ object FParametry: TFParametry
   object BDomyslne: TButton
     Left = 278
     Height = 53
-    Top = 500
+    Top = 537
     Width = 106
     Caption = 'Wartości domyśne'
     Font.Color = clWindowText
@@ -950,18 +950,18 @@ object FParametry: TFParametry
   object GroupBox5: TGroupBox
     Left = 94
     Height = 114
-    Top = 172
+    Top = 209
     Width = 122
     Caption = 'Nagroda'
-    ClientHeight = 96
+    ClientHeight = 94
     ClientWidth = 118
     ParentFont = False
     TabOrder = 3
     object RBOkrzyk: TRadioButton
       Left = 5
-      Height = 17
+      Height = 19
       Top = 5
-      Width = 96
+      Width = 106
       Caption = 'okrzyk ''tryumfu'''
       OnMouseUp = RBOkrzykMouseUp
       ParentFont = False
@@ -969,27 +969,27 @@ object FParametry: TFParametry
     end
     object RBOklaski: TRadioButton
       Left = 5
-      Height = 17
+      Height = 19
       Top = 25
-      Width = 51
+      Width = 56
       Caption = 'oklaski'
       ParentFont = False
       TabOrder = 0
     end
     object RBNoAward: TRadioButton
       Left = 4
-      Height = 17
+      Height = 19
       Top = 69
-      Width = 80
+      Width = 85
       Caption = 'bez nagrody'
       ParentFont = False
       TabOrder = 2
     end
     object RBPochwala: TRadioButton
       Left = 5
-      Height = 17
+      Height = 19
       Top = 46
-      Width = 66
+      Width = 71
       Caption = 'Pochwała'
       Checked = True
       ParentFont = False
@@ -1000,7 +1000,7 @@ object FParametry: TFParametry
   object ComboBoxKolor: TComboBox
     Left = 94
     Height = 21
-    Top = 463
+    Top = 500
     Width = 122
     DropDownCount = 10
     Font.CharSet = EASTEUROPE_CHARSET
@@ -1018,7 +1018,7 @@ object FParametry: TFParametry
   object Label7: TLabel
     Left = 94
     Height = 13
-    Top = 449
+    Top = 486
     Width = 54
     Caption = 'Kolor Tła'
     Font.Color = clWindowText
@@ -1153,8 +1153,8 @@ object FParametry: TFParametry
     Left = 461
     Height = 13
     Top = 246
-    Width = 288
-    Caption = 'Ctrl i Click myszką - wybór pojedynczych obrazków'
+    Width = 301
+    Caption = 'Ctrl i Click myszką - wybór poszczególnych obrazków'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
     Font.Height = -10
@@ -1169,8 +1169,8 @@ object FParametry: TFParametry
     Left = 97
     Height = 20
     Top = 101
-    Width = 190
-    Caption = 'Zezwalaj na podpowiedź'
+    Width = 270
+    Caption = 'Zezwalaj na klawisz podpowiedzi [?]'
     Checked = True
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
@@ -1187,18 +1187,18 @@ object FParametry: TFParametry
   object GroupBox6: TGroupBox
     Left = 94
     Height = 83
-    Top = 307
+    Top = 344
     Width = 169
     Caption = ' Jeśli 4 obrazki, to '
-    ClientHeight = 65
+    ClientHeight = 63
     ClientWidth = 165
     ParentFont = False
     TabOrder = 11
     object RB1W: TRadioButton
       Left = 6
-      Height = 17
+      Height = 19
       Top = 11
-      Width = 120
+      Width = 130
       Caption = 'rozmieść w 1 wierszu'
       OnMouseUp = RBOkrzykMouseUp
       ParentFont = False
@@ -1206,9 +1206,9 @@ object FParametry: TFParametry
     end
     object RB2W: TRadioButton
       Left = 6
-      Height = 17
+      Height = 19
       Top = 37
-      Width = 131
+      Width = 142
       Caption = 'rozmieść w 2 wierszach'
       Checked = True
       OnChange = RB2WChange
@@ -1220,7 +1220,7 @@ object FParametry: TFParametry
   object CBShrink: TCheckBox
     Left = 94
     Height = 20
-    Top = 418
+    Top = 455
     Width = 140
     Caption = 'Pomniejszaj obrazki'
     Font.Color = clWindowText
@@ -1246,7 +1246,7 @@ object FParametry: TFParametry
   object Panel1: TPanel
     Left = 460
     Height = 140
-    Top = 413
+    Top = 450
     Width = 380
     ClientHeight = 140
     ClientWidth = 380
@@ -1310,5 +1310,62 @@ object FParametry: TFParametry
       ParentColor = False
       ParentFont = False
     end
+  end
+  object RadioGroup1: TRadioGroup
+    Left = 232
+    Height = 84
+    Hint = 'czy komentować nieudaną próbę'
+    Top = 209
+    Width = 185
+    AutoFill = True
+    Caption = 'Komentarze negatywne'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 64
+    ClientWidth = 181
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabOrder = 15
+    object RBNegYes: TRadioButton
+      Left = 6
+      Height = 32
+      Top = 0
+      Width = 169
+      Caption = 'Tak'
+      Checked = True
+      TabOrder = 1
+      TabStop = True
+    end
+    object RBNegNo: TRadioButton
+      Left = 6
+      Height = 32
+      Top = 32
+      Width = 169
+      Caption = 'Nie'
+      TabOrder = 0
+    end
+  end
+  object CBPictNames: TCheckBox
+    Left = 97
+    Height = 20
+    Top = 169
+    Width = 191
+    Caption = 'Pokaż nazwy pod obrazkami'
+    Font.Color = clWindowText
+    Font.Height = -14
+    Font.Name = 'MS Sans Serif'
+    OnChange = CBPictNamesChange
+    ParentFont = False
+    TabOrder = 16
   end
 end
