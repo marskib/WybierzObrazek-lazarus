@@ -472,13 +472,17 @@ Begin
   BPodp.Visible := FParametry.CBPodp.Checked; //powinien pozostac
   Sprawdzacz.Resetuj();
   for i:=1 to TMojImage.liczbaOb do begin
-    tabOb[i].inArea := False;
-    tabOb[i].Left := tabOb[i].getXo();
-    tabOb[i].Top  := tabOb[i].getYo();
-    tabOb[i].JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
-    tabOb[i].WlaczHandlery();
+    With tabOb[i] do begin
+      inArea := False;
+      Left := tabOb[i].getXo();
+      Top  := tabOb[i].getYo();
+      WypozycjonujLPodpis(Left,Top+Height);
+      JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
+      WlaczHandlery();
+    end;
+
   end;
-  Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
+  Ramka.JestLapka := False;  //gaszę, gdyby byla Lapka
 
   if FParametry.CBOdgrywaj.Checked then
     OdegrajPolecenie(1);
@@ -561,11 +565,11 @@ Begin
   FOperacje.Top := 5; //zeby FOperacje byla w miare na gorze
   //Forma na wiekszosc ekranu :
   FOperacje.Width := Trunc(0.98*Screen.Width);
-  FOperacje.Height:= Trunc(0.93*Screen.Height);
+  FOperacje.Height:= Trunc(0.95*Screen.Height); //bylo 93
   FOperacje.Left  := (Screen.Width-Width) div 2;
 
   SLinia.Left := 0;
-  SLinia.Top  := 1*(FOperacje.Height div 2);
+  SLinia.Top  := 1*(FOperacje.Height div 2.2); //bylo div 2
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :
@@ -717,11 +721,8 @@ var plik:string;
     liczbaPlikow:Integer;
 Begin
   if JESTEM_W_105 then Exit; //nie gram gdy jestem w pracy...
-
-
- // ***************************
     finalPath := komciePath+'negatywy\';
-    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-proboj-dalej.wav'
+    sl := FindAllFiles(finalPath, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-probuj-dalej.wav'
     Try
       liczbaPlikow:=sl.Count;
       los := 1+Random(liczbaPlikow);
@@ -733,20 +734,6 @@ Begin
     Finally
       sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
     End;
-    Exit;
-
-
-
-
-
-{
-  ***********************
-  Case Random(2) of          //zakladam, ze na 'naganę' będą tylko 2 pliki
-    0 : plik:= finalPath+'nie-e2.wav';
-    1 : plik:= finalPath+'nie-e-probuj-dalej-2.wav';
-  End;
-  MPlayer.Play(plik,opoznienie);
-}
 End;
 
 procedure TFOperacje.GrajZle(opoznienie:SmallInt);

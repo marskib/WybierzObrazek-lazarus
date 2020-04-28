@@ -4,13 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="16">
+    <Units Count="18">
       <Unit0>
         <Filename Value="WybierzObrazek.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos Y="22"/>
-        <UsageCount Value="166"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="46" Y="22"/>
+        <UsageCount Value="178"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="u_operacje.pas"/>
@@ -18,11 +19,12 @@
         <ComponentName Value="FOperacje"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <CursorPos X="11" Y="36"/>
-        <UsageCount Value="166"/>
-        <Bookmarks Count="2">
-          <Item0 X="19" Y="692" ID="1"/>
-          <Item1 X="4" Y="733" ID="2"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="546"/>
+        <CursorPos X="43" Y="572"/>
+        <UsageCount Value="178"/>
+        <Bookmarks Count="1">
+          <Item0 X="4" Y="737" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -36,7 +38,7 @@
         <EditorIndex Value="8"/>
         <TopLine Value="39"/>
         <CursorPos X="136" Y="81"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
@@ -44,19 +46,23 @@
         <Filename Value="u_sprawdzacz.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="5"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="u_tmimage.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="616"/>
-        <CursorPos Y="651"/>
-        <UsageCount Value="166"/>
-        <Bookmarks Count="1">
-          <Item0 X="3" Y="641" ID="3"/>
+        <TopLine Value="823"/>
+        <CursorPos X="42" Y="850"/>
+        <UsageCount Value="178"/>
+        <Bookmarks Count="6">
+          <Item0 X="3" Y="652" ID="3"/>
+          <Item1 Y="1026" ID="4"/>
+          <Item2 X="3" Y="197" ID="5"/>
+          <Item3 X="24" Y="448" ID="6"/>
+          <Item4 Y="272" ID="7"/>
+          <Item5 X="55" Y="836" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit4>
@@ -65,7 +71,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos X="2" Y="31"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -74,7 +80,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="181"/>
         <CursorPos X="33" Y="201"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -85,7 +91,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="2"/>
         <CursorPos X="46" Y="88"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit7>
@@ -95,8 +101,8 @@
         <UnitName Value="u_Lapka"/>
         <EditorIndex Value="7"/>
         <TopLine Value="9"/>
-        <CursorPos X="82" Y="26"/>
-        <UsageCount Value="166"/>
+        <CursorPos X="16" Y="36"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -104,28 +110,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2061"/>
         <CursorPos Y="2072"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit9>
       <Unit10>
         <Filename Value="c:\Lazarus-2-0-4\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4218"/>
         <CursorPos Y="4229"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus-2-0-6\lcl\interfaces\win32\interfaces.pp"/>
         <UnitName Value="Interfaces"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="19"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\WybierzObrazek-lazarus — kopia (2)\u_parametry.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="607"/>
         <CursorPos X="5" Y="629"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit12>
       <Unit13>
         <Filename Value="C:\lazarus-2-0-6\lcl\graphics.pp"/>
@@ -133,7 +139,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="242"/>
         <CursorPos X="3" Y="268"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus-2-0-6\components\lazutils\lazfileutils.pas"/>
@@ -141,137 +147,151 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="274"/>
         <CursorPos Y="300"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\Lazarus-2-0-8\lcl\stdctrls.pp"/>
         <UnitName Value="StdCtrls"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1551"/>
         <CursorPos X="3" Y="1577"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="9"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="C:\lazarus-2-0-6\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1577"/>
+        <CursorPos X="20" Y="1603"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\lazarus-2-0-6\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1697"/>
+        <CursorPos X="14" Y="1721"/>
+        <UsageCount Value="10"/>
+      </Unit17>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="694" TopLine="674"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="105" Column="50" TopLine="80"/>
       </Position1>
       <Position2>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="695" TopLine="674"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="906" Column="3" TopLine="868"/>
       </Position2>
       <Position3>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="696" TopLine="674"/>
+        <Filename Value="u_tmimage.pas"/>
       </Position3>
       <Position4>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="697" TopLine="674"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="891" TopLine="869"/>
       </Position4>
       <Position5>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="698" TopLine="674"/>
+        <Caret Line="490" Column="2" TopLine="459"/>
       </Position5>
       <Position6>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="699" TopLine="674"/>
+        <Caret Line="484" Column="53" TopLine="458"/>
       </Position6>
       <Position7>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="87" Column="35" TopLine="62"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="485" Column="51" TopLine="458"/>
       </Position7>
       <Position8>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="641" Column="21" TopLine="608"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="479" Column="44" TopLine="459"/>
       </Position8>
       <Position9>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="81" Column="32" TopLine="57"/>
+        <Caret Line="891" TopLine="869"/>
       </Position9>
       <Position10>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="990" Column="55" TopLine="971"/>
+        <Caret Line="379" Column="71" TopLine="353"/>
       </Position10>
       <Position11>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="641" Column="3" TopLine="616"/>
+        <Caret Line="308" Column="72" TopLine="282"/>
       </Position11>
       <Position12>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="76" TopLine="26"/>
+        <Caret Line="448" Column="22" TopLine="419"/>
       </Position12>
       <Position13>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="644" Column="6" TopLine="616"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="486" TopLine="449"/>
       </Position13>
       <Position14>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="27" TopLine="27"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="80" Column="12" TopLine="77"/>
       </Position14>
       <Position15>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="650" Column="27" TopLine="616"/>
+        <Caret Line="300" Column="74" TopLine="282"/>
       </Position15>
       <Position16>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="708" Column="28" TopLine="697"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="272" TopLine="246"/>
       </Position16>
       <Position17>
-        <Filename Value="u_operacje.pas"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="274" Column="58" TopLine="246"/>
       </Position17>
       <Position18>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="36" Column="11"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="225" Column="87" TopLine="262"/>
       </Position18>
       <Position19>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="8" Column="32"/>
+        <Caret TopLine="61"/>
       </Position19>
       <Position20>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="649" Column="33" TopLine="617"/>
+        <Caret Line="76" Column="59" TopLine="68"/>
       </Position20>
       <Position21>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="24" Column="31"/>
+        <Caret Line="556" TopLine="618"/>
       </Position21>
       <Position22>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="886" Column="16" TopLine="847"/>
+        <Caret Line="82" Column="17" TopLine="58"/>
       </Position22>
       <Position23>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="641" Column="3" TopLine="616"/>
+        <Caret Line="1029" Column="49" TopLine="1015"/>
       </Position23>
       <Position24>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="61" Column="15" TopLine="36"/>
+        <Caret Line="688" TopLine="662"/>
       </Position24>
       <Position25>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="641" Column="3" TopLine="616"/>
       </Position25>
       <Position26>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="886" Column="4" TopLine="861"/>
+        <Caret Line="836" Column="44" TopLine="811"/>
       </Position26>
       <Position27>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="641" Column="23" TopLine="616"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="92" Column="33" TopLine="77"/>
       </Position27>
       <Position28>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="81" Column="38" TopLine="56"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="252" Column="11" TopLine="247"/>
       </Position28>
       <Position29>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="994" Column="3" TopLine="990"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="78" Column="15" TopLine="53"/>
       </Position29>
       <Position30>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="966" Column="130" TopLine="939"/>
+        <Filename Value="u_operacje.pas"/>
+        <Caret Line="572" Column="45" TopLine="560"/>
       </Position30>
     </JumpHistory>
     <RunParams>
