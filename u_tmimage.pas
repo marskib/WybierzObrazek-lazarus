@@ -652,7 +652,14 @@ Begin
   //DOLOZENIE STRZALKI (na razie niewidzialnej) W DOL:
   Self.dodajWskazNaEtapieKonstruktora();
   {}
-  Self.dodajPodpisNaEtapieKonstruktora(); //2020-04-28 - na sugestie A.Bathis
+  //2020-04-28 - na sugestie A.Bathis -patrz nizej:
+  //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, ostatni rzad
+  //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
+  if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
+    self.Height:=trunc(90/100*self.Height);
+    self.Width :=trunc(90/100*self.Width);
+  end;
+  Self.dodajPodpisNaEtapieKonstruktora();
   {}
   WlaczHandlery();
 End; (* WlasnyCreate_ze_Skalowaniem() *)
@@ -834,7 +841,7 @@ Begin
   maxHeight_w1 := -1;
   for i:=0 to lo_w1-1 do if tab[sek[i]-1].Height>maxHeight_w1 then maxHeight_w1:=tab[sek[i]-1].Height;
   (**)
-  Top_w2 := Top_w1 + maxHeight_w1 + trunc(190/100*odSLinii);// dawniej wyliczany jako: imHeight div 5;
+  Top_w2 := Top_w1 + maxHeight_w1 + trunc(150/100*odSLinii); //bylo 190/100
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w2 := 0;
   start_w2 := IleKolumnWWierszu(TMojImage.liczbaOb,1); //bo za chwile bedziemy przegladac/iterowac 2-gi wiersz:
@@ -861,7 +868,7 @@ Begin
   maxHeight_w2 := -1;
   for i:=start_w2 to start_w2+lo_w2 do if tab[sek[i]-1].Height>maxHeight_w2 then maxHeight_w2:=tab[sek[i]-1].Height;
   (**)
-  Top_w3 := Top_w2 + maxHeight_w2 + trunc(190/100*odSLinii);
+  Top_w3 := Top_w2 + maxHeight_w2 + trunc(150/100*odSLinii); //bylo 190/100
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w3 := 0;
   start_w3 := IleKolumnWWierszu(TMojImage.liczbaOb,1)+IleKolumnWWierszu(TMojImage.liczbaOb,2); //bo za chwile bedziemy przegladac/iterowac 3-cim wierszu:

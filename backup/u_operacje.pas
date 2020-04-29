@@ -564,15 +564,15 @@ procedure TFOperacje.UstawEkranStartowy;
 Begin
   FParametry.ComboBoxKolorChange(nil); //wymuszenie defaultowego (=czarnego) koloru FOperacje
   //
-  FOperacje.Top := 0; //zeby FOperacje byla w miare na gorze bylo
+  FOperacje.Top := 1; //zeby FOperacje byla w miare na gorze bylo
   //Forma na wiekszosc ekranu :
   FOperacje.Width := Trunc(0.98*Screen.Width);
-  FOperacje.Height:= Trunc(0.99*Screen.Height); //bylo 93 92
-  FOperacje.Left  := (Screen.Width-Width) div 2;
+  FOperacje.Height:= Trunc(0.93*Screen.Height); //bylo 93 92
+  FOperacje.Left  := (Screen.Width-Width) div 2 -2;
 
   SLinia.Left := 0;
   //SLinia.Top  := 1*(FOperacje.Height div 2); //tak bylo do 2020-04-28
-  SLinia.Top  := trunc(43/100*FOperacje.Height);
+  SLinia.Top  := trunc(50/100*FOperacje.Height);
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :

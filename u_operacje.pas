@@ -567,7 +567,7 @@ Begin
   FOperacje.Top := 1; //zeby FOperacje byla w miare na gorze bylo
   //Forma na wiekszosc ekranu :
   FOperacje.Width := Trunc(0.98*Screen.Width);
-  FOperacje.Height:= Trunc(0.99*Screen.Height); //bylo 93 92
+  FOperacje.Height:= Trunc(0.93*Screen.Height); //bylo 93 92
   FOperacje.Left  := (Screen.Width-Width) div 2 -2;
 
   SLinia.Left := 0;
