@@ -564,10 +564,10 @@ procedure TFOperacje.UstawEkranStartowy;
 Begin
   FParametry.ComboBoxKolorChange(nil); //wymuszenie defaultowego (=czarnego) koloru FOperacje
   //
-  FOperacje.Top := 5; //zeby FOperacje byla w miare na gorze
+  FOperacje.Top := 0; //zeby FOperacje byla w miare na gorze bylo
   //Forma na wiekszosc ekranu :
   FOperacje.Width := Trunc(0.98*Screen.Width);
-  FOperacje.Height:= Trunc(0.92*Screen.Height); //bylo 93
+  FOperacje.Height:= Trunc(0.99*Screen.Height); //bylo 93 92
   FOperacje.Left  := (Screen.Width-Width) div 2;
 
   SLinia.Left := 0;
@@ -712,7 +712,7 @@ End;
 procedure TFOperacje.GrajKomentarz(katalog: String; opoznienie: SmallInt);
 (* Odegranie nagany/ badz nagrody = jednego z plikow w 'katalog' *)
 var
-  pli : String;
+  plik: String;
   sl  : TStringList;
   los : Integer;
   liczbaPlikow:Integer;

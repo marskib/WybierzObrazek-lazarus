@@ -1,7 +1,7 @@
 object FOprogramie: TFOprogramie
-  Left = 369
+  Left = 296
   Height = 525
-  Top = 176
+  Top = 133
   Width = 648
   Caption = 'o programie...'
   ClientHeight = 525
@@ -64,9 +64,9 @@ object FOprogramie: TFOprogramie
   end
   object LWebLink1: TLabel
     Left = 263
-    Height = 20
+    Height = 18
     Top = 459
-    Width = 93
+    Width = 91
     Caption = 'AutyzmSoft.pl'
     Font.Color = clRed
     Font.Height = -15

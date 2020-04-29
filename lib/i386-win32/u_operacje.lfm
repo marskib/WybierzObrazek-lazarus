@@ -1,18 +1,18 @@
 object FOperacje: TFOperacje
-  Left = 334
+  Left = 204
   Height = 546
-  Top = 178
+  Top = 134
   Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'WybierzObrazek'
-  ClientHeight = 526
+  ClientHeight = 527
   ClientWidth = 812
   Menu = MainMenu1
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poDesktopCenter
   ShowHint = True
-  LCLVersion = '2.0.8.0'
+  LCLVersion = '2.0.6.0'
   object SLinia: TShape
     Left = 60
     Height = 4
@@ -2524,9 +2524,9 @@ object FOperacje: TFOperacje
     end
     object LRGrayness: TLabel
       Left = 186
-      Height = 15
+      Height = 13
       Top = 29
-      Width = 64
+      Width = 67
       Caption = 'LRGrayness'
       Font.Style = [fsBold]
       ParentColor = False
@@ -2582,9 +2582,9 @@ object FOperacje: TFOperacje
     end
     object LEGrayness: TLabel
       Left = 186
-      Height = 15
+      Height = 13
       Top = 29
-      Width = 62
+      Width = 65
       Caption = 'LEGrayness'
       Font.Style = [fsBold]
       ParentColor = False

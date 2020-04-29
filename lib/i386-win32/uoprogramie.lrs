@@ -1,8 +1,8 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TFOprogramie','FORMDATA',[
-  'TPF0'#12'TFOprogramie'#11'FOprogramie'#4'Left'#3'q'#1#6'Height'#3#13#2#3'Top'
-  +#3#176#0#5'Width'#3#136#2#7'Caption'#6#14'o programie...'#12'ClientHeight'#3
+  'TPF0'#12'TFOprogramie'#11'FOprogramie'#4'Left'#3'('#1#6'Height'#3#13#2#3'Top'
+  +#3#133#0#5'Width'#3#136#2#7'Caption'#6#14'o programie...'#12'ClientHeight'#3
   +#13#2#11'ClientWidth'#3#136#2#8'OnCreate'#7#10'FormCreate'#10'LCLVersion'#6#7
   +'2.0.6.0'#0#7'TButton'#7'Button1'#4'Left'#3#6#1#6'Height'#2#26#3'Top'#3#232#1
   +#5'Width'#2'b'#7'Caption'#6#7'Zamknij'#12'Font.CharSet'#7#18'EASTEUROPE_CHAR'
@@ -32,8 +32,8 @@ LazarusResources.Add('TFOprogramie','FORMDATA',[
   +#188'ytkownika.'#6#0#6'YAutor nie ponosi odpowiedzialno'#197#155'ci za narus'
   +'zenie przez U'#197#188'ytkownika praw os'#195#179'b trzecich.'#6#0#6#0#0#10
   +'ParentFont'#8#8'ReadOnly'#9#10'ScrollBars'#7#14'ssAutoVertical'#8'TabOrder'
-  +#2#1#0#0#6'TLabel'#9'LWebLink1'#4'Left'#3#7#1#6'Height'#2#20#3'Top'#3#203#1#5
-  +'Width'#2']'#7'Caption'#6#13'AutyzmSoft.pl'#10'Font.Color'#7#5'clRed'#11'Fon'
+  +#2#1#0#0#6'TLabel'#9'LWebLink1'#4'Left'#3#7#1#6'Height'#2#18#3'Top'#3#203#1#5
+  +'Width'#2'['#7'Caption'#6#13'AutyzmSoft.pl'#10'Font.Color'#7#5'clRed'#11'Fon'
   +'t.Height'#2#241#10'Font.Style'#11#11'fsUnderline'#0#11'ParentColor'#8#10'Pa'
   +'rentFont'#8#7'OnClick'#7#11'Image1Click'#12'OnMouseEnter'#7#19'LWebLink1Mou'
   +'seEnter'#12'OnMouseLeave'#7#19'LWebLink1MouseLeave'#0#0#6'TImage'#6'Image1'
