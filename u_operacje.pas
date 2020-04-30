@@ -478,7 +478,7 @@ Begin
       inArea := False;
       Left := tabOb[i].getXo();
       Top  := tabOb[i].getYo();
-      WypozycjonujLPodpis(Left,Top+Height);
+      WypozycjonujLPodpis();
       JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
       WlaczHandlery();
     end;

@@ -478,7 +478,7 @@ Begin
       inArea := False;
       Left := tabOb[i].getXo();
       Top  := tabOb[i].getYo();
-      WypozycjonujLPodpis(Left,Top+Height);
+      WypozycjonujLPodpis();//(Left,Top+Height);
       JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
       WlaczHandlery();
     end;
@@ -572,7 +572,7 @@ Begin
 
   SLinia.Left := 0;
   //SLinia.Top  := 1*(FOperacje.Height div 2); //tak bylo do 2020-04-28
-  SLinia.Top  := trunc(50/100*FOperacje.Height);
+  SLinia.Top  := trunc(43/100*FOperacje.Height);
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :

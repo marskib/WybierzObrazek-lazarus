@@ -102,7 +102,7 @@ type
         procedure ZdejmijWskaz();
         procedure PotrzasnijBezWskazu();
         procedure PotrzasnijZeWskazem();
-        procedure WypozycjonujLPodpis(x,y:Integer);     //zapewnia pozycje LPodpis pod obrazkiem
+        procedure WypozycjonujLPodpis();     //zapewnia pozycje LPodpis pod obrazkiem
         procedure PokazUkryjLPodpis(czyPokazac:Boolean);
 
   End;  //TMojImage
@@ -198,8 +198,9 @@ Begin
     Top:= Top  + dy;
 
     //"Przeciaganie"/pozycjonowanie podpisu pod obrazkiem:
-    LPodpis.Left := Left;
-    LPodpis.Top  := Top + Height;
+    //LPodpis.Left := Left;
+    //LPodpis.Top  := Top + Height;
+    WypozycjonujLPodpis();
     LPodpis.BringToFront(); //kosmetyka - zeby nie byl zaslaniany przez inne obrazki
 
     //ruch Lapka 'obrazkową':
@@ -268,7 +269,7 @@ With FOperacje do begin
       tabOb[i].Left := tabOb[i].getXo();
       tabOb[i].Top  := tabOb[i].getYo();
     end;
-    tabOb[i].WypozycjonujLPodpis(tabOb[i].Left,tabOb[i].Top+TabOb[i].Height);
+    tabOb[i].WypozycjonujLPodpis();
   end;
   //
   Sprawdzacz.Resetuj();
@@ -584,13 +585,6 @@ Begin
 
   //Ladowanie pojedynczego obrazka:
   //w niewidzialnej kontrolce ustawiam sie na tym pliku
-  {ski 2018.01.02 - stare rozwiazanie, OK:
-  plik := FParametry.FileListBox1.Items[FliczbaOb-1];
-  try  //bo wiem z doswiadczenia, ze czasami nie chcialo pokazywac na Win7 (profMarcin)
-    Self.Picture.LoadFromFile(SciezkaZasoby + plik);     //pokazuje plik, na ktorym sie ustawilem
-  except
-  end;
-  }
   plik := Zrodlo.Items[Index];
   try  //bo wiem z doswiadczenia, ze czasami nie chcialo pokazywac na Win7 (profMarcin)
     Self.Picture.LoadFromFile(SciezkaZasoby + plik);     //pokazuje plik, na ktorym sie ustawilem
@@ -800,7 +794,6 @@ class procedure TMojImage.RozmiescObrazki_v2(tab: array of TMojImage; Sek:array 
 (* Uwaga: obrazki sa juz zwymiarowane (WidthxHeight) przez Constructor    *)
 (* Parametr Sek[] - sekwencja w jakiej maja byc wyswietlane obrazki z     *)
 (* tablicy tab[]; sekwencja najczesciej ustalana losowo                   *)
-(* 2020.04.28 - doklejka - pozycjonowanie podpisu pod obrazkiem.          *)
 (* ************************************************************************)
 var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2]
     sumSzer_w1, sumSzer_w2, Sumszer_w3,     //sumaryczba szerokosc obrazkow w danym wierszu
@@ -893,18 +886,22 @@ KONIEC: //tuz przed wyjsciem zapamietanie wyliczonych wyzej 'porządnych' poloze
       Xo := Left;
       Yo := Top;
       //I dodatkowo pozycjonowanie podpisu pod obrazkiem:
-      WypozycjonujLPodpis(Xo,Yo+Height);
+      WypozycjonujLPodpis();
     end;
   end;
 
 End; (* RozmiescObrazki_v2() *)
 
 
-procedure TMojImage.WypozycjonujLPodpis(x,y:Integer);
-(* Lpodpis ma sie znalez pod obrazkiem, wyrownany do lewej *)
+procedure TMojImage.WypozycjonujLPodpis();
+(* LPodpis ma sie znalez pod obrazkiem, wyrownany(?) do lewej *)
 Begin
-  Self.LPodpis.Left := x;
-  Self.LPodpis.Top  := y;
+  Self.LPodpis.Top  := Self.Top+Self.Height;
+   {Wyrownany do lewej krawedzi obrazka:
+   Self.LPodpis.Left := Self.Left;
+   }
+   //Wycentrowany pod obrazkiem:
+   LPodpis.Left:=Self.Left+ ((Self.Width-LPodpis.Width) div 2);
 End;
 
 procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
