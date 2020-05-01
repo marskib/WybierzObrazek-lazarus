@@ -478,7 +478,7 @@ Begin
       inArea := False;
       Left := tabOb[i].getXo();
       Top  := tabOb[i].getYo();
-      WypozycjonujLPodpis();//(Left,Top+Height);
+      WypozycjonujLPodpis();
       JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
       WlaczHandlery();
     end;
@@ -643,6 +643,17 @@ Begin
   Ramka.UstalWidthHeight(tabOb[nrWylos]);  //wielkosc Ramki ustalamy na pdst. obrazka, ktory ma do niej trafic
   SpeedBtnGraj.Top   := Ramka.Top;
   SpeedBtnGraj.Height:= Ramka.Height;
+
+  //2020-01-05 ski ski:
+  //Jezeli nie pomniejszam obrazkow, i tylko 1 rzad, to zdarza sie, ze SpedBtnGraj
+  //i RAmka przekraczaja SLinie - wtedy podciagam SPeedbTnGraj (nie roszam Rami, bo to zaburzyloby proporce/komplikacja):
+  if SpeedBtnGraj.Top+SpeedBtnGraj.Height>SLinia.Top then begin
+    SpeedBtnGraj.Top := 0;//SpeedBtnGraj.Top+SpeedBtnGraj.Height>SLinia.Top
+    Ramka.Top:=0;
+  end;
+
+
+
   odstep := 1*(SpeedBtnGraj.Width div 2);
   x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
   SpeedBtnGraj.Left := x;

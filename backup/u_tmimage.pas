@@ -200,8 +200,8 @@ Begin
     //"Przeciaganie"/pozycjonowanie podpisu pod obrazkiem:
     //LPodpis.Left := Left;
     //LPodpis.Top  := Top + Height;
-    //WypozycjonujLPodpis();
-    //LPodpis.BringToFront(); //kosmetyka - zeby nie byl zaslaniany przez inne obrazki
+    WypozycjonujLPodpis();
+    LPodpis.BringToFront(); //kosmetyka - zeby nie byl zaslaniany przez inne obrazki
 
     //ruch Lapka 'obrazkową':
     if JestLapka then begin
@@ -897,11 +897,12 @@ procedure TMojImage.WypozycjonujLPodpis();
 (* LPodpis ma sie znalez pod obrazkiem, wyrownany(?) do lewej *)
 Begin
   Self.LPodpis.Top  := Self.Top+Self.Height;
-   {Wyrownany do lewej krawedzi obrazka:
-   Self.LPodpis.Left := Self.Left;
-   }
-   //Wycentrowany pod obrazkiem:
+  //Wyrownany do lewej krawedzi obrazka:
+  Self.LPodpis.Left := Self.Left;
+   {
+   //Wycentrowany centralnie obrazkiem:
    LPodpis.Left:=Self.Left+ ((Self.Width-LPodpis.Width) div 2);
+   }
 End;
 
 procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);

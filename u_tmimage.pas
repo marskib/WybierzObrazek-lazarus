@@ -647,11 +647,11 @@ Begin
   Self.dodajWskazNaEtapieKonstruktora();
   {}
   //2020-04-28 - na sugestie A.Bathis -patrz nizej:
-  //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, ostatni rzad
+  //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, zeby ostatni rzad
   //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
   if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
-    self.Height:=trunc(90/100*self.Height);
-    self.Width :=trunc(90/100*self.Width);
+    self.Height:=trunc(95/100*self.Height);
+    self.Width :=trunc(95/100*self.Width);
   end;
   Self.dodajPodpisNaEtapieKonstruktora();
   {}
@@ -897,11 +897,12 @@ procedure TMojImage.WypozycjonujLPodpis();
 (* LPodpis ma sie znalez pod obrazkiem, wyrownany(?) do lewej *)
 Begin
   Self.LPodpis.Top  := Self.Top+Self.Height;
-   {Wyrownany do lewej krawedzi obrazka:
-   Self.LPodpis.Left := Self.Left;
-   }
-   //Wycentrowany pod obrazkiem:
+  //Wyrownany do lewej krawedzi obrazka:
+  Self.LPodpis.Left := Self.Left;
+   {
+   //Wycentrowany centralnie obrazkiem:
    LPodpis.Left:=Self.Left+ ((Self.Width-LPodpis.Width) div 2);
+   }
 End;
 
 procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
