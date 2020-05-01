@@ -795,7 +795,7 @@ class procedure TMojImage.RozmiescObrazki_v2(tab: array of TMojImage; Sek:array 
 (* Parametr Sek[] - sekwencja w jakiej maja byc wyswietlane obrazki z     *)
 (* tablicy tab[]; sekwencja najczesciej ustalana losowo                   *)
 (* ************************************************************************)
-var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2]
+var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2,3]
     sumSzer_w1, sumSzer_w2, Sumszer_w3,     //sumaryczba szerokosc obrazkow w danym wierszu
     freeSpace_w1,freeSpace_w2,freeSpace_w3, //przestrzen nie zajeta przez obrazki, wiersz{1,2]
     odstep_w1, odstep_w2, odstep_w3,        //odstep_miedzy obrazkami w wierszu{1,2]

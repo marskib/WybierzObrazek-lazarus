@@ -37,6 +37,7 @@ uses
     LEGrayness: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
+    LiniaTMP: TShape;
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;
@@ -81,7 +82,7 @@ uses
     procedure OdegrajPolecenie(delay: Byte);
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
-    { private declarations }
+    procedure KorygujSlinieJesliPrzekroczona();
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
@@ -430,6 +431,8 @@ Begin
   end;
 End;
 
+
+
 procedure TFOperacje.Naczytaj();
 Begin
   UkryjKlawisze();
@@ -611,8 +614,6 @@ procedure TFOperacje.LosujUmiescObrazek();
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
-    wystaje : boolean; //czy COS wystaje poza SLinie
-
 Begin
   {Losowanie obrazka ze zmiejszeniemm p-stwa wylosowania tego samego:}
   los := 1+ Random(TMojImage.liczbaOb);  //+1 bo Random(x) generuje w przedziale  0=< liczba <x
@@ -656,32 +657,9 @@ Begin
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
-
-
-
-  wystaje :=(Ramka.Top+Ramka.Height >= SLinia.Top) or (LNazwa.IsVisible and (LNazwa.Top+LNazwa.Height>=SLinia.Top));
-  if wystaje then begin
-    SLinia.Visible := False;
-    SpeedBtnGraj.Height:=trunc(66/100*SpeedBtnGraj.Height);
-  end
-  else begin
-    SLinia.Visible := True;
-    SpeedBtnGraj.Height:=Ramka.Height;
-  end;
-
-{
-  //Gdyby wielkie obrazki, to wielka są rowniez Ramka i SpeedBtnGraj, ktore moga wchodzic na i poza SLinie.
-  //Wtedy chowam SLinie; skracam tez SpeedBtnGraj, bo jesli jest polecenie w formie pisemnej, to zeby (ewentualna) LNazwa nie wystawala poza SLinie:
-  if (Ramka.Top+Ramka.Height >= SLinia.Top) then begin
-    SLinia.Visible := False;
-    SpeedBtnGraj.Height:=trunc(66/100*SpeedBtnGraj.Height);
-  end
-  else begin
-    SLinia.Visible := True;
-    SpeedBtnGraj.Height:=Ramka.Height;
-  end;
- }
-
+  {}
+  KorygujSlinieJesliPrzekroczona();
+  {}
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
     if FParametry.CBOdgrywaj.Checked then begin
@@ -700,6 +678,67 @@ Begin
   //
 End; (* Procedure *)
 
+
+procedure TFOperacje.KorygujSlinieJesliPrzekroczona();
+(*                                                                                                         *)
+(* Gdyby wielkie obrazki, to wielka są rowniez Ramka i SpeedBtnGraj, ktore moga wchodzic na i poza SLinie. *)
+(*
+                                                                                                           *)
+var
+ wystaje : boolean; //czy COS wystaje poza SLinie
+ i : SmallInt;    //roboczy na indeks
+ Dx: Integer;     //o ile (ewentualnie) Ramka wystaje ponizej SLinii (gdy b. duzy obrazek w Ramce)
+Begin
+
+    Dx :=  Ramka.Top+Ramka.Height  -  SLinia.Top;
+    wystaje :=  Dx>0; //(Ramka.Top+Ramka.Height >= SLinia.Top);// or (LNazwa.IsVisible and (LNazwa.Top+LNazwa.Height>=SLinia.Top));
+    {
+    if wystaje then begin
+      SLinia.Visible := False;
+      SpeedBtnGraj.Height:=trunc(75/100*SpeedBtnGraj.Height);
+    end
+    else begin
+      SLinia.Visible := True;
+      SpeedBtnGraj.Height:=Ramka.Height;
+    end;
+    }
+
+
+    LiniaTMP.Visible:=False;
+    SLinia.Visible:=True;
+    if wystaje then begin
+      SLinia.Visible:=False;
+
+      LiniaTMP.Left:=SLinia.Left;
+      LiniaTMP.Width:=SLinia.Width;
+
+      LiniaTMP.Top:=SLinia.Top+Dx;
+
+
+      LiniaTMP.Visible:=True;
+      LiniaTMP.SendToBack();
+      for i:=1 to TMojImage.liczbaOb do begin
+        tabOb[i].Top:=tabOb[i].Top+Dx;
+        tabOb[i].WypozycjonujLPodpis();
+      end;
+    end;
+
+
+      {
+    //Gdyby wielkie obrazki, to wielka są rowniez Ramka i SpeedBtnGraj, ktore moga wchodzic na i poza SLinie.
+    //Wtedy chowam SLinie; skracam tez SpeedBtnGraj, bo jesli jest polecenie w formie pisemnej, to zeby (ewentualna) LNazwa nie wystawala poza SLinie:
+    if (Ramka.Top+Ramka.Height >= SLinia.Top) then begin
+      SLinia.Visible := False;
+      SpeedBtnGraj.Height:=trunc(66/100*SpeedBtnGraj.Height);
+    end
+    else begin
+      SLinia.Visible := True;
+      SpeedBtnGraj.Height:=Ramka.Height;
+    end;
+   }
+
+
+End;
 
 procedure TFOperacje.DajNagrode();
 (* ************************************************************* *)

@@ -647,11 +647,11 @@ Begin
   Self.dodajWskazNaEtapieKonstruktora();
   {}
   //2020-04-28 - na sugestie A.Bathis -patrz nizej:
-  //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, ostatni rzad
+  //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, zeby ostatni rzad
   //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
   if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
-    self.Height:=trunc(90/100*self.Height);
-    self.Width :=trunc(90/100*self.Width);
+    self.Height:=trunc(95/100*self.Height);
+    self.Width :=trunc(95/100*self.Width);
   end;
   Self.dodajPodpisNaEtapieKonstruktora();
   {}
