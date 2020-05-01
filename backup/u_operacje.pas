@@ -605,12 +605,13 @@ procedure TFOperacje.LosujUmiescObrazek();
 (* ************************************************************************************ *)
 (* Wylosowanie                obrazka do zgadywania.                                    *)
 (* Umieszczenie ramki na wylosowany obrazek                                             *)
-(* Sposrod obrazkow NA DOLE EKRANU losuje jeden. (NIE LOSUJEMY Z KATALOGU!!!)           *)
+(* Sposrod obrazkow NA DOLE EKRANU losuję jeden. (NIE LOSUJEMY Z KATALOGU!!!)           *)
 (* Ewentualne odegranie pliku z nazwa obrazka.                                          *)
 (* ************************************************************************************ *)
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
+    wystaje : boolean; //czy COS wystaje poza SLinie
 
 Begin
   {Losowanie obrazka ze zmiejszeniemm p-stwa wylosowania tego samego:}
@@ -652,18 +653,34 @@ Begin
   Ramka.Visible := True;
   SpeedBtnGraj.Visible := True;
 
-  //2020-01-05 ski ski:
-  //Jezeli nie pomniejszam obrazkow, i tylko 1 rzad, to zdarza sie, ze SpedBtnGraj
-  //i RAmka przekraczaja SLinie - wtedy podciagam SPeedbTnGraj (nie roszam Rami, bo to zaburzyloby proporce/komplikacja):
-  if SpeedBtnGraj.Top+SpeedBtnGraj.Height>SLinia.Top then begin
-    SpeedBtnGraj.Top := 0;//SpeedBtnGraj.Top+SpeedBtnGraj.Height>SLinia.Top
-    Ramka.Top:=0;
-  end;
-
-
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
+
+
+
+  wystaje :=(Ramka.Top+Ramka.Height >= SLinia.Top) or (LNazwa.IsVisible and (LNazwa.Top+LNazwa.Height>=SLinia.Top));
+  if wystaje then begin
+    SLinia.Visible := False;
+    SpeedBtnGraj.Height:=trunc(66/100*SpeedBtnGraj.Height);
+  end
+  else begin
+    SLinia.Visible := True;
+    SpeedBtnGraj.Height:=Ramka.Height;
+  end;
+
+{
+  //Gdyby wielkie obrazki, to wielka są rowniez Ramka i SpeedBtnGraj, ktore moga wchodzic na i poza SLinie.
+  //Wtedy chowam SLinie; skracam tez SpeedBtnGraj, bo jesli jest polecenie w formie pisemnej, to zeby (ewentualna) LNazwa nie wystawala poza SLinie:
+  if (Ramka.Top+Ramka.Height >= SLinia.Top) then begin
+    SLinia.Visible := False;
+    SpeedBtnGraj.Height:=trunc(66/100*SpeedBtnGraj.Height);
+  end
+  else begin
+    SLinia.Visible := True;
+    SpeedBtnGraj.Height:=Ramka.Height;
+  end;
+ }
 
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
@@ -689,13 +706,8 @@ procedure TFOperacje.DajNagrode();
 (* Odegranie (losowej) nagrody z podkatalogu 'Zasoby/komentarze' *)
 (* Par. 'opoznienie' - ile opoznic granie (wielokrotnosc 750 ms) *)
 (* ************************************************************* *)
-var los : Integer;
-    sl  : TStringList;
-    plik: String;
-    liczbaPlikow:Integer;
-    finalPath : string;
+
 Begin
-  if JESTEM_W_105 then EXIT; //nie gram gdy jestem w pracy...
   if FParametry.RBNoAward.Checked then begin
     Exit;
   end;
