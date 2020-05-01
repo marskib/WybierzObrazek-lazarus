@@ -652,15 +652,6 @@ Begin
   Ramka.Visible := True;
   SpeedBtnGraj.Visible := True;
 
-  //2020-01-05 ski ski:
-  //Jezeli nie pomniejszam obrazkow, i tylko 1 rzad, to zdarza sie, ze SpedBtnGraj
-  //i RAmka przekraczaja SLinie - wtedy podciagam SPeedbTnGraj (nie roszam Rami, bo to zaburzyloby proporce/komplikacja):
-  if SpeedBtnGraj.Top+SpeedBtnGraj.Height>SLinia.Top then begin
-    SpeedBtnGraj.Top := 0;//SpeedBtnGraj.Top+SpeedBtnGraj.Height>SLinia.Top
-    Ramka.Top:=0;
-  end;
-
-
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
@@ -689,13 +680,8 @@ procedure TFOperacje.DajNagrode();
 (* Odegranie (losowej) nagrody z podkatalogu 'Zasoby/komentarze' *)
 (* Par. 'opoznienie' - ile opoznic granie (wielokrotnosc 750 ms) *)
 (* ************************************************************* *)
-var los : Integer;
-    sl  : TStringList;
-    plik: String;
-    liczbaPlikow:Integer;
-    finalPath : string;
+
 Begin
-  if JESTEM_W_105 then EXIT; //nie gram gdy jestem w pracy...
   if FParametry.RBNoAward.Checked then begin
     Exit;
   end;

@@ -644,6 +644,14 @@ Begin
   SpeedBtnGraj.Top   := Ramka.Top;
   SpeedBtnGraj.Height:= Ramka.Height;
 
+  odstep := 1*(SpeedBtnGraj.Width div 2);
+  x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
+  SpeedBtnGraj.Left := x;
+  y :=  TImWzorzec.Top;
+  Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
+  Ramka.Visible := True;
+  SpeedBtnGraj.Visible := True;
+
   //2020-01-05 ski ski:
   //Jezeli nie pomniejszam obrazkow, i tylko 1 rzad, to zdarza sie, ze SpedBtnGraj
   //i RAmka przekraczaja SLinie - wtedy podciagam SPeedbTnGraj (nie roszam Rami, bo to zaburzyloby proporce/komplikacja):
@@ -653,14 +661,6 @@ Begin
   end;
 
 
-
-  odstep := 1*(SpeedBtnGraj.Width div 2);
-  x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
-  SpeedBtnGraj.Left := x;
-  y :=  TImWzorzec.Top;
-  Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
-  Ramka.Visible := True;
-  SpeedBtnGraj.Visible := True;
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
