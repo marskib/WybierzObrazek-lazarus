@@ -772,6 +772,30 @@ Begin
 End; (* Function *)
 
 
+procedure DostosujSlinieDoJednegoWiersza();
+(* *********************************************************************************** *)
+(* Wywolywana w sytuacji, gdy jest tylko 1 wiersz i NIE pomniejszone obrazki.          *)
+(* Wtedy (duza) Ramka i SpeedBtnGraj moglyby przekroczyc SLinie, wiec Slinie obnizamy. *)
+(* *********************************************************************************** *)
+var Dx : Integer;
+    maxHeight : Integer;
+    i : SmallInt;
+Begin
+  if FParametry.CBShrink.Checked then Exit; //obrazki sa pomniejszane, wiec nie ma co kombinowac...
+  {}
+  //Jaka jest wysokosc najwyzszego obrazka w wierszu 1-szym (do tej wart. dostosujemy obnizenie SLinii):
+  maxHeight := -1;
+  With FOperacje do begin //dla uproszczenia zapisu
+    for i:=1 to TMojImage.liczbaOb do
+     if FOperacje.tabOb[i].Height>maxHeight then maxHeight:=FOperacje.tabOb[i].Height;
+    //(ewentualnie) obnizamy SLinie:
+    Dx := Ramka.Top+maxHeight - FOperacje.SLinia.Top; //uwaga nie bierzemy Ramka.Height, bo obiektu Ramka jeszcz nie ma lub jest, ale z poprzedniego rozdania
+    if Dx >= 0 then begin
+      if Dx<34 then Dx:=Dx+20; //kosmetyka nieznaczaca; doswiadczalnie; zeby Ramka nie byla zbyt bliski SLinii
+      FOperacje.SLinia.Top := FOperacje.Slinia.Top + Dx;
+    end;
+  end;
+End;
 
 class procedure TMojImage.RozmiescObrazki_v2(tab: array of TMojImage; Sek:array of SmallInt) ;
 (* ************************************************************************)
@@ -795,7 +819,7 @@ class procedure TMojImage.RozmiescObrazki_v2(tab: array of TMojImage; Sek:array 
 (* Parametr Sek[] - sekwencja w jakiej maja byc wyswietlane obrazki z     *)
 (* tablicy tab[]; sekwencja najczesciej ustalana losowo                   *)
 (* ************************************************************************)
-var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2]
+var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2,3]
     sumSzer_w1, sumSzer_w2, Sumszer_w3,     //sumaryczba szerokosc obrazkow w danym wierszu
     freeSpace_w1,freeSpace_w2,freeSpace_w3, //przestrzen nie zajeta przez obrazki, wiersz{1,2]
     odstep_w1, odstep_w2, odstep_w3,        //odstep_miedzy obrazkami w wierszu{1,2]
@@ -804,12 +828,18 @@ var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2]
     lo_w1, lo_w2, lo_w3 : SmallInt;    //liczba obrazkow w wierszu 1-szym, 2-gim, 3-cim
     start_w2, start_w3  : SmallInt;    //od jakiego INDEKSU(!) tablicy tab zaczyna sie wierz 2-gi, od jakiego 3-ci
     i : SmallInt;
+
 label KONIEC;
 const odSLinii = 20; //odstep gormego rzedu od SLinii
 Begin
+  FOperacje.SLinia.Top := FOperacje.SLiniaTop_original; //przywracam, jesli zmieniona przez poprzedmie wywolanie ww. procedury
+  {}
+  //Gdyby mial byc tylko jeden wiersz, to obnizam SLinie, bo przy duzym obrazku Ramka moze na nią zachodzic
+  if IleWierszy(TMojImage.liczbaOb)=1 then DostosujSlinieDoJednegoWiersza();
+  {}
   {1-szy wiersz z obrazkami, charakterystyka:}
   Top_w1 := FOperacje.SLinia.Top + odSLinii;  //dawniej wyliczany jako: imHeight div 10;
-  if IleWierszy(TMojImage.liczbaOb)=1 then Top_w1:=Top_w1+odSLinii; //kosmetyka
+  if IleWierszy(TMojImage.liczbaOb)=1 then Top_w1:=Top_w1 -(odSLinii div 3); //kosmetyka, zeby bylo widac Podpisy pod Wielkimi obrazkami
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w1 := 0;
   lo_w1 := IleKolumnWWierszu(TMojImage.liczbaOb,1);
@@ -1100,5 +1130,6 @@ End;
 
 
 Begin
+
 End.
 

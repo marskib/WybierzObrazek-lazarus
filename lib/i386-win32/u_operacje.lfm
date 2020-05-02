@@ -2591,15 +2591,6 @@ object FOperacje: TFOperacje
       ParentFont = False
     end
   end
-  object LiniaTMP: TShape
-    Left = 88
-    Height = 4
-    Top = 341
-    Width = 663
-    Brush.Color = clMaroon
-    Pen.Color = clGradientActiveCaption
-    Visible = False
-  end
   object MainMenu1: TMainMenu
     left = 752
     top = 8

@@ -29,7 +29,7 @@ TYPE
      constructor Create();
      procedure Resetuj();                       //Po 'succesfull'nym' pytaniu resetujemy obiekt (glownie IlewObsz := 0)
      procedure Sprawdz(var Obrazek:TMojImage);  //Sprawdzenie Obrazka z parametrow
-     private ld : integer;   //polozenie lini dolnej' dzielącej ekran
+     private ld : integer;   //polozenie lini dolnej' dzielącej ekran  (Slinia)
   end;
 
 
@@ -51,6 +51,9 @@ End;
 procedure TSprawdzacz.Resetuj;
 (* Przed kazdym nowym cwiczeniem ustawiamy Sprawdzacz na nowo *)
 Begin
+
+  ld := FOperacje.SLinia.Top; //to powinno zostac, bo polozenie ld=Slinia.Top nie zawsze jest stale (2020-05-02)
+
   FIlewObsz := 0;
   FJestWlasciwy := False;
   BylBeep  := False;

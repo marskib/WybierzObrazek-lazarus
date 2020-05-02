@@ -37,7 +37,6 @@ uses
     LEGrayness: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
-    LiniaTMP: TShape;
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;
@@ -82,13 +81,14 @@ uses
     procedure OdegrajPolecenie(delay: Byte);
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
-    procedure KorygujSlinieJesliPrzekroczona();
+    function dostosujSpeedBtnGrajHeight():SmallInt;
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
     idWylos : Integer;                            //id wylosowanego obrazka
     nrWylos : Integer;                            //numer (index w tablicy tabOb) wylosowanego obrazka
     liczbaObrWKatalogu : Integer;                 //Liczba obrazkow wczytanych z dysku do katalogu
+    SLiniaTop_original : Integer; //Taka wartosc, jak okreslono podczas wymiarowamia na FOperacjeOnShow(); bedzie potrzebna,bo czasami polozenie SLinii moze sie zmieniac.... (gdy duzy obrazek i tylko jeden wiersz)
     procedure PokazKlawisze();
     procedure UkryjKlawisze();
     procedure DajNagrode();
@@ -348,7 +348,11 @@ Begin
     tabOb[i].Destroy();
 
   (************** Kreowanie obrazkow w OD: ***********************************)
-  liczZbO:=FParametry.DajLicznoscZbioru(Zbior);
+  {}
+  //Przywracamy (ewentualnie) zmienionę SLinie.Top - jest to istotne, bo od SLinia.Top zalezy wymiarowanie w pionie(!)
+  SLinia.Top := SLiniaTop_original;
+  {}
+  liczZbO := FParametry.DajLicznoscZbioru(Zbior);
   k:=1;
   for i:=0 to liczbaObrWKatalogu-1 do begin
     if i in Zbior then begin  //kreowanie pojedynczego Obrazka (z wymiarowaniem)
@@ -576,6 +580,7 @@ Begin
   SLinia.Left := 0;
   //SLinia.Top  := 1*(FOperacje.Height div 2); //tak bylo do 2020-04-28
   SLinia.Top  := trunc(43/100*FOperacje.Height);
+  SLiniaTop_original := SLinia.Top;  //zapamietanie na stale, bo czasem moze sie zmieniac i trzeba miec skąd przywrocic...
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :
@@ -634,7 +639,7 @@ Begin
   TImWzorzec.Stretch     := tabOb[nrWylos].Stretch;
   TImWzorzec.Center      := tabOb[nrWylos].Center;
 
-  TImWzorzec.Width  :=  SpeedBtnGraj.Width; // zmiana na potrzeby WybierzObrazek 2019.10.01tabOb[nrWylos].Width;
+  TImWzorzec.Width  := SpeedBtnGraj.Width; // zmiana na potrzeby WybierzObrazek 2019.10.01tabOb[nrWylos].Width;
   TImWzorzec.Height := tabOb[nrWylos].Height;
   TImWzorzec.Left   := FOperacje.Width div 2 - TImWzorzec.Width - 20;
 
@@ -644,7 +649,7 @@ Begin
   //Dazymy to tego, zeby 'kompleks' ["BitBtnGraj + Ramka"] lezal centralnie (w poziomie) na Foperacje:
   Ramka.UstalWidthHeight(tabOb[nrWylos]);  //wielkosc Ramki ustalamy na pdst. obrazka, ktory ma do niej trafic
   SpeedBtnGraj.Top   := Ramka.Top;
-  SpeedBtnGraj.Height:= Ramka.Height;
+  SpeedBtnGraj.Height:= dostosujSpeedBtnGrajHeight();
 
   odstep := 1*(SpeedBtnGraj.Width div 2);
   x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
@@ -658,7 +663,7 @@ Begin
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
   {}
-  KorygujSlinieJesliPrzekroczona();
+  SLinia.SendToBack(); //bo przy b.duzych obrazkach moze zaslaniac...
   {}
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
@@ -679,65 +684,26 @@ Begin
 End; (* Procedure *)
 
 
-procedure TFOperacje.KorygujSlinieJesliPrzekroczona();
-(*                                                                                                         *)
-(* Gdyby wielkie obrazki, to wielka są rowniez Ramka i SpeedBtnGraj, ktore moga wchodzic na i poza SLinie. *)
-(*
-                                                                                                           *)
-var
- wystaje : boolean; //czy COS wystaje poza SLinie
- i : SmallInt;    //roboczy na indeks
- Dx: Integer;     //o ile (ewentualnie) Ramka wystaje ponizej SLinii (gdy b. duzy obrazek w Ramce)
+function TFOperacje.dostosujSpeedBtnGrajHeight():SmallInt;
+(* *********************************************************************** *)
+(* Zwraca wysokosc SpeddBtnGraj dostposowana do wielkosci Ramki na obrazek *)
+(* Najczesciej ta sama wartosc, co wysokosc Ramki;                         *)
+(* Wyjatek: b.duzy obrazek (=1 wiersz, nie pomniejszany) - wtedy mniej,    *)
+(* zeby bylo mniejsce na ewentualne polecenie w formie pisemnej-> LNazwa   *)
+(* *********************************************************************** *)
+
+var wynik : SmallInt;
 Begin
-
-    Dx :=  Ramka.Top+Ramka.Height  -  SLinia.Top;
-    wystaje :=  Dx>0; //(Ramka.Top+Ramka.Height >= SLinia.Top);// or (LNazwa.IsVisible and (LNazwa.Top+LNazwa.Height>=SLinia.Top));
-    {
-    if wystaje then begin
-      SLinia.Visible := False;
-      SpeedBtnGraj.Height:=trunc(75/100*SpeedBtnGraj.Height);
-    end
-    else begin
-      SLinia.Visible := True;
-      SpeedBtnGraj.Height:=Ramka.Height;
-    end;
-    }
-
-
-    LiniaTMP.Visible:=False;
-    SLinia.Visible:=True;
-    if wystaje then begin
-      SLinia.Visible:=False;
-
-      LiniaTMP.Left:=SLinia.Left;
-      LiniaTMP.Width:=SLinia.Width;
-
-      LiniaTMP.Top:=SLinia.Top+2*Dx;
-
-
-      LiniaTMP.Visible:=True;
-      LiniaTMP.SendToBack();
-      for i:=1 to TMojImage.liczbaOb do begin
-        tabOb[i].Top:=tabOb[i].Top+2*Dx;
-        tabOb[i].WypozycjonujLPodpis();
-      end;
-    end;
-
-
-      {
-    //Gdyby wielkie obrazki, to wielka są rowniez Ramka i SpeedBtnGraj, ktore moga wchodzic na i poza SLinie.
-    //Wtedy chowam SLinie; skracam tez SpeedBtnGraj, bo jesli jest polecenie w formie pisemnej, to zeby (ewentualna) LNazwa nie wystawala poza SLinie:
-    if (Ramka.Top+Ramka.Height >= SLinia.Top) then begin
-      SLinia.Visible := False;
-      SpeedBtnGraj.Height:=trunc(66/100*SpeedBtnGraj.Height);
-    end
-    else begin
-      SLinia.Visible := True;
-      SpeedBtnGraj.Height:=Ramka.Height;
-    end;
-   }
-
-
+  IF
+    (TMojImage.IleWierszy(TMojImage.liczbaOb)=1) and
+    (not FParametry.CBShrink.Checked) and
+    (FParametry.CBNazwa.Checked)
+  THEN
+    wynik := trunc(90/100*Ramka.Height)
+  ELSE
+    wynik := Ramka.Height;
+  {}
+  Result := wynik;
 End;
 
 procedure TFOperacje.DajNagrode();
@@ -745,7 +711,6 @@ procedure TFOperacje.DajNagrode();
 (* Odegranie (losowej) nagrody z podkatalogu 'Zasoby/komentarze' *)
 (* Par. 'opoznienie' - ile opoznic granie (wielokrotnosc 750 ms) *)
 (* ************************************************************* *)
-
 Begin
   if FParametry.RBNoAward.Checked then begin
     Exit;
@@ -808,13 +773,21 @@ End;
 procedure TFOperacje.PokazNazwePodObrazkiem();
 (* Pod Ikoną z glosnikiem pokazuje polecenie z nim zwiazane (=nazwe obrazka) *)
 var rob:string;
+    dx : smallint; //czy nie zachodzi na Ramke
 Begin
   With SpeedBtnGraj do begin
     rob:=ExtractFileNameOnly( FOperacje.tabOb[FOperacje.nrWylos].DajEwentualnyPlikWav() ); //daje z roszerz. *.wav, wiec ucinam
     LNazwa.Caption := rob;
-    LNazwa.Top := Top+Height+20;
+    LNazwa.Top := Top+Height+1;
     LNazwa.Visible:=True;  //Visible MUSI byc przed LNazwa.Width, bo inaczej źle zmierzy szerokosc LNazwa'y...
     LNazwa.Left:= Left-((LNazwa.Width div 2) - (Width div 2));
+
+    //ewentualna korekta, jesli LNazwa nachodzi na Ramka (moze sie zdarzyc przy duzych obrazkach i 'przycietym' w pionie SpeedBtnGraj
+    if Lnazwa.Left+LNazwa.Width >= Ramka.Left-10 then begin
+      dx := Lnazwa.Left+LNazwa.Width - Ramka.Left;
+      LNazwa.Left := LNazwa.Left-dx-10;
+    end;
+
   End;
 End; (* Procedure *)
 
