@@ -264,7 +264,7 @@ Begin
 
   //Ile pikseli Ramka od gory - walczymy o kazdy piksel ;) :
   robTop := 30;
-  if Screen.Height <= 768 then robTop := 20
+  if Screen.Height <= 768 then robTop := 20;
   Ramka := TRamka.WlasnyCreate(30,robTop,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
   (**)
   UstawDefaultowyKolorRamki_Ekranu_Napisu();
