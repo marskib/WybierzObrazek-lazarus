@@ -1,5 +1,5 @@
 object FParametry: TFParametry
-  Left = 56
+  Left = 60
   Height = 612
   Top = 42
   Width = 862

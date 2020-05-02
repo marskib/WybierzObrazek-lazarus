@@ -252,7 +252,6 @@ begin
   end;
 end;
 
-
 procedure TFOperacje.FormShow(Sender: TObject);
 var robTop: SmallInt;
 Begin

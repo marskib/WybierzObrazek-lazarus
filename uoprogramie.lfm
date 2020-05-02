@@ -1,7 +1,7 @@
 object FOprogramie: TFOprogramie
-  Left = 301
+  Left = 305
   Height = 525
-  Top = 137
+  Top = 143
   Width = 648
   Caption = 'o programie...'
   ClientHeight = 525

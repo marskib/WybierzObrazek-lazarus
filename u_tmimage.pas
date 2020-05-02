@@ -5,7 +5,7 @@ unit u_tmimage;
 interface
 
 uses
-  Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, math, u_parametry,
+  Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, Forms, math, u_parametry,
   LCLIntf, LazFileUtils, Controls, Graphics, u_Lapka;
 
 const LSHAKES_CONST = 10; //ile razy ma lshakes potrzasnac niewlasciwym obrazkiem (powinna byc parzysta - kosmetyka)
@@ -570,6 +570,8 @@ var plik: string;              //plik czytany z dysku
     x,y,
     MaxPoziom,MaxPion : Integer;  //na zwymiarowanie obrazka
     pion,poziom : Real;           //j.w.
+    proc : Real;                  //na ewentualne pomniejszenie jezeli z LPodpis
+    lOparam : SmallInt;   //liczba obrazkow okreslona przez usera na FParametry (poziom trudnosci) - nie mozna braz TmojIMage.liczbaOb; bo to jest jeszcze nie okreslone
 
 Begin
 
@@ -650,9 +652,15 @@ Begin
   //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, zeby ostatni rzad
   //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
   if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
-    self.Height:=trunc(95/100*self.Height);
-    self.Width :=trunc(95/100*self.Width);
+    proc := 0.95;
+    lOparam := StrToInt(FParametry.EPoziom.Text);
+    //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
+    if (IleWierszy(lOparam)=3) and (Screen.Height<=768) then proc := 0.90;
+    if (IleWierszy(lOparam)=3) and (Screen.Height<=720) then proc := 0.85;
+    self.Height:=trunc(proc*self.Height);
+    self.Width :=trunc(proc*self.Width);
   end;
+  {}
   Self.dodajPodpisNaEtapieKonstruktora();
   {}
   WlaczHandlery();
