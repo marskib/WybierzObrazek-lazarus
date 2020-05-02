@@ -151,7 +151,12 @@ procedure TFOperacje.GenerujPojemnikNaWzorzec();
 Begin
   TImWzorzec := TMojImage.WlasnyCreate_Generic(); //'pojemnik' na obrazek-wzorzec
   TImWzorzec.Parent := FOperacje;
-  TImWzorzec.Top    := 30;
+
+  if Screen.Height <= 768 then //walka o kazdy piksel ... ;) 2020-05-02
+    TImWzorzec.Top := 20
+  else
+    TImWzorzec.Top := 30;
+
 End;
 
 
@@ -249,13 +254,18 @@ end;
 
 
 procedure TFOperacje.FormShow(Sender: TObject);
+var robTop: SmallInt;
 Begin
   GenerujPojemnikNaWzorzec(); //powstanie obiekt o nazwie TImWzorzec - niszczony/generowany w kazdym cyklu
   {}
   UstawEkranStartowy();
   (* Obiekty potrzebne do dzialania: *)
   Sprawdzacz := TSprawdzacz.Create();
-  Ramka := TRamka.WlasnyCreate(30,30,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
+
+  //Ile pikseli Ramka od gory - walczymy o kazdy piksel ;) :
+  robTop := 30;
+  if Screen.Height <= 768 then robTop := 20;
+  Ramka := TRamka.WlasnyCreate(30,robTop,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
   (**)
   UstawDefaultowyKolorRamki_Ekranu_Napisu();
   FParametry.ComboBoxKolor.ItemIndex:=3; //kosmetyka - zeby na Fparametry.ComboBoxColor bylo widoczne, ze defaultowy

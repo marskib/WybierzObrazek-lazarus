@@ -1,13 +1,13 @@
 object FOprogramie: TFOprogramie
-  Left = 296
+  Left = 298
   Height = 525
-  Top = 133
+  Top = 134
   Width = 648
   Caption = 'o programie...'
   ClientHeight = 525
   ClientWidth = 648
   OnCreate = FormCreate
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.8.0'
   object Button1: TButton
     Left = 262
     Height = 26
@@ -64,9 +64,9 @@ object FOprogramie: TFOprogramie
   end
   object LWebLink1: TLabel
     Left = 263
-    Height = 18
+    Height = 20
     Top = 459
-    Width = 91
+    Width = 93
     Caption = 'AutyzmSoft.pl'
     Font.Color = clRed
     Font.Height = -15
