@@ -34,9 +34,10 @@
         <ComponentName Value="FParametry"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <TopLine Value="391"/>
-        <CursorPos X="3" Y="396"/>
+        <CursorPos X="120" Y="416"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -53,10 +54,9 @@
       <Unit4>
         <Filename Value="u_tmimage.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <TopLine Value="631"/>
-        <CursorPos X="12" Y="666"/>
+        <CursorPos X="18" Y="644"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="6">
           <Item0 Y="1076" ID="4"/>

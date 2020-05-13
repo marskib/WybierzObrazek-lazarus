@@ -1361,13 +1361,11 @@ object FParametry: TFParametry
     Top = 169
     Width = 191
     Caption = 'Pokaż nazwy pod obrazkami'
-    Checked = True
     Font.Color = clWindowText
     Font.Height = -14
     Font.Name = 'MS Sans Serif'
     OnChange = CBPictNamesChange
     ParentFont = False
-    State = cbChecked
     TabOrder = 16
   end
 end
