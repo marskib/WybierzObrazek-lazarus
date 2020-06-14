@@ -60,11 +60,14 @@ type
     Label8: TLabel;
     LCount: TLabel;
     Panel1: TPanel;
+    RGPolozeniePodpisu: TRadioGroup;
+    RBCenter: TRadioButton;
     RBNegYes: TRadioButton;
     RBNegNo: TRadioButton;
     RadioGroup1: TRadioGroup;
     RB2W: TRadioButton;
     RB1W: TRadioButton;
+    RBLeft: TRadioButton;
     RBPochwala: TRadioButton;
     RBNoAward: TRadioButton;
     RBOklaski: TRadioButton;
@@ -91,6 +94,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure RB2WChange(Sender: TObject);
+    procedure RBLeftChange(Sender: TObject);
     procedure RBOkrzykMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
     type TPowod = (spacje, dlugosc);
     //procedure SprawdzPoprawnoscZasobow(var ZasobyPoprawne: boolean; var bledny_wyraz: string);
@@ -347,12 +351,31 @@ begin
 end;
 
 procedure TFParametry.CBPictNamesChange(Sender: TObject);
-var i : SmallInt;
+var i, lOparam : SmallInt;
+    proc : Real;
 Begin
   With FOperacje do begin
      for i:=1 to TMojImage.liczbaOb do
        tabOb[i].PokazUkryjLPodpis(CBPictNames.Checked);
   end;
+  RGPolozeniePodpisu.Visible:=CBPictNames.Checked; //gasze/pokazuje stowarzyszona RG
+
+  //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
+  {
+  if CBPictNames.Checked then begin
+    proc := 1.00;
+    lOparam := StrToInt(FParametry.EPoziom.Text);
+    if (TMojImage.IleWierszy(lOparam)=3) and (Screen.Height<=768) then proc := 0.50;   //0.90
+    if (TMojImage.IleWierszy(lOparam)=3) and (Screen.Height<=720) then proc := 0.45;   //0.85
+    if proc<>1.00  then begin
+      for i:=1 to TMojImage.liczbaOb do begin
+        FOperacje.tabOb[i].Height:=trunc(proc*FOperacje.tabOb[i].Height);
+        FOperacje.tabOb[i].Width :=trunc(proc*FOperacje.tabOb[i].Width);
+      end;
+    end;
+  end;
+  }
+
 End;
 
 
@@ -569,6 +592,14 @@ Begin
   Zmieniono_2_na_1_Wiersz:=not Zmieniono_2_na_1_Wiersz;
 End;
 
+procedure TFParametry.RBLeftChange(Sender: TObject);
+(* Podpisy pod oprazkiem lądują na nowych miejscch *)
+var i: SmallInt;
+Begin
+  for i:=1 to TMojImage.liczbaOb do begin
+    FOperacje.tabOb[i].WypozycjonujLPodpis();
+  end;
+End;
 
 procedure TFParametry.RBOkrzykMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);

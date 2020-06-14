@@ -117,7 +117,7 @@ var
 
 
 CONST
-    PELNA_WERSJA = FALSE;         //na etapie kompilacji okreslam czy pelna czy demo
+    PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
     JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 

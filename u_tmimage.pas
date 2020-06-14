@@ -655,8 +655,8 @@ Begin
     proc := 0.95;
     lOparam := StrToInt(FParametry.EPoziom.Text);
     //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
-    if (IleWierszy(lOparam)=3) and (Screen.Height<=768) then proc := 0.90;
-    if (IleWierszy(lOparam)=3) and (Screen.Height<=720) then proc := 0.85;
+    if (IleWierszy(lOparam)=3) and (Screen.Height<=768) then proc := 0.90;   //0.90
+    if (IleWierszy(lOparam)=3) and (Screen.Height<=720) then proc := 0.85;   //0.85
     self.Height:=trunc(proc*self.Height);
     self.Width :=trunc(proc*self.Width);
   end;
@@ -936,11 +936,10 @@ procedure TMojImage.WypozycjonujLPodpis();
 Begin
   Self.LPodpis.Top  := Self.Top+Self.Height;
   //Wyrownany do lewej krawedzi obrazka:
-  Self.LPodpis.Left := Self.Left;
-   {
-   //Wycentrowany centralnie obrazkiem:
+  if FParametry.RBLeft.Checked then
+    Self.LPodpis.Left := Self.Left
+  else    //Wycentrowany centralnie obrazkiem:
    LPodpis.Left:=Self.Left+ ((Self.Width-LPodpis.Width) div 2);
-   }
 End;
 
 procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
