@@ -1,7 +1,7 @@
 object FParametry: TFParametry
-  Left = 115
+  Left = 71
   Height = 612
-  Top = 75
+  Top = 56
   Width = 895
   BorderIcons = []
   Caption = 'Ustawienia'
@@ -1377,6 +1377,7 @@ object FParametry: TFParametry
     Caption = ' położenie nazwy '
     ChildSizing.LeftRightSpacing = 6
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclTopToBottomThenLeftToRight
@@ -1396,7 +1397,7 @@ object FParametry: TFParametry
     Visible = False
     object RBLeft: TRadioButton
       Left = 6
-      Height = 19
+      Height = 28
       Top = 0
       Width = 73
       Caption = 'od lewej'
@@ -1407,8 +1408,7 @@ object FParametry: TFParametry
     end
     object RBCenter: TRadioButton
       Left = 79
-      Height = 19
-      Hint = 'położenie napisu'
+      Height = 28
       Top = 0
       Width = 80
       Caption = 'na środku'

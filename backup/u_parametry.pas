@@ -124,6 +124,7 @@ var
   Zmieniono_Shrink: Boolean;       //zeby bylo wiadomo, jezeli user zmienil chec pomniejszania/zwiekszania obrazkow
   Zmieniono_2_na_1_Wiersz: Boolean; //zeby bylo wiadomo, jezeli user zmienil rozmieszczenie 4-ch obrazkow z defaultopwych 2 na 1 wiersz
   Zmieniono_Nazwa: Boolean;        //zeby bylo wiadomo, jesli user zmienil pokaywanie/nie pokazywanie nazw/podpisow pod obrazkiem gornym
+  Zmieniono_Podpis:Boolean;        //podpisy pod obrazkami, jezeli user ...... j.w. ......
   {}
   SesjaStartuje: boolean = True;  //zeby zroznicowac zachowanie i komunikat jezeli znajdziemy blad w Zasobach
   LiczbaObrazkow: integer;        //ile obrazkow w wybranym katalogu
@@ -227,7 +228,7 @@ var BylyZmiany : Boolean; //czy byly "powazne" zmiany
 
 Begin
   BylyZmiany := Zmieniono_Katalog  or Zmieniono_Poziom or Zmieniono_Shrink or
-                Zmieniono_Nazwa or Zmieniono_2_na_1_Wiersz or (Zbior<>Zbior_pop);
+                Zmieniono_Nazwa or ZMieniono_Podpis or Zmieniono_2_na_1_Wiersz or (Zbior<>Zbior_pop);
   If not BylyZmiany then begin
     Close; //wtedy na FOperacje pozostaje dotychczasowy uklad
   end
@@ -354,11 +355,14 @@ procedure TFParametry.CBPictNamesChange(Sender: TObject);
 var i, lOparam : SmallInt;
     proc : Real;
 Begin
+  Zmieniono_Podpis := not Zmieniono_Podpis; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
+  {}
   With FOperacje do begin
      for i:=1 to TMojImage.liczbaOb do
        tabOb[i].PokazUkryjLPodpis(CBPictNames.Checked);
   end;
   RGPolozeniePodpisu.Visible:=CBPictNames.Checked; //gasze/pokazuje stowarzyszona RG
+
 
   //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
   {
