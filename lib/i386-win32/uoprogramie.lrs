@@ -1,8 +1,8 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TFOprogramie','FORMDATA',[
-  'TPF0'#12'TFOprogramie'#11'FOprogramie'#4'Left'#3#191#0#6'Height'#3#13#2#3'To'
-  +'p'#2'n'#5'Width'#3#136#2#7'Caption'#6#14'o programie...'#12'ClientHeight'#3
+  'TPF0'#12'TFOprogramie'#11'FOprogramie'#4'Left'#3#142#0#6'Height'#3#13#2#3'To'
+  +'p'#2'T'#5'Width'#3#136#2#7'Caption'#6#14'o programie...'#12'ClientHeight'#3
   +#13#2#11'ClientWidth'#3#136#2#8'OnCreate'#7#10'FormCreate'#10'LCLVersion'#6#7
   +'2.0.8.0'#0#7'TButton'#7'Button1'#4'Left'#3#6#1#6'Height'#2#26#3'Top'#3#232#1
   +#5'Width'#2'b'#7'Caption'#6#7'Zamknij'#12'Font.CharSet'#7#18'EASTEUROPE_CHAR'

@@ -1,23 +1,22 @@
 object FOprogramie: TFOprogramie
-  Left = 369
-  Height = 656
-  Top = 176
-  Width = 810
+  Left = 133
+  Height = 525
+  Top = 79
+  Width = 648
   Caption = 'o programie...'
-  ClientHeight = 656
-  ClientWidth = 810
-  DesignTimePPI = 120
+  ClientHeight = 525
+  ClientWidth = 648
   OnCreate = FormCreate
-  LCLVersion = '1.8.2.0'
+  LCLVersion = '2.0.8.0'
   object Button1: TButton
-    Left = 328
-    Height = 33
-    Top = 610
-    Width = 123
+    Left = 262
+    Height = 26
+    Top = 488
+    Width = 98
     Caption = 'Zamknij'
     Font.CharSet = EASTEUROPE_CHARSET
     Font.Color = clBlack
-    Font.Height = -16
+    Font.Height = -13
     Font.Name = 'Times New Roman'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -27,13 +26,13 @@ object FOprogramie: TFOprogramie
     TabOrder = 0
   end
   object Memo1: TMemo
-    Left = 16
-    Height = 472
-    Top = 8
-    Width = 784
+    Left = 13
+    Height = 378
+    Top = 6
+    Width = 627
     Font.Style = [fsBold]
     Lines.Strings = (
-      'DopasujObrazek - versja 1.0 (pełna)'
+      'WybierzObrazek - versja 1.0 (pełna)'
       ''
       'Rozwijanie percepcji wzrokowej.'
       ''
@@ -64,13 +63,13 @@ object FOprogramie: TFOprogramie
     TabOrder = 1
   end
   object LWebLink1: TLabel
-    Left = 329
-    Height = 23
-    Top = 574
-    Width = 115
+    Left = 263
+    Height = 20
+    Top = 459
+    Width = 93
     Caption = 'AutyzmSoft.pl'
     Font.Color = clRed
-    Font.Height = -19
+    Font.Height = -15
     Font.Style = [fsUnderline]
     ParentColor = False
     ParentFont = False
@@ -79,10 +78,10 @@ object FOprogramie: TFOprogramie
     OnMouseLeave = LWebLink1MouseLeave
   end
   object Image1: TImage
-    Left = 354
-    Height = 68
-    Top = 509
-    Width = 70
+    Left = 283
+    Height = 54
+    Top = 407
+    Width = 56
     OnClick = Image1Click
     OnMouseEnter = Image1MouseEnter
     OnMouseLeave = Image1MouseLeave

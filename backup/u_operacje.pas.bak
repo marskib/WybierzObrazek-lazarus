@@ -81,17 +81,20 @@ uses
     procedure OdegrajPolecenie(delay: Byte);
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
-    { private declarations }
+    function dostosujSpeedBtnGrajHeight():SmallInt;
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
     idWylos : Integer;                            //id wylosowanego obrazka
     nrWylos : Integer;                            //numer (index w tablicy tabOb) wylosowanego obrazka
     liczbaObrWKatalogu : Integer;                 //Liczba obrazkow wczytanych z dysku do katalogu
+    SLiniaTop_original : Integer; //Taka wartosc, jak okreslono podczas wymiarowamia na FOperacjeOnShow(); bedzie potrzebna,bo czasami polozenie SLinii moze sie zmieniac.... (gdy duzy obrazek i tylko jeden wiersz)
     procedure PokazKlawisze();
     procedure UkryjKlawisze();
-    procedure GrajNagrode(opoznienie:SmallInt);
-    procedure GrajNagane(opoznienie:SmallInt);
+    procedure DajNagrode();
+    procedure DajNagane();
+    procedure GrajKomentarz(katalog:String; opoznienie:SmallInt);
+
     procedure GrajZle(opoznienie:SmallInt);
     procedure GrajDing(opoznienie:SmallInt);
     function  DajLosowaSekwencje():TtabSek;
@@ -114,8 +117,8 @@ var
 
 
 CONST
-    PELNA_WERSJA = FALSE;         //na etapie kompilacji okreslam czy pelna czy demo
-    JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
+    PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
+    JESTEM_W_105 = TRUE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
     MAX_OBR_OD :SmallInt;        //maxymalna dozwolona liczba obrazkow w Obszarze Dolnym (jak za duzo, to dziecko nie da rady...); zalezy tez od PELNA_WERSJA=True/False
@@ -148,7 +151,12 @@ procedure TFOperacje.GenerujPojemnikNaWzorzec();
 Begin
   TImWzorzec := TMojImage.WlasnyCreate_Generic(); //'pojemnik' na obrazek-wzorzec
   TImWzorzec.Parent := FOperacje;
-  TImWzorzec.Top    := 30;
+
+  if Screen.Height <= 768 then //walka o kazdy piksel ... ;) 2020-05-02
+    TImWzorzec.Top := 20
+  else
+    TImWzorzec.Top := 30;
+
 End;
 
 
@@ -244,15 +252,19 @@ begin
   end;
 end;
 
-
 procedure TFOperacje.FormShow(Sender: TObject);
+var robTop: SmallInt;
 Begin
   GenerujPojemnikNaWzorzec(); //powstanie obiekt o nazwie TImWzorzec - niszczony/generowany w kazdym cyklu
   {}
   UstawEkranStartowy();
   (* Obiekty potrzebne do dzialania: *)
   Sprawdzacz := TSprawdzacz.Create();
-  Ramka := TRamka.WlasnyCreate(30,30,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
+
+  //Ile pikseli Ramka od gory - walczymy o kazdy piksel ;) :
+  robTop := 30;
+  if Screen.Height <= 768 then robTop := 20;
+  Ramka := TRamka.WlasnyCreate(30,robTop,200,200);  //Ramka do wkladania przez dziecko zgadywanego obrazka
   (**)
   UstawDefaultowyKolorRamki_Ekranu_Napisu();
   FParametry.ComboBoxKolor.ItemIndex:=3; //kosmetyka - zeby na Fparametry.ComboBoxColor bylo widoczne, ze defaultowy
@@ -345,7 +357,11 @@ Begin
     tabOb[i].Destroy();
 
   (************** Kreowanie obrazkow w OD: ***********************************)
-  liczZbO:=FParametry.DajLicznoscZbioru(Zbior);
+  {}
+  //Przywracamy (ewentualnie) zmienionę SLinie.Top - jest to istotne, bo od SLinia.Top zalezy wymiarowanie w pionie(!)
+  SLinia.Top := SLiniaTop_original;
+  {}
+  liczZbO := FParametry.DajLicznoscZbioru(Zbior);
   k:=1;
   for i:=0 to liczbaObrWKatalogu-1 do begin
     if i in Zbior then begin  //kreowanie pojedynczego Obrazka (z wymiarowaniem)
@@ -428,6 +444,8 @@ Begin
   end;
 End;
 
+
+
 procedure TFOperacje.Naczytaj();
 Begin
   UkryjKlawisze();
@@ -472,13 +490,17 @@ Begin
   BPodp.Visible := FParametry.CBPodp.Checked; //powinien pozostac
   Sprawdzacz.Resetuj();
   for i:=1 to TMojImage.liczbaOb do begin
-    tabOb[i].inArea := False;
-    tabOb[i].Left := tabOb[i].getXo();
-    tabOb[i].Top  := tabOb[i].getYo();
-    tabOb[i].JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
-    tabOb[i].WlaczHandlery();
+    With tabOb[i] do begin
+      inArea := False;
+      Left := tabOb[i].getXo();
+      Top  := tabOb[i].getYo();
+      WypozycjonujLPodpis();
+      JestLapka := False;    //Jakby byla jakas Lapka, to gaszę
+      WlaczHandlery();
+    end;
+
   end;
-  Ramka.JestLapka := False;  //gasze, gdyby byla Lapka
+  Ramka.JestLapka := False;  //gaszę, gdyby byla Lapka
 
   if FParametry.CBOdgrywaj.Checked then
     OdegrajPolecenie(1);
@@ -558,14 +580,16 @@ procedure TFOperacje.UstawEkranStartowy;
 Begin
   FParametry.ComboBoxKolorChange(nil); //wymuszenie defaultowego (=czarnego) koloru FOperacje
   //
-  FOperacje.Top := 5; //zeby FOperacje byla w miare na gorze
+  FOperacje.Top := 1; //zeby FOperacje byla w miare na gorze bylo
   //Forma na wiekszosc ekranu :
   FOperacje.Width := Trunc(0.98*Screen.Width);
-  FOperacje.Height:= Trunc(0.93*Screen.Height);
-  FOperacje.Left  := (Screen.Width-Width) div 2;
+  FOperacje.Height:= Trunc(0.93*Screen.Height); //bylo 93 92
+  FOperacje.Left  := (Screen.Width-Width) div 2 -2;
 
   SLinia.Left := 0;
-  SLinia.Top  := 1*(FOperacje.Height div 2);
+  //SLinia.Top  := 1*(FOperacje.Height div 2); //tak bylo do 2020-04-28
+  SLinia.Top  := trunc(43/100*FOperacje.Height);
+  SLiniaTop_original := SLinia.Top;  //zapamietanie na stale, bo czasem moze sie zmieniac i trzeba miec skąd przywrocic...
   SLinia.Width:= FOperacje.Width;
 
   //Pozycjonowanie klawiszy; BAgain jest klawiszem 'wzorcowym' :
@@ -598,13 +622,12 @@ procedure TFOperacje.LosujUmiescObrazek();
 (* ************************************************************************************ *)
 (* Wylosowanie                obrazka do zgadywania.                                    *)
 (* Umieszczenie ramki na wylosowany obrazek                                             *)
-(* Sposrod obrazkow NA DOLE EKRANU losuje jeden. (NIE LOSUJEMY Z KATALOGU!!!)           *)
+(* Sposrod obrazkow NA DOLE EKRANU losuję jeden. (NIE LOSUJEMY Z KATALOGU!!!)           *)
 (* Ewentualne odegranie pliku z nazwa obrazka.                                          *)
 (* ************************************************************************************ *)
 var x,y : Integer;   //pomocnicze, dla zwiekszenia czytelnosci
     los : SmallInt;  //indeks wylosowanego obrazka
     odstep: Integer; //odstep miedzy klawiszem z glosnikiem a ramką na obrazek
-
 Begin
   {Losowanie obrazka ze zmiejszeniemm p-stwa wylosowania tego samego:}
   los := 1+ Random(TMojImage.liczbaOb);  //+1 bo Random(x) generuje w przedziale  0=< liczba <x
@@ -625,7 +648,7 @@ Begin
   TImWzorzec.Stretch     := tabOb[nrWylos].Stretch;
   TImWzorzec.Center      := tabOb[nrWylos].Center;
 
-  TImWzorzec.Width  :=  SpeedBtnGraj.Width; // zmiana na potrzeby WybierzObrazek 2019.10.01tabOb[nrWylos].Width;
+  TImWzorzec.Width  := SpeedBtnGraj.Width; // zmiana na potrzeby WybierzObrazek 2019.10.01tabOb[nrWylos].Width;
   TImWzorzec.Height := tabOb[nrWylos].Height;
   TImWzorzec.Left   := FOperacje.Width div 2 - TImWzorzec.Width - 20;
 
@@ -635,7 +658,8 @@ Begin
   //Dazymy to tego, zeby 'kompleks' ["BitBtnGraj + Ramka"] lezal centralnie (w poziomie) na Foperacje:
   Ramka.UstalWidthHeight(tabOb[nrWylos]);  //wielkosc Ramki ustalamy na pdst. obrazka, ktory ma do niej trafic
   SpeedBtnGraj.Top   := Ramka.Top;
-  SpeedBtnGraj.Height:= Ramka.Height;
+  SpeedBtnGraj.Height:= dostosujSpeedBtnGrajHeight();
+
   odstep := 1*(SpeedBtnGraj.Width div 2);
   x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
   SpeedBtnGraj.Left := x;
@@ -643,10 +667,13 @@ Begin
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := True;
   SpeedBtnGraj.Visible := True;
+
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):
   Ramka.JestLapka:=True;
   Ramka.JestLapka:=False;
-
+  {}
+  SLinia.SendToBack(); //bo przy b.duzych obrazkach moze zaslaniac...
+  {}
   //Ewentualne odegranie nazwy wylosowanego obrazka (jesli stowarzyszony plikWav istnieje):
   if not JESTEM_W_105 then begin //nie gram gdy jestem w pracy...
     if FParametry.CBOdgrywaj.Checked then begin
@@ -666,34 +693,72 @@ Begin
 End; (* Procedure *)
 
 
-procedure TFOperacje.GrajNagrode(opoznienie:SmallInt);
+function TFOperacje.dostosujSpeedBtnGrajHeight():SmallInt;
+(* *********************************************************************** *)
+(* Zwraca wysokosc SpeddBtnGraj dostposowana do wielkosci Ramki na obrazek *)
+(* Najczesciej ta sama wartosc, co wysokosc Ramki;                         *)
+(* Wyjatek: b.duzy obrazek (=1 wiersz, nie pomniejszany) - wtedy mniej,    *)
+(* zeby bylo mniejsce na ewentualne polecenie w formie pisemnej-> LNazwa   *)
+(* *********************************************************************** *)
+
+var wynik : SmallInt;
+Begin
+  IF
+    (TMojImage.IleWierszy(TMojImage.liczbaOb)=1) and
+    (not FParametry.CBShrink.Checked) and
+    (FParametry.CBNazwa.Checked)
+  THEN
+    wynik := trunc(90/100*Ramka.Height)
+  ELSE
+    wynik := Ramka.Height;
+  {}
+  Result := wynik;
+End;
+
+procedure TFOperacje.DajNagrode();
 (* ************************************************************* *)
 (* Odegranie (losowej) nagrody z podkatalogu 'Zasoby/komentarze' *)
 (* Par. 'opoznienie' - ile opoznic granie (wielokrotnosc 750 ms) *)
 (* ************************************************************* *)
-var los : Integer;
-    sl  : TStringList;
-    plik: String;
-    liczbaPlikow:Integer;
 Begin
-  if JESTEM_W_105 then EXIT; //nie gram gdy jestem w pracy...
   if FParametry.RBNoAward.Checked then begin
     Exit;
   end;
   if FParametry.RBOkrzyk.Checked then begin
-    MPlayer.Play(tadaPath,opoznienie);
+    MPlayer.Play(tadaPath,1);
     Exit;
   end;
   if FParametry.RBOklaski.Checked then begin
-    MPlayer.Play(oklaskiPath,opoznienie);
+    MPlayer.Play(oklaskiPath,1);
     Exit;
   end;
   IF FParametry.RBPochwala.Checked then begin
-    sl := FindAllFiles(komciePath, '0*-*.wav', True); //taki wzorzec nazwy przyjalem dla plikow z nagroda - np. '03-dobrze-brawo.wav'
+    GrajKomentarz(komciePath+'pozytywy',1);
+  End;  //IF
+End; (* Procedure *)
+
+
+procedure TFOperacje.DajNagane();
+(* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
+Begin
+  if FParametry.RBNegNo.Checked then Exit;
+  GrajKomentarz(komciePath+'negatywy',1);
+End;
+
+procedure TFOperacje.GrajKomentarz(katalog: String; opoznienie: SmallInt);
+(* Odegranie nagany/ badz nagrody = jednego z plikow w 'katalog' *)
+var
+  plik: String;
+  sl  : TStringList;
+  los : Integer;
+  liczbaPlikow:Integer;
+Begin
+  if JESTEM_W_105 then Exit; //nie gram gdy jestem w pracy...
+    sl := FindAllFiles(katalog, 'x*.wav', True); //x z przodu - taki wzorzec nazwy przyjalem (rowniez0 dla plikow z naganą - np. 'x03-nie-probuj-dalej.wav'
     Try
       liczbaPlikow:=sl.Count;
       los := 1+Random(liczbaPlikow);
-      try     //musi byc wewnetrzny try z p ustym except, bo jak nie ma plikow w sl, to zgalaszany jest wyjatek, ktory przebija sie do usera...
+      try     //musi byc wewnetrzny try z pustym except, bo jak nie ma plikow w sl, to zgalaszany jest wyjatek, ktory przebija sie do usera...
         plik:= sl.Strings[los-1]; // -1 bo indeksowanie jest od 0 zera
         MPlayer.Play(plik,opoznienie);
       except
@@ -701,21 +766,6 @@ Begin
     Finally
       sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
     End;
-    Exit;
-  End;  //IF
-End; (* Procedure *)
-
-
-procedure TFOperacje.GrajNagane(opoznienie:SmallInt);
-(* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
-var plik:string;
-Begin
-  if JESTEM_W_105 then Exit; //nie gram gdy jestem w pracy...
-  Case Random(2) of          //zakladam, ze na 'naganę' będą tylko 2 pliki
-    0 : plik:= komciePath+'nie-e2.wav';
-    1 : plik:= komciePath+'nie-e-probuj-dalej-2.wav';
-  End;
-  MPlayer.Play(plik,opoznienie);
 End;
 
 procedure TFOperacje.GrajZle(opoznienie:SmallInt);
@@ -732,13 +782,21 @@ End;
 procedure TFOperacje.PokazNazwePodObrazkiem();
 (* Pod Ikoną z glosnikiem pokazuje polecenie z nim zwiazane (=nazwe obrazka) *)
 var rob:string;
+    dx : smallint; //czy nie zachodzi na Ramke
 Begin
   With SpeedBtnGraj do begin
     rob:=ExtractFileNameOnly( FOperacje.tabOb[FOperacje.nrWylos].DajEwentualnyPlikWav() ); //daje z roszerz. *.wav, wiec ucinam
     LNazwa.Caption := rob;
-    LNazwa.Top := Top+Height+20;
+    LNazwa.Top := Top+Height+1;
     LNazwa.Visible:=True;  //Visible MUSI byc przed LNazwa.Width, bo inaczej źle zmierzy szerokosc LNazwa'y...
     LNazwa.Left:= Left-((LNazwa.Width div 2) - (Width div 2));
+
+    //ewentualna korekta, jesli LNazwa nachodzi na Ramka (moze sie zdarzyc przy duzych obrazkach i 'przycietym' w pionie SpeedBtnGraj
+    if Lnazwa.Left+LNazwa.Width >= Ramka.Left-10 then begin
+      dx := Lnazwa.Left+LNazwa.Width - Ramka.Left;
+      LNazwa.Left := LNazwa.Left-dx-10;
+    end;
+
   End;
 End; (* Procedure *)
 

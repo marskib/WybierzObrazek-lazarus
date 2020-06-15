@@ -5,10 +5,10 @@ unit u_tmimage;
 interface
 
 uses
-  Classes, SysUtils, ExtCtrls, FileCtrl, math, u_parametry,
+  Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, Forms, math, u_parametry,
   LCLIntf, LazFileUtils, Controls, Graphics, u_Lapka;
 
-const LSHAKES_CONST = 10; //ile razy ma lshakespotrzasnac niewlasciwym obrazkiem
+const LSHAKES_CONST = 10; //ile razy ma lshakes potrzasnac niewlasciwym obrazkiem (powinna byc parzysta - kosmetyka)
 
 type
 
@@ -45,18 +45,20 @@ type
       mTimer: TTimer;      //Timer na odsuwanie od LG Ramki blednie polozonego obrazka
       lKrok : SmallInt;    //licznba Krokow /index mTimer'a
       TBlink: TTimer;      //Timer do mrugania 'Wskazem'
-      lShakes: SmallInt;    //liczba mrugniec TBkink timerem (potem nie mruga, tylko stale wyswietlanie)
+      lShakes: SmallInt;    //liczba mrugniec TBlink timerem (potem nie mruga, tylko stale wyswietlanie)
       TShake : TTimer;     //Timer do 'wstrzasania' obrazkiem; powiazany z pokazWskaz();
       shakeSwitch : Boolean; //zeby wracal na miejsce przy wstrzasaniu
       poz,poz2:TPoint;   //uzywane przy przesuwaniu obrazkow
       dx,dy : SmallInt;  //przesuniecie obrazka
       idOb  : Integer;   //na identyfikacje (powiazanie obrazek_'zgadywany' <--> obrazek_pod_kreska)
       Xo,Yo : Integer;   //inicjalne polozenie obrazka w OD (naliczone przez proc. rozmieszczajaca RozmiescObrazki_v2()
-      plikNzw : string;  //nazwa pliku z obrazkiem; do wykorzystania przy ewentualnym odgrywaniu dzwieku (if any)
+      plikNzw : string;  //nazwa pliku z obrazkiem; do wykorzystania przy ewentualnym odgrywaniu dzwieku (if any) i LPodpis (w podpisie jesli trzeba)
       arrowHead,
       arrowShaft:TShape;  //do wygenerowania strzalki/'wskazu' pod obrazkiem, wskazujacej, ze obrazek powinien zostac wyprowadzony z OG
       zeWskazem: Boolean; //Czy po zakonczeniu Potrzasania do obrazka ma byc doklejony Wskaz
       mamWskaz : Boolean; //czy obrazek ma doklejony Wskaz pod spodem
+      LPodpis  : TLabel;  //podpis pod obrazkiem, pokazywany (opcjonalnie) na FOperacje
+
 
 
       function DajMaxymWymiarPoziomy(ileObrazkow:Integer):Integer;
@@ -77,6 +79,7 @@ type
       procedure PotrzasnijPrivate();   //Wstrzasniecie (shake) obrazkiem, kiedy znajdzie sie w OG, a tam juz jest ten prawidlowy
 
       procedure dodajWskazNaEtapieKonstruktora();   //bedzie pokazywana strzalka pod obrazkiem, jezeli w OG oprocz wlasciwego obrazka sa jeszcze inne - sugestia, zeby sciagnac w dól
+      procedure dodajPodpisNaEtapieKonstruktora();  //bedzie pokazywany ewentualny podpis pod każdym obrazkiem w OD -> 2020-04-28
 
     protected
     procedure Paint; override; //zeby narysowac obramowanie - technikalia...proby...  uwaga na Invalidate();
@@ -99,6 +102,8 @@ type
         procedure ZdejmijWskaz();
         procedure PotrzasnijBezWskazu();
         procedure PotrzasnijZeWskazem();
+        procedure WypozycjonujLPodpis();     //zapewnia pozycje LPodpis pod obrazkiem
+        procedure PokazUkryjLPodpis(czyPokazac:Boolean);
 
   End;  //TMojImage
 
@@ -182,7 +187,7 @@ end;
 procedure TMojImage.coNaMouseMove(Sender: TObject; Shift: TShiftState; X,  Y: Integer);
 Begin
   If ssLeft in Shift then Begin  //LewyKlawiszMyszy wscisniety
-    //ponizzsze 2 instrukcje na wszelki wypadek, bo wskaz czasami zostaje podczas przesuwania, pomimo zdejmijWskaz() na OnMouseDown
+    //ponizsze 2 instrukcje na wszelki wypadek, bo wskaz czasami zostaje podczas przesuwania, pomimo zdejmijWskaz() na OnMouseDown
     //arrowHead.Visible :=False;
     //arrowShaft.Visible:=False;
     //Ruch Obrazkiem
@@ -190,7 +195,14 @@ Begin
     dx := (poz2.x - poz.x);
     Left := left + dx;  //obrazka=Image1 ruszac nie trzeba, bo jest osadzony na PObrazek
     dy := (poz2.y - poz.y);
-    Top := Top  + dy;
+    Top:= Top  + dy;
+
+    //"Przeciaganie"/pozycjonowanie podpisu pod obrazkiem:
+    //LPodpis.Left := Left;
+    //LPodpis.Top  := Top + Height;
+    WypozycjonujLPodpis();
+    LPodpis.BringToFront(); //kosmetyka - zeby nie byl zaslaniany przez inne obrazki
+
     //ruch Lapka 'obrazkową':
     if JestLapka then begin
       Lapka1.Left:=Lapka1.Left+dx;
@@ -201,11 +213,11 @@ Begin
 
     end;
 
-
     //2020.01.14 - blokowanie wyjscia poza bande (ekran):
-    //lewo i prawa banda:
+    //lewa i prawa banda:
     If (Left<0) or ((Left+Width)>(FOperacje.Left+FOperacje.Width)) then begin
       Left := Left - dx;
+      LPodpis.Left := Left + 2;  //kosmetyka
       //zeby Lapka zobrazowala sie nie przesunieta (if any):
       if JestLapka then begin
         JestLapka:=false;
@@ -232,8 +244,6 @@ Begin
   Self.ZdejmijWskaz();  //zdjecie strzalki spod obrazka (if any):
   GetCursorPos(poz);    //niezbedne do prowadzenia Obrazka po ekranie
   Self.BringToFront();
-  //Wymuszam ewentualna Lapke PONAD ponizszym butonem (gdzie indziej sie nie daje....):
- // FOperacje.SpeedBtnGraj.SendToBack();
 End;
 
 procedure PorzadkujEkranPoZwyciestwie();
@@ -249,7 +259,7 @@ With FOperacje do begin
   {}
   Timer5sek.Enabled := False;  //jezeli bylo automatyczne granie, to zatrzymujemy
   GrajDing(0);
-  GrajNagrode(1); //opoznienie ze wzgledu na Ding //MPlayer.Play(tadaPath,1);
+  DajNagrode(); //wewnatrz opoznienie ze wzgledu na Ding //MPlayer.Play(tadaPath,1);
   {}
   for i:=1 to TMojImage.liczbaOb do begin
     tabOb[i].inArea := False;
@@ -259,7 +269,9 @@ With FOperacje do begin
       tabOb[i].Left := tabOb[i].getXo();
       tabOb[i].Top  := tabOb[i].getYo();
     end;
+    tabOb[i].WypozycjonujLPodpis();
   end;
+  //
   Sprawdzacz.Resetuj();
   //Pokazanie klawiszy nawigacyjnych:
   TimerKlawisze.Enabled:=True;
@@ -415,7 +427,7 @@ Begin
       Ramka.JestLapka         := False;
       //jesli proba dopasowania zlego obrazka do Ramki:
       if ObrazekJestWOkregu(Self, Ramka.JestLapka) then begin
-        GrajNagane(1);  //'nagana-zachęta' do dalszych prob
+        DajNagane();  //'nagana-zachęta' do dalszych prob
         //self.odsunOdRamki();
       end;
       EXIT;
@@ -470,6 +482,7 @@ Begin
   FreeAndNil(TBlink);
   FreeAndNil(arrowHead);
   FreeAndNil(arrowShaft);
+  FreeAndNil(LPodpis);
   Lapka1.Destroy;
   Lapka2.Destroy;
   inherited destroy;
@@ -557,6 +570,8 @@ var plik: string;              //plik czytany z dysku
     x,y,
     MaxPoziom,MaxPion : Integer;  //na zwymiarowanie obrazka
     pion,poziom : Real;           //j.w.
+    proc : Real;                  //na ewentualne pomniejszenie jezeli z LPodpis
+    lOparam : SmallInt;   //liczba obrazkow okreslona przez usera na FParametry (poziom trudnosci) - nie mozna braz TmojIMage.liczbaOb; bo to jest jeszcze nie okreslone
 
 Begin
 
@@ -572,13 +587,6 @@ Begin
 
   //Ladowanie pojedynczego obrazka:
   //w niewidzialnej kontrolce ustawiam sie na tym pliku
-  {ski 2018.01.02 - stare rozwiazanie, OK:
-  plik := FParametry.FileListBox1.Items[FliczbaOb-1];
-  try  //bo wiem z doswiadczenia, ze czasami nie chcialo pokazywac na Win7 (profMarcin)
-    Self.Picture.LoadFromFile(SciezkaZasoby + plik);     //pokazuje plik, na ktorym sie ustawilem
-  except
-  end;
-  }
   plik := Zrodlo.Items[Index];
   try  //bo wiem z doswiadczenia, ze czasami nie chcialo pokazywac na Win7 (profMarcin)
     Self.Picture.LoadFromFile(SciezkaZasoby + plik);     //pokazuje plik, na ktorym sie ustawilem
@@ -588,8 +596,8 @@ Begin
 
 
   {Rozpoczynam wyliczanie wymiarow obrazka. Rozwazam prostokat o bokach MaxPoziom  i MaxPion :}
-  MaxPoziom  := DajMaxymWymiarPoziomy(ileRozmieszczam); //nie ma prawa byc dluzszy niz (bo inne moga sie nie zmiescic)
-  MaxPion    := DajMaxymWymiarPionowy(ileRozmieszczam); //j.w.
+  MaxPoziom := DajMaxymWymiarPoziomy(ileRozmieszczam); //nie ma prawa byc dluzszy niz (bo inne moga sie nie zmiescic)
+  MaxPion   := DajMaxymWymiarPionowy(ileRozmieszczam); //j.w.
 
   //FIZYCZNE wymiary obrazka:
   x:=Self.Picture.Width;
@@ -639,6 +647,29 @@ Begin
 
   //DOLOZENIE STRZALKI (na razie niewidzialnej) W DOL:
   Self.dodajWskazNaEtapieKonstruktora();
+  {}
+  //Doklejka -> zabezpieczenie przed laptopami - jesli 2+ wierszy, to obrazki wchodza
+  //na pasek zadan, wiec troche pomniejszam:
+  proc:=1.00; //100%
+  lOparam := StrToInt(FParametry.EPoziom.Text); //liczba obrazkow w parametrach (de facto na ekranie)
+  if (Screen.Height<=768) and (IleWierszy(lOparam)>=2)then proc := 0.95;
+  if (Screen.Height<=720) and (IleWierszy(lOparam)>=2)then proc := 0.93;
+  //2020-04-28 - na sugestie A.Bathis -patrz nizej:
+  //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, zeby ostatni rzad
+  //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
+  if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
+    proc := 0.95;   //zmniejszamy obowiazkowo i/lub na wszelki wypadek
+    //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
+    if IleWierszy(lOparam) >= 2 then begin
+      if Screen.Height<=768 then  proc := 0.90;   //0.90
+      if Screen.Height<=720 then  proc := 0.85;   //0.85
+    end;
+  end;
+  self.Height:=trunc(proc*self.Height);
+  self.Width :=trunc(proc*self.Width);
+  //koniec doklejki
+  {}
+  Self.dodajPodpisNaEtapieKonstruktora();
   {}
   WlaczHandlery();
 End; (* WlasnyCreate_ze_Skalowaniem() *)
@@ -757,6 +788,30 @@ Begin
 End; (* Function *)
 
 
+procedure DostosujSlinieDoJednegoWiersza();
+(* *********************************************************************************** *)
+(* Wywolywana w sytuacji, gdy jest tylko 1 wiersz i NIE pomniejszone obrazki.          *)
+(* Wtedy (duza) Ramka i SpeedBtnGraj moglyby przekroczyc SLinie, wiec Slinie obnizamy. *)
+(* *********************************************************************************** *)
+var Dx : Integer;
+    maxHeight : Integer;
+    i : SmallInt;
+Begin
+  if FParametry.CBShrink.Checked then Exit; //obrazki sa pomniejszane, wiec nie ma co kombinowac...
+  {}
+  //Jaka jest wysokosc najwyzszego obrazka w wierszu 1-szym (do tej wart. dostosujemy obnizenie SLinii):
+  maxHeight := -1;
+  With FOperacje do begin //dla uproszczenia zapisu
+    for i:=1 to TMojImage.liczbaOb do
+     if FOperacje.tabOb[i].Height>maxHeight then maxHeight:=FOperacje.tabOb[i].Height;
+    //(ewentualnie) obnizamy SLinie:
+    Dx := Ramka.Top+maxHeight - FOperacje.SLinia.Top; //uwaga nie bierzemy Ramka.Height, bo obiektu Ramka jeszcz nie ma lub jest, ale z poprzedniego rozdania
+    if Dx >= 0 then begin
+      if Dx<34 then Dx:=Dx+20; //kosmetyka nieznaczaca; doswiadczalnie; zeby Ramka nie byla zbyt bliski SLinii
+      FOperacje.SLinia.Top := FOperacje.Slinia.Top + Dx;
+    end;
+  end;
+End;
 
 class procedure TMojImage.RozmiescObrazki_v2(tab: array of TMojImage; Sek:array of SmallInt) ;
 (* ************************************************************************)
@@ -780,7 +835,7 @@ class procedure TMojImage.RozmiescObrazki_v2(tab: array of TMojImage; Sek:array 
 (* Parametr Sek[] - sekwencja w jakiej maja byc wyswietlane obrazki z     *)
 (* tablicy tab[]; sekwencja najczesciej ustalana losowo                   *)
 (* ************************************************************************)
-var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2]
+var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2,3]
     sumSzer_w1, sumSzer_w2, Sumszer_w3,     //sumaryczba szerokosc obrazkow w danym wierszu
     freeSpace_w1,freeSpace_w2,freeSpace_w3, //przestrzen nie zajeta przez obrazki, wiersz{1,2]
     odstep_w1, odstep_w2, odstep_w3,        //odstep_miedzy obrazkami w wierszu{1,2]
@@ -789,12 +844,18 @@ var Top_w1, Top_w2, Top_w3,                 //Top_wiersza[1,2]
     lo_w1, lo_w2, lo_w3 : SmallInt;    //liczba obrazkow w wierszu 1-szym, 2-gim, 3-cim
     start_w2, start_w3  : SmallInt;    //od jakiego INDEKSU(!) tablicy tab zaczyna sie wierz 2-gi, od jakiego 3-ci
     i : SmallInt;
+
 label KONIEC;
 const odSLinii = 20; //odstep gormego rzedu od SLinii
 Begin
+  FOperacje.SLinia.Top := FOperacje.SLiniaTop_original; //przywracam, jesli zmieniona przez poprzedmie wywolanie ww. procedury
+  {}
+  //Gdyby mial byc tylko jeden wiersz, to obnizam SLinie, bo przy duzym obrazku Ramka moze na nią zachodzic
+  if IleWierszy(TMojImage.liczbaOb)=1 then DostosujSlinieDoJednegoWiersza();
+  {}
   {1-szy wiersz z obrazkami, charakterystyka:}
   Top_w1 := FOperacje.SLinia.Top + odSLinii;  //dawniej wyliczany jako: imHeight div 10;
-  if IleWierszy(TMojImage.liczbaOb)=1 then Top_w1:=Top_w1+odSLinii; //kosmetyka
+  //if IleWierszy(TMojImage.liczbaOb)=1 then Top_w1:=Top_w1 -(odSLinii div 3); //kosmetyka, zeby bylo widac Podpisy pod Wielkimi obrazkami
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w1 := 0;
   lo_w1 := IleKolumnWWierszu(TMojImage.liczbaOb,1);
@@ -819,7 +880,7 @@ Begin
   maxHeight_w1 := -1;
   for i:=0 to lo_w1-1 do if tab[sek[i]-1].Height>maxHeight_w1 then maxHeight_w1:=tab[sek[i]-1].Height;
   (**)
-  Top_w2 := Top_w1 + maxHeight_w1 + odSLinii;// dawniej wyliczany jako: imHeight div 5;
+  Top_w2 := Top_w1 + maxHeight_w1 + trunc(150/100*odSLinii); //bylo 190/100
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w2 := 0;
   start_w2 := IleKolumnWWierszu(TMojImage.liczbaOb,1); //bo za chwile bedziemy przegladac/iterowac 2-gi wiersz:
@@ -846,7 +907,7 @@ Begin
   maxHeight_w2 := -1;
   for i:=start_w2 to start_w2+lo_w2 do if tab[sek[i]-1].Height>maxHeight_w2 then maxHeight_w2:=tab[sek[i]-1].Height;
   (**)
-  Top_w3 := Top_w2 + maxHeight_w2 + odSLinii;
+  Top_w3 := Top_w2 + maxHeight_w2 + trunc(150/100*odSLinii); //bylo 190/100
   //Obliczanie odstepów pomiedzy obrazkami: szerFOperacje-szerSumarycznaObrazkow dzielone przez liczbaObrazkow:
   sumSzer_w3 := 0;
   start_w3 := IleKolumnWWierszu(TMojImage.liczbaOb,1)+IleKolumnWWierszu(TMojImage.liczbaOb,2); //bo za chwile bedziemy przegladac/iterowac 3-cim wierszu:
@@ -867,13 +928,32 @@ Begin
 
 KONIEC: //tuz przed wyjsciem zapamietanie wyliczonych wyzej 'porządnych' polozen obrazkow w OD (przyda sie w przyszlosci):
   for i:=0 to TMojImage.liczbaOb-1 do begin
-    tab[sek[i]-1].Xo := tab[sek[i]-1].Left;
-    tab[sek[i]-1].Yo := tab[sek[i]-1].Top;
+    With tab[sek[i]-1] do begin //dla uproszczenia zapisow
+      Xo := Left;
+      Yo := Top;
+      //I dodatkowo pozycjonowanie podpisu pod obrazkiem:
+      WypozycjonujLPodpis();
+    end;
   end;
 
 End; (* RozmiescObrazki_v2() *)
 
 
+procedure TMojImage.WypozycjonujLPodpis();
+(* LPodpis ma sie znalez pod obrazkiem, wyrownany(?) do lewej *)
+Begin
+  Self.LPodpis.Top  := Self.Top+Self.Height;
+  //Wyrownany do lewej krawedzi obrazka:
+  if FParametry.RBLeft.Checked then
+    Self.LPodpis.Left := Self.Left
+  else    //Wycentrowany centralnie obrazkiem:
+   LPodpis.Left:=Self.Left+ ((Self.Width-LPodpis.Width) div 2);
+End;
+
+procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
+Begin
+ LPodpis.Visible := czyPokazac;
+End;
 
 procedure TMojImage.Odjedz();
 (* Steruje procesem 'odjezdzania' obrazka od LG Ramki poza promien Lapki R *)
@@ -990,6 +1070,17 @@ Begin
   mamWskaz:=False;  //bo jeszcze tego wskaza nie widac
 End;  (* Procedure *)
 
+procedure TMojImage.dodajPodpisNaEtapieKonstruktora();
+(* 2020-04-27  Dowiązanie nazwy obrazka do ewentualnego wypisania pod obrazkiem *)
+(* Uwaga - tutaj jeszcze nie ma ostatecznego polozenia - to wyliczam pozniej... *)
+Begin
+  LPodpis:=TLabel.Create(nil) ;
+  LPodpis.Caption := ExtractFileNameOnly(plikNzw);
+  LPodpis.Parent  := FOperacje;
+  LPodpis.Visible := FParametry.CBPictNames.Checked; //uwaga KOHEZJA, ale trzeba, bo probleiki kosmetyczne
+  LPodpis.Font.Size:=11;
+  LPodpis.Font.Style:=[fsBold];
+End;
 
 
 procedure TMojImage.coNaBlinkTimer(Sender: Tobject);
@@ -1034,6 +1125,7 @@ procedure TMojImage.PotrzasnijPrivate();
 (* Wstrzasniecie (shake) obrazkiem *)
 Begin
   lShakes := LSHAKES_CONST; //ile razy wstrzasnac
+  if not FinArea then lShakes:=2*LSHAKES_CONST;  //kosmetyka - w OD niech bedzie potrzasa dluzej - latwiej zobaczyc...
   Cursor  := crNone;
   BlokujHandlery();         //zeby nie przesuwac 'skaczacego' obrazka - bo komplikacje...
   TShake.Enabled:=True;     //wstrzas 'wlasciwy'
@@ -1053,5 +1145,6 @@ End;
 
 
 Begin
+
 End.
 

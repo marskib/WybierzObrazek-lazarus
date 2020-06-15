@@ -48,11 +48,11 @@ procedure TFOprogramie.FormCreate(Sender: TObject);
 Begin
   //Rozny naglowek w zaleznosci od wersji pelna/demo
   if not PELNA_WERSJA then begin
-    Memo1.Lines[0] := 'WybierzObrazek - wersja 1.0 (demonstracyjna)';
+    Memo1.Lines[0] := 'WybierzObrazek - wersja 1.1 (demonstracyjna)';
     Memo1.Height := Memo1.Height - 40;
   end
   else begin
-    Memo1.Lines[0] := 'WybierzObrazek - wersja 1.0 (pełna)';
+    Memo1.Lines[0] := 'WybierzObrazek - wersja 1.1 (pełna)';
     Memo1.Append('');
     Memo1.Append('Rozpowszechnianie programu bez zgody autora stanowi naruszenie praw autorskich.');
     FOperacje.Caption := 'WybierzObrazekPlus';

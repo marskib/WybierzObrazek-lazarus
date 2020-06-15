@@ -652,11 +652,13 @@ Begin
   //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, zeby ostatni rzad
   //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
   if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
-    proc := 0.95;
+    proc := 0.95;   //zmniejszamy obowiazkowo i na wszelki wypadek
     lOparam := StrToInt(FParametry.EPoziom.Text);
     //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
-    if (IleWierszy(lOparam)=3) and (Screen.Height<=768) then proc := 0.50;   //0.90
-    if (IleWierszy(lOparam)=3) and (Screen.Height<=720) then proc := 0.45;   //0.85
+    if IleWierszy(lOparam) >= 2 then begin
+      if Screen.Height<=768 then  proc := 0.90;   //0.90
+      if Screen.Height<=720 then  proc := 0.85;   //0.85
+    end;
     self.Height:=trunc(proc*self.Height);
     self.Width :=trunc(proc*self.Width);
   end;

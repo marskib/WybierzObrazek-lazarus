@@ -352,8 +352,7 @@ begin
 end;
 
 procedure TFParametry.CBPictNamesChange(Sender: TObject);
-var i, lOparam : SmallInt;
-    proc : Real;
+var i : SmallInt;
 Begin
   Zmieniono_Podpis := not Zmieniono_Podpis; //not - zeby wychwycic bezprduktywne 'pstrykanie' w jednej sesji
   {}
@@ -362,24 +361,6 @@ Begin
        tabOb[i].PokazUkryjLPodpis(CBPictNames.Checked);
   end;
   RGPolozeniePodpisu.Visible:=CBPictNames.Checked; //gasze/pokazuje stowarzyszona RG
-
-
-  //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
-  {
-  if CBPictNames.Checked then begin
-    proc := 1.00;
-    lOparam := StrToInt(FParametry.EPoziom.Text);
-    if (TMojImage.IleWierszy(lOparam)=3) and (Screen.Height<=768) then proc := 0.50;   //0.90
-    if (TMojImage.IleWierszy(lOparam)=3) and (Screen.Height<=720) then proc := 0.45;   //0.85
-    if proc<>1.00  then begin
-      for i:=1 to TMojImage.liczbaOb do begin
-        FOperacje.tabOb[i].Height:=trunc(proc*FOperacje.tabOb[i].Height);
-        FOperacje.tabOb[i].Width :=trunc(proc*FOperacje.tabOb[i].Width);
-      end;
-    end;
-  end;
-  }
-
 End;
 
 
