@@ -1,7 +1,7 @@
 object FOprogramie: TFOprogramie
-  Left = 142
+  Left = 126
   Height = 525
-  Top = 84
+  Top = 83
   Width = 648
   Caption = 'o programie...'
   ClientHeight = 525
@@ -32,7 +32,7 @@ object FOprogramie: TFOprogramie
     Width = 627
     Font.Style = [fsBold]
     Lines.Strings = (
-      'WybierzObrazek - versja 1.0 (pełna)'
+      'WybierzObrazek - versja 1.1 (pełna)'
       ''
       'Rozwijanie percepcji wzrokowej.'
       ''

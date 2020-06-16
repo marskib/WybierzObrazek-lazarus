@@ -41,6 +41,7 @@ type
     CBPodp: TCheckBox;
     CBShrink: TCheckBox;
     CBNazwa: TCheckBox;
+    CBUpperLower: TCheckBox;
     ComboBoxKolor: TComboBox;
     DEKatalogSkib : TMojDirectoryEdit;
     {}
@@ -60,18 +61,19 @@ type
     Label8: TLabel;
     LCount: TLabel;
     Panel1: TPanel;
-    RGPolozeniePodpisu: TRadioGroup;
+    Panel2: TPanel;
     RBCenter: TRadioButton;
+    RBLeft: TRadioButton;
     RBNegYes: TRadioButton;
     RBNegNo: TRadioButton;
     RadioGroup1: TRadioGroup;
     RB2W: TRadioButton;
     RB1W: TRadioButton;
-    RBLeft: TRadioButton;
     RBPochwala: TRadioButton;
     RBNoAward: TRadioButton;
     RBOklaski: TRadioButton;
     RBOkrzyk: TRadioButton;
+    RGPolozeniePodpisu: TRadioGroup;
     procedure BDomyslneClick(Sender: TObject);
     procedure BMinusClick(Sender: TObject);
     procedure BOKClick(Sender: TObject);
@@ -86,6 +88,7 @@ type
     //procedure CBOdgrywajChange(Sender: TObject);
     procedure CBPodpChange(Sender: TObject);
     procedure CBShrinkChange(Sender: TObject);
+    procedure CBUpperLowerChange(Sender: TObject);
     procedure ComboBoxKolorChange(Sender: TObject);
     procedure DEKatalogMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -360,7 +363,8 @@ Begin
      for i:=1 to TMojImage.liczbaOb do
        tabOb[i].PokazUkryjLPodpis(CBPictNames.Checked);
   end;
-  RGPolozeniePodpisu.Visible:=CBPictNames.Checked; //gasze/pokazuje stowarzyszona RG
+  //RGPolozeniePodpisu.Visible:=CBPictNames.Checked; //gasze/pokazuje stowarzyszony panel
+  Panel2.Visible:=CBPictNames.Checked; //gasze/pokazuje stowarzyszony panel
 End;
 
 
@@ -386,6 +390,13 @@ Begin
      FOperacje.SpeedBtnGraj.Glyph := FOperacje.SpeedBtn2.Glyph
 End;
 
+procedure TFParametry.CBUpperLowerChange(Sender: TObject);
+var i: SmallInt;
+Begin
+  for i:=1 to TMojImage.liczbaOb do begin
+    FOperacje.tabOb[i].UpperLowerLettersLPodpis(CBUpperLower.Checked)
+  end;
+End;
 
 procedure TFParametry.UstawSelekcjeWgZbioru(const Zbior:TZbior);
 var i:integer;
@@ -532,7 +543,7 @@ Begin
     0: FOperacje.Color := clAqua;
     1: FOperacje.Color := clWhite;
     2: FOperacje.Color := clBlack;
-    3: Begin //przypadek Default'u wymaga szczegolnego potraktowanoia (w defolcie Ramka ma nie miec obramowania + Czarny text pod obrazkiem*)
+    3: Begin //przypadek Default'u wymaga szczegolnego potraktowanoia (w defaulcie Ramka ma nie miec obramowania + Czarny text pod obrazkiem*)
          FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
          Exit; //szczegolne potraktowanie *(patrz wyzej) - dlatego exit
        End;

@@ -104,6 +104,7 @@ type
         procedure PotrzasnijZeWskazem();
         procedure WypozycjonujLPodpis();     //zapewnia pozycje LPodpis pod obrazkiem
         procedure PokazUkryjLPodpis(czyPokazac:Boolean);
+        procedure UpperLowerLettersLPodpis(isUpper:Boolean);
 
   End;  //TMojImage
 
@@ -670,6 +671,7 @@ Begin
   //koniec doklejki
   {}
   Self.dodajPodpisNaEtapieKonstruktora();
+  Self.UpperLowerLettersLPodpis(FParametry.CBUpperLower.Checked); //uwaga KOHEZJA, ale potrzebna...
   {}
   WlaczHandlery();
 End; (* WlasnyCreate_ze_Skalowaniem() *)
@@ -953,6 +955,15 @@ End;
 procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
 Begin
  LPodpis.Visible := czyPokazac;
+End;
+
+procedure TMojImage.UpperLowerLettersLPodpis(isUpper:Boolean);
+
+Begin
+  if isUpper then
+    LPodpis.Caption:=AnsiUpperCase(LPodpis.Caption)
+  else
+    LPodpis.Caption:=AnsiLowerCase(LPodpis.Caption)
 End;
 
 procedure TMojImage.Odjedz();

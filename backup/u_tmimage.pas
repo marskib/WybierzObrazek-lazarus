@@ -104,6 +104,7 @@ type
         procedure PotrzasnijZeWskazem();
         procedure WypozycjonujLPodpis();     //zapewnia pozycje LPodpis pod obrazkiem
         procedure PokazUkryjLPodpis(czyPokazac:Boolean);
+        procedure UpperLowerLettersLPodpis(isUpper:Boolean);
 
   End;  //TMojImage
 
@@ -648,20 +649,26 @@ Begin
   //DOLOZENIE STRZALKI (na razie niewidzialnej) W DOL:
   Self.dodajWskazNaEtapieKonstruktora();
   {}
+  //Doklejka -> zabezpieczenie przed laptopami - jesli 2+ wierszy, to obrazki wchodza
+  //na pasek zadan, wiec troche pomniejszam:
+  proc:=1.00; //100%
+  lOparam := StrToInt(FParametry.EPoziom.Text); //liczba obrazkow w parametrach (de facto na ekranie)
+  if (Screen.Height<=768) and (IleWierszy(lOparam)>=2)then proc := 0.95;
+  if (Screen.Height<=720) and (IleWierszy(lOparam)>=2)then proc := 0.91;
   //2020-04-28 - na sugestie A.Bathis -patrz nizej:
   //Teraz obsluga przypadku, gdy mamy podpisy - troche zmniejszam, zeby ostatni rzad
   //nie wychodzil poza dol FOperacje, bo moze byc nie widac takiego podpisu (heurystycznie....):
   if FPArametry.CBPictNames.Checked then begin //UWAGA - KOHEZJA
-    proc := 0.95;   //zmniejszamy obowiazkowo i na wszelki wypadek
-    lOparam := StrToInt(FParametry.EPoziom.Text);
+    proc := 0.95;   //zmniejszamy obowiazkowo i/lub na wszelki wypadek
     //Na laptoptach 1366x768 0.95 moze byc za duzo, ostatni rzad ma niewidoczne Lpodis'y ... :
     if IleWierszy(lOparam) >= 2 then begin
       if Screen.Height<=768 then  proc := 0.90;   //0.90
       if Screen.Height<=720 then  proc := 0.85;   //0.85
     end;
-    self.Height:=trunc(proc*self.Height);
-    self.Width :=trunc(proc*self.Width);
   end;
+  self.Height:=trunc(proc*self.Height);
+  self.Width :=trunc(proc*self.Width);
+  //koniec doklejki
   {}
   Self.dodajPodpisNaEtapieKonstruktora();
   {}
@@ -947,6 +954,15 @@ End;
 procedure TMojImage.PokazUkryjLPodpis(czyPokazac: Boolean);
 Begin
  LPodpis.Visible := czyPokazac;
+End;
+
+procedure TMojImage.UpperLowerLettersLPodpis(isUpper:Boolean);
+
+Begin
+  if isUpper then
+    LPodpis.Caption:=AnsiUpperCase(LPodpis.Caption)
+  else
+    LPodpis.Caption:=AnsiLowerCase(LPodpis.Caption)
 End;
 
 procedure TMojImage.Odjedz();

@@ -118,7 +118,7 @@ var
 
 CONST
     PELNA_WERSJA = TRUE;         //na etapie kompilacji okreslam czy pelna czy demo
-    JESTEM_W_105 = TRUE;        //zeby nie grac, gdy jestem w 1.05
+    JESTEM_W_105 = FALSE;        //zeby nie grac, gdy jestem w 1.05
 VAR
 
     MAX_OBR_OD :SmallInt;        //maxymalna dozwolona liczba obrazkow w Obszarze Dolnym (jak za duzo, to dziecko nie da rady...); zalezy tez od PELNA_WERSJA=True/False

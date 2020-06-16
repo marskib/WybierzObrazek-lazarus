@@ -1,7 +1,7 @@
 object FParametry: TFParametry
-  Left = 58
+  Left = 138
   Height = 612
-  Top = 38
+  Top = 115
   Width = 895
   BorderIcons = []
   Caption = 'Ustawienia'
@@ -1315,7 +1315,7 @@ object FParametry: TFParametry
     Left = 215
     Height = 84
     Hint = 'czy komentować nieudaną próbę'
-    Top = 214
+    Top = 244
     Width = 185
     AutoFill = True
     Caption = 'Komentarze negatywne'
@@ -1368,51 +1368,71 @@ object FParametry: TFParametry
     ParentFont = False
     TabOrder = 16
   end
-  object RGPolozeniePodpisu: TRadioGroup
-    Left = 280
-    Height = 48
-    Top = 152
-    Width = 169
-    AutoFill = True
-    Caption = ' położenie nazwy '
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclTopToBottomThenLeftToRight
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 28
-    ClientWidth = 165
-    ColumnLayout = clVerticalThenHorizontal
-    Columns = 2
-    Font.CharSet = EASTEUROPE_CHARSET
-    Font.Color = clBlack
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    ParentFont = False
+  object Panel2: TPanel
+    Left = 284
+    Height = 84
+    Top = 150
+    Width = 184
+    ClientHeight = 84
+    ClientWidth = 184
+    Color = clSilver
+    ParentColor = False
     TabOrder = 17
     Visible = False
-    object RBLeft: TRadioButton
-      Left = 6
-      Height = 28
-      Top = 0
-      Width = 73
-      Caption = 'od lewej'
-      Checked = True
-      OnChange = RBLeftChange
-      TabOrder = 1
-      TabStop = True
-    end
-    object RBCenter: TRadioButton
-      Left = 79
-      Height = 28
-      Top = 0
-      Width = 80
-      Caption = 'na środku'
+    object RGPolozeniePodpisu: TRadioGroup
+      Left = 7
+      Height = 48
+      Top = 3
+      Width = 169
+      AutoFill = True
+      Caption = ' położenie nazwy '
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 28
+      ClientWidth = 165
+      ColumnLayout = clVerticalThenHorizontal
+      Columns = 2
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentFont = False
       TabOrder = 0
+      object RBLeft: TRadioButton
+        Left = 6
+        Height = 28
+        Top = 0
+        Width = 73
+        Caption = 'od lewej'
+        Checked = True
+        OnChange = RBLeftChange
+        TabOrder = 1
+        TabStop = True
+      end
+      object RBCenter: TRadioButton
+        Left = 79
+        Height = 28
+        Top = 0
+        Width = 80
+        Caption = 'na środku'
+        TabOrder = 0
+      end
+    end
+    object CBUpperLower: TCheckBox
+      Left = 40
+      Height = 19
+      Top = 58
+      Width = 105
+      Caption = 'WIELKIE LITERY'
+      OnChange = CBUpperLowerChange
+      TabOrder = 1
     end
   end
 end
