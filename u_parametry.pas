@@ -36,6 +36,7 @@ type
     BSelUp: TButton;
     BSelDown: TButton;
     CBAutomat: TCheckBox;
+    CBShowRamka: TCheckBox;
     CBPictNames: TCheckBox;
     CBOdgrywaj: TCheckBox;
     CBPodp: TCheckBox;

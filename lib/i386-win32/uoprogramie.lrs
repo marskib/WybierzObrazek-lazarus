@@ -1,13 +1,13 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TFOprogramie','FORMDATA',[
-  'TPF0'#12'TFOprogramie'#11'FOprogramie'#4'Left'#2'~'#6'Height'#3#13#2#3'Top'#2
-  +'S'#5'Width'#3#136#2#7'Caption'#6#14'o programie...'#12'ClientHeight'#3#13#2
-  +#11'ClientWidth'#3#136#2#8'OnCreate'#7#10'FormCreate'#10'LCLVersion'#6#7'2.0'
-  +'.8.0'#0#7'TButton'#7'Button1'#4'Left'#3#6#1#6'Height'#2#26#3'Top'#3#232#1#5
-  +'Width'#2'b'#7'Caption'#6#7'Zamknij'#12'Font.CharSet'#7#18'EASTEUROPE_CHARSE'
-  +'T'#10'Font.Color'#7#7'clBlack'#11'Font.Height'#2#243#9'Font.Name'#6#15'Time'
-  +'s New Roman'#10'Font.Pitch'#7#10'fpVariable'#12'Font.Quality'#7#7'fqDraft'
+  'TPF0'#12'TFOprogramie'#11'FOprogramie'#4'Left'#3#128#0#6'Height'#3#13#2#3'To'
+  +'p'#2'T'#5'Width'#3#136#2#7'Caption'#6#14'o programie...'#12'ClientHeight'#3
+  +#13#2#11'ClientWidth'#3#136#2#8'OnCreate'#7#10'FormCreate'#10'LCLVersion'#6#7
+  +'2.0.8.0'#0#7'TButton'#7'Button1'#4'Left'#3#6#1#6'Height'#2#26#3'Top'#3#232#1
+  +#5'Width'#2'b'#7'Caption'#6#7'Zamknij'#12'Font.CharSet'#7#18'EASTEUROPE_CHAR'
+  +'SET'#10'Font.Color'#7#7'clBlack'#11'Font.Height'#2#243#9'Font.Name'#6#15'Ti'
+  +'mes New Roman'#10'Font.Pitch'#7#10'fpVariable'#12'Font.Quality'#7#7'fqDraft'
   +#10'Font.Style'#11#6'fsBold'#0#7'OnClick'#7#12'Button1Click'#10'ParentFont'#8
   +#8'TabOrder'#2#0#0#0#5'TMemo'#5'Memo1'#4'Left'#2#13#6'Height'#3'z'#1#3'Top'#2
   +#6#5'Width'#3's'#2#10'Font.Style'#11#6'fsBold'#0#13'Lines.Strings'#1#6'$Wybi'

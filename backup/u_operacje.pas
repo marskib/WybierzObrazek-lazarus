@@ -665,7 +665,9 @@ Begin
   SpeedBtnGraj.Left := x;
   y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
-  Ramka.Visible := True;
+
+  Ramka.Visible := FParametry.CBShowRamka.Checked; //zasygerowane przez A.Bathis w 2020.06 - jesli obrazki o roznych proporcjach, to widiczna ramka jest zbyt wyrazną sugestią....
+
   SpeedBtnGraj.Visible := True;
 
   //Dzieki tym 2 'bezsensownym' instrukcom podobiekt Lapka bedzie mial 'bojowe' wspolrzedne - wykorzystywane w funkcki TMojImage.ObrazekJestWOkregu(...) (troche trick...):

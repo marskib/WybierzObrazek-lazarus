@@ -1,7 +1,7 @@
 object FOperacje: TFOperacje
-  Left = 90
+  Left = 91
   Height = 546
-  Top = 81
+  Top = 83
   Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'WybierzObrazek'

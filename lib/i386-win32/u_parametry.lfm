@@ -1,11 +1,11 @@
 object FParametry: TFParametry
-  Left = 157
-  Height = 612
-  Top = 139
+  Left = 139
+  Height = 661
+  Top = 118
   Width = 895
   BorderIcons = []
   Caption = 'Ustawienia'
-  ClientHeight = 612
+  ClientHeight = 661
   ClientWidth = 895
   Color = clForm
   Font.Color = clWindowText
@@ -876,7 +876,7 @@ object FParametry: TFParametry
   object BOK: TButton
     Left = 9
     Height = 53
-    Top = 537
+    Top = 597
     Width = 240
     Caption = 'OK'
     Font.Color = clWindowText
@@ -902,7 +902,7 @@ object FParametry: TFParametry
   object LKatalog: TLabel
     Left = 493
     Height = 19
-    Top = 360
+    Top = 420
     Width = 170
     Caption = 'Wczytaj obrazki z dysku :'
     Font.Height = -14
@@ -937,7 +937,7 @@ object FParametry: TFParametry
   object BDomyslne: TButton
     Left = 261
     Height = 53
-    Top = 537
+    Top = 597
     Width = 106
     Caption = 'Wartości domyśne'
     Font.Color = clWindowText
@@ -950,7 +950,7 @@ object FParametry: TFParametry
   object GroupBox5: TGroupBox
     Left = 77
     Height = 114
-    Top = 214
+    Top = 274
     Width = 122
     Caption = 'Nagroda'
     ClientHeight = 94
@@ -1000,7 +1000,7 @@ object FParametry: TFParametry
   object ComboBoxKolor: TComboBox
     Left = 77
     Height = 21
-    Top = 505
+    Top = 565
     Width = 122
     DropDownCount = 10
     Font.CharSet = EASTEUROPE_CHARSET
@@ -1018,7 +1018,7 @@ object FParametry: TFParametry
   object Label7: TLabel
     Left = 77
     Height = 13
-    Top = 491
+    Top = 551
     Width = 54
     Caption = 'Kolor Tła'
     Font.Color = clWindowText
@@ -1187,7 +1187,7 @@ object FParametry: TFParametry
   object GroupBox6: TGroupBox
     Left = 77
     Height = 83
-    Top = 349
+    Top = 409
     Width = 169
     Caption = ' Jeśli 4 obrazki, to '
     ClientHeight = 63
@@ -1220,7 +1220,7 @@ object FParametry: TFParametry
   object CBShrink: TCheckBox
     Left = 77
     Height = 20
-    Top = 460
+    Top = 520
     Width = 140
     Caption = 'Pomniejszaj obrazki'
     Font.Color = clWindowText
@@ -1233,7 +1233,7 @@ object FParametry: TFParametry
   object CBNazwa: TCheckBox
     Left = 80
     Height = 20
-    Top = 130
+    Top = 163
     Width = 231
     Caption = 'Pokaż polecenie w formie pisemnej'
     Font.Color = clWindowText
@@ -1246,7 +1246,7 @@ object FParametry: TFParametry
   object Panel1: TPanel
     Left = 493
     Height = 140
-    Top = 450
+    Top = 510
     Width = 380
     ClientHeight = 140
     ClientWidth = 380
@@ -1315,7 +1315,7 @@ object FParametry: TFParametry
     Left = 215
     Height = 84
     Hint = 'czy komentować nieudaną próbę'
-    Top = 244
+    Top = 304
     Width = 185
     AutoFill = True
     Caption = 'Komentarze negatywne'
@@ -1358,7 +1358,7 @@ object FParametry: TFParametry
   object CBPictNames: TCheckBox
     Left = 80
     Height = 20
-    Top = 172
+    Top = 207
     Width = 191
     Caption = 'Pokaż nazwy pod obrazkami'
     Font.Color = clWindowText
@@ -1371,7 +1371,7 @@ object FParametry: TFParametry
   object Panel2: TPanel
     Left = 284
     Height = 84
-    Top = 150
+    Top = 185
     Width = 184
     ClientHeight = 84
     ClientWidth = 184
@@ -1434,5 +1434,17 @@ object FParametry: TFParametry
       OnChange = CBUpperLowerChange
       TabOrder = 1
     end
+  end
+  object CBShowRamka: TCheckBox
+    Left = 80
+    Height = 20
+    Top = 130
+    Width = 197
+    Caption = 'Nie pokazuj ramki na obrazek'
+    Font.Color = clWindowText
+    Font.Height = -14
+    Font.Name = 'MS Sans Serif'
+    ParentFont = False
+    TabOrder = 18
   end
 end

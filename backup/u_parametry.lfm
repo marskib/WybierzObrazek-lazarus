@@ -1,7 +1,7 @@
 object FParametry: TFParametry
-  Left = 157
+  Left = 139
   Height = 612
-  Top = 139
+  Top = 118
   Width = 895
   BorderIcons = []
   Caption = 'Ustawienia'
