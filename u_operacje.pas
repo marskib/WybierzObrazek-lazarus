@@ -37,6 +37,8 @@ uses
     LEGrayness: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
+    TSGhostRamkaPoziom: TShape;
+    TSGhostRamkaPion: TShape;
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;

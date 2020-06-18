@@ -1,7 +1,7 @@
 object FOperacje: TFOperacje
-  Left = 91
+  Left = 206
   Height = 546
-  Top = 83
+  Top = 123
   Width = 812
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'WybierzObrazek'
@@ -2590,6 +2590,18 @@ object FOperacje: TFOperacje
       ParentColor = False
       ParentFont = False
     end
+  end
+  object TSGhostRamkaPoziom: TShape
+    Left = 552
+    Height = 1
+    Top = 39
+    Width = 65
+  end
+  object TSGhostRamkaPion: TShape
+    Left = 553
+    Height = 53
+    Top = 40
+    Width = 1
   end
   object MainMenu1: TMainMenu
     left = 752

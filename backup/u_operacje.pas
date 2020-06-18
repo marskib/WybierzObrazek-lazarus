@@ -666,7 +666,7 @@ Begin
   y :=  TImWzorzec.Top;
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
 
-  Ramka.Visible := FParametry.CBShowRamka.Checked; //zasygerowane przez A.Bathis w 2020.06 - jesli obrazki o roznych proporcjach, to widiczna ramka jest zbyt wyrazną sugestią....
+  Ramka.Visible := not FParametry.CBShowRamka.Checked; //A.Bathis w 2020.06 - jesli obrazki o roznych proporcjach, to widiczna ramka jest zbyt wyrazną sugestią....
 
   SpeedBtnGraj.Visible := True;
 
