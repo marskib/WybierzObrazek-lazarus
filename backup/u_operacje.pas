@@ -37,6 +37,8 @@ uses
     LEGrayness: TLabel;
     Panel1: TPanel;
     Panel2: TPanel;
+    TSGhostRamkaPoziom: TShape;
+    TSGhostRamkaPion: TShape;
     SpeedBtnGraj: TSpeedButton;
     SpeedBtn2: TSpeedButton;
     SpeedBtn1: TSpeedButton;
@@ -82,6 +84,7 @@ uses
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     function dostosujSpeedBtnGrajHeight():SmallInt;
+    procedure PolozRamkeGhosta(czyPokazac:Boolean);
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
@@ -664,9 +667,10 @@ Begin
   x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
   SpeedBtnGraj.Left := x;
   y :=  TImWzorzec.Top;
-  Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
 
+  Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := not FParametry.CBShowRamka.Checked; //A.Bathis w 2020.06 - jesli obrazki o roznych proporcjach, to widiczna ramka jest zbyt wyrazną sugestią....
+  PolozRamkeGhosta(not Ramka.Visible);
 
   SpeedBtnGraj.Visible := True;
 
@@ -693,6 +697,23 @@ Begin
   PokazUkryjBGrajOnWavExistsDependent();
   //
 End; (* Procedure *)
+
+
+procedure TFOperacje.PolozRamkeGhosta(czyPokazac:Boolean);
+(*Polozenie "ramki"-ghosta - 2 prostopadle linie dajace poglad gdzie klasc obrazek gdy Ramka nie obrazowana (w Ustawienia "nie pokazuj Ramki..."):*)
+(*Ramka-ghost (te linie) leza w lewym gornym rogu Ramki *)
+Begin
+  TSGhostRamkaPion.Left:=Ramka.Left;
+  TSGhostRamkaPion.Top :=Ramka.Top;
+  TSGhostRamkaPoziom.Left:=Ramka.Left;
+  TSGhostRamkaPoziom.Top:=Ramka.Top;
+
+  TSGhostRamkaPoziom.Width:=Ramka.LR;
+  TSGhostRamkaPion.Height :=Ramka.LR;
+
+  TSGhostRamkaPoziom.Visible:=czyPokazac;
+  TSGhostRamkaPion.Visible  :=czyPokazac;
+End;
 
 
 function TFOperacje.dostosujSpeedBtnGrajHeight():SmallInt;

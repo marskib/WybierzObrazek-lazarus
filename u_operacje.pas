@@ -84,6 +84,8 @@ uses
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     function dostosujSpeedBtnGrajHeight():SmallInt;
+    procedure PolozRamkeGhosta(czyPokazac:Boolean);
+    procedure UkryjRamkeGhosta();
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
@@ -468,6 +470,7 @@ Begin
   LNazwa.Visible := False;           //znika podpis pod obrazkiem (if any)
   Ramka.JestLapka := False;   //gdyby byla...
   Ramka.Visible   := False;   //j.w.
+  UkryjRamkeGhosta();
   Sprawdzacz.Resetuj();
   for i:=1 to TMojImage.liczbaOb do begin
      tabOb[i].inArea := False;
@@ -481,6 +484,12 @@ Begin
   TMojImage.RozmiescObrazki_v2(tabOb, sek);
   //Wylosowanie i pokazanie wylosowanego w OG (lekkie opoznienie - efekciarstwo ;)):
   TimerLosuj.Enabled := True;
+End;
+
+procedure TFOperacje.UkryjRamkeGhosta();
+Begin
+ TSGhostRamkaPion.Visible  :=False;
+ TSGhostRamkaPoziom.Visible:=False;
 End;
 
 procedure TFOperacje.BAgainClick(Sender: TObject);
@@ -666,9 +675,10 @@ Begin
   x := (FOperacje.Width - (SpeedBtnGraj.Width + odstep + Ramka.Width)) div 2;
   SpeedBtnGraj.Left := x;
   y :=  TImWzorzec.Top;
-  Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
 
+  Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := not FParametry.CBShowRamka.Checked; //A.Bathis w 2020.06 - jesli obrazki o roznych proporcjach, to widiczna ramka jest zbyt wyrazną sugestią....
+  PolozRamkeGhosta(not Ramka.Visible); //pomocnicza, gdy nie pokazujemy Ramki wlasciwej
 
   SpeedBtnGraj.Visible := True;
 
@@ -695,6 +705,23 @@ Begin
   PokazUkryjBGrajOnWavExistsDependent();
   //
 End; (* Procedure *)
+
+
+procedure TFOperacje.PolozRamkeGhosta(czyPokazac:Boolean);
+(*Polozenie "ramki"-ghosta - 2 prostopadle linie dajace poglad gdzie klasc obrazek gdy Ramka nie obrazowana (w Ustawienia "nie pokazuj Ramki..."):*)
+(*Ramka-ghost (te linie) leza w lewym gornym rogu Ramki *)
+Begin
+  TSGhostRamkaPion.Left:=Ramka.Left;
+  TSGhostRamkaPion.Top :=Ramka.Top;
+  TSGhostRamkaPoziom.Left:=Ramka.Left;
+  TSGhostRamkaPoziom.Top:=Ramka.Top;
+
+  TSGhostRamkaPoziom.Width:=Ramka.LR;
+  TSGhostRamkaPion.Height :=Ramka.LR;
+
+  TSGhostRamkaPoziom.Visible:=czyPokazac;
+  TSGhostRamkaPion.Visible  :=czyPokazac;
+End;
 
 
 function TFOperacje.dostosujSpeedBtnGrajHeight():SmallInt;
