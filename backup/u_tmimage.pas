@@ -671,6 +671,7 @@ Begin
   //koniec doklejki
   {}
   Self.dodajPodpisNaEtapieKonstruktora();
+  Self.UpperLowerLettersLPodpis(FParametry.CBUpperLower.Checked); //uwaga KOHEZJA, ale potrzebna...
   {}
   WlaczHandlery();
 End; (* WlasnyCreate_ze_Skalowaniem() *)

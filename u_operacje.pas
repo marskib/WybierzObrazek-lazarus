@@ -1,3 +1,4 @@
+
 unit u_operacje;
 
 {$mode objfpc}{$H+}
@@ -84,8 +85,6 @@ uses
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     function dostosujSpeedBtnGrajHeight():SmallInt;
-    procedure PolozRamkeGhosta(czyPokazac:Boolean);
-    procedure UkryjRamkeGhosta();
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
@@ -107,6 +106,9 @@ uses
 
     procedure UstawDefaultowyKolorRamki_Ekranu_Napisu();
     procedure DostosujKoloryPozostalychObiektow();
+
+    procedure PolozRamkeGhosta(czyPokazac:Boolean);
+    procedure UkryjRamkeGhosta();
 
   end;
 

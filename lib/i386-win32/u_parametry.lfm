@@ -1444,6 +1444,7 @@ object FParametry: TFParametry
     Font.Color = clWindowText
     Font.Height = -14
     Font.Name = 'MS Sans Serif'
+    OnChange = CBShowRamkaChange
     ParentFont = False
     TabOrder = 18
   end

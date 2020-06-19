@@ -1,3 +1,4 @@
+
 unit u_operacje;
 
 {$mode objfpc}{$H+}
@@ -85,6 +86,7 @@ uses
   private
     function dostosujSpeedBtnGrajHeight():SmallInt;
     procedure PolozRamkeGhosta(czyPokazac:Boolean);
+    procedure UkryjRamkeGhosta();
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
@@ -106,6 +108,9 @@ uses
 
     procedure UstawDefaultowyKolorRamki_Ekranu_Napisu();
     procedure DostosujKoloryPozostalychObiektow();
+
+    procedure PolozRamkeGhosta(czyPokazac:Boolean);
+    procedure UkryjRamkeGhosta();
 
   end;
 
@@ -469,6 +474,7 @@ Begin
   LNazwa.Visible := False;           //znika podpis pod obrazkiem (if any)
   Ramka.JestLapka := False;   //gdyby byla...
   Ramka.Visible   := False;   //j.w.
+  UkryjRamkeGhosta();
   Sprawdzacz.Resetuj();
   for i:=1 to TMojImage.liczbaOb do begin
      tabOb[i].inArea := False;
@@ -482,6 +488,12 @@ Begin
   TMojImage.RozmiescObrazki_v2(tabOb, sek);
   //Wylosowanie i pokazanie wylosowanego w OG (lekkie opoznienie - efekciarstwo ;)):
   TimerLosuj.Enabled := True;
+End;
+
+procedure TFOperacje.UkryjRamkeGhosta();
+Begin
+ TSGhostRamkaPion.Visible  :=False;
+ TSGhostRamkaPoziom.Visible:=False;
 End;
 
 procedure TFOperacje.BAgainClick(Sender: TObject);
@@ -670,7 +682,7 @@ Begin
 
   Ramka.PolozNaXY(x+SpeedBtnGraj.Width + odstep, y);
   Ramka.Visible := not FParametry.CBShowRamka.Checked; //A.Bathis w 2020.06 - jesli obrazki o roznych proporcjach, to widiczna ramka jest zbyt wyrazną sugestią....
-  PolozRamkeGhosta(not Ramka.Visible);
+  PolozRamkeGhosta(not Ramka.Visible); //pomocnicza, gdy nie pokazujemy Ramki wlasciwej
 
   SpeedBtnGraj.Visible := True;
 

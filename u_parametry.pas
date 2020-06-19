@@ -88,6 +88,7 @@ type
     procedure CBPictNamesChange(Sender: TObject);
     //procedure CBOdgrywajChange(Sender: TObject);
     procedure CBPodpChange(Sender: TObject);
+    procedure CBShowRamkaChange(Sender: TObject);
     procedure CBShrinkChange(Sender: TObject);
     procedure CBUpperLowerChange(Sender: TObject);
     procedure ComboBoxKolorChange(Sender: TObject);
@@ -380,6 +381,16 @@ Begin
   end;
   FOperacje.BPodp.Visible := CBPodp.Checked;
 End;
+
+procedure TFParametry.CBShowRamkaChange(Sender: TObject);
+begin
+  Ramka.Visible:= not CBShowRamka.Checked;
+  if CBShowRamka.Checked then
+    FOperacje.PolozRamkeGhosta(true)
+  else
+    FOperacje.UkryjRamkeGhosta();
+end;
+
 
 procedure TFParametry.CBShrinkChange(Sender: TObject);
 Begin
