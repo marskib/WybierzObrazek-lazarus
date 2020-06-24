@@ -10,7 +10,7 @@ uses
 
 const LSHAKES_CONST = 10; //ile razy ma lshakes potrzasnac niewlasciwym obrazkiem (powinna byc parzysta - kosmetyka)
 
-var   plikPodpisy : file of Text;
+var   plikPodpisy : TextFile;
       JestPlikPodpisy : Boolean;
 
 type
@@ -69,7 +69,7 @@ type
 
       function ObrazekJestWOkregu(const Obrazek:TMojImage; const widacKolo: Boolean):Boolean; //Czy lewy gorny rog obrazka wszedl w obreb podpowiedzi(Okrego wystawianego przez Ramke)
 
-      function getPodpis(origName:String):String;
+      function getPodpis(origName:String):Utf8String;
 
       procedure coNaMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       procedure coNaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1104,16 +1104,33 @@ Begin
 End;
 
 
-function TMojImage.getPodpis(origName:String):String;
+function TMojImage.getPodpis(origName:String):Utf8String;
 (* ********************************************************************************** *)
 (* Wygenerowanie podpisu pod obrazkiem na pdst. pliku podpisy.txt                     *)
 (* Parametr origName = string, ktory jest w pliku PRZED symbolem gwiazdki             *)
 (* Plik przeszukiwany jest do wystapienia origName.                                   *)
 (* Wynik: tekst PO symbolu gwiazdki lub oroigName jesli nie znaleziono lub brak pliku *)
 (* ********************************************************************************** *)
+var Koniec : Boolean;
+    wiersz : UTF8String;
 Begin
-  if not jestPlikPodpisy then Result:=origName;
-  Result:+'jest plik podpisy';
+  if not jestPlikPodpisy then begin
+    Result:=origName;
+    Exit;
+  end;
+
+  reset(plikPodpisy);
+
+  koniec := False;
+  While not Koniec do begin
+    ReadLn(plikPodpisy,wiersz);
+    if not Eof(plikPodpisy) then begin
+      Result:='aaaaaa';//wiersz;
+    end
+    else
+      Koniec := True;
+  End;
+  Result:='bąśćłŻ';
 End;
 
 procedure TMojImage.coNaBlinkTimer(Sender: Tobject);
@@ -1180,8 +1197,8 @@ End;
 Begin
   jestPlikPodpisy:=False;
 
-  if FileExists('podpisy.txt') then begin
-    Assign(plikPodpisy,'podpisy.txt');
+  if FileExists('Zasoby\podpisy.txt') then begin
+    Assign(plikPodpisy,'Zasoby\podpisy.txt');
     jestPlikPodpisy := True;
   end;
 
