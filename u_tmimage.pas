@@ -10,6 +10,9 @@ uses
 
 const LSHAKES_CONST = 10; //ile razy ma lshakes potrzasnac niewlasciwym obrazkiem (powinna byc parzysta - kosmetyka)
 
+var   plikPodpisy : file of Text;
+      JestPlikPodpisy : Boolean;
+
 type
 
   { TMojImage }
@@ -28,6 +31,7 @@ type
     //Na mechanizm nadawania jednoznacznego id obrazka:
     private FliczbaOb : Integer; static;
     public class property liczbaOb : Integer read FliczbaOb;
+
 
     //na mechanizm oznaczania obrazka, ktory wszedl do Obszaru Gornego OG:
     private FinArea : Boolean;
@@ -60,11 +64,12 @@ type
       LPodpis  : TLabel;  //podpis pod obrazkiem, pokazywany (opcjonalnie) na FOperacje
 
 
-
       function DajMaxymWymiarPoziomy(ileObrazkow:Integer):Integer;
       function DajMaxymWymiarPionowy(ileObrazkow:Integer):Integer;
 
       function ObrazekJestWOkregu(const Obrazek:TMojImage; const widacKolo: Boolean):Boolean; //Czy lewy gorny rog obrazka wszedl w obreb podpowiedzi(Okrego wystawianego przez Ramke)
+
+      function getPodpis(origName:String):String;
 
       procedure coNaMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       procedure coNaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1085,14 +1090,31 @@ procedure TMojImage.dodajPodpisNaEtapieKonstruktora();
 (* 2020-04-27  Dowiązanie nazwy obrazka do ewentualnego wypisania pod obrazkiem *)
 (* Uwaga - tutaj jeszcze nie ma ostatecznego polozenia - to wyliczam pozniej... *)
 Begin
-  LPodpis:=TLabel.Create(nil) ;
-  LPodpis.Caption := ExtractFileNameOnly(plikNzw);
+  LPodpis:=TLabel.Create(nil);
+
+
+  //LPodpis.Caption := ExtractFileNameOnly(plikNzw); do 2020-06-24
+  LPodpis.Caption := getPodpis(plikNzw);
+
+
   LPodpis.Parent  := FOperacje;
   LPodpis.Visible := FParametry.CBPictNames.Checked; //uwaga KOHEZJA, ale trzeba, bo probleiki kosmetyczne
   LPodpis.Font.Size:=11;
   LPodpis.Font.Style:=[fsBold];
 End;
 
+
+function TMojImage.getPodpis(origName:String):String;
+(* ********************************************************************************** *)
+(* Wygenerowanie podpisu pod obrazkiem na pdst. pliku podpisy.txt                     *)
+(* Parametr origName = string, ktory jest w pliku PRZED symbolem gwiazdki             *)
+(* Plik przeszukiwany jest do wystapienia origName.                                   *)
+(* Wynik: tekst PO symbolu gwiazdki lub oroigName jesli nie znaleziono lub brak pliku *)
+(* ********************************************************************************** *)
+Begin
+  if not jestPlikPodpisy then Result:=origName;
+  Result:='jest plik podpisy';
+End;
 
 procedure TMojImage.coNaBlinkTimer(Sender: Tobject);
 Begin
@@ -1156,6 +1178,13 @@ End;
 
 
 Begin
+  jestPlikPodpisy:=False;
+
+  if FileExists('podpisy.txt') then begin
+    Assign(plikPodpisy,'podpisy.txt');
+    jestPlikPodpisy := True;
+  end;
+
 
 End.
 
