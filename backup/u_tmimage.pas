@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, Forms, math, u_parametry,
-  LCLIntf, LazFileUtils, Controls, Graphics, u_Lapka;
+  LCLIntf, LazFileUtils, Controls, Graphics, StrUtils, u_Lapka;
 
 const LSHAKES_CONST = 10; //ile razy ma lshakes potrzasnac niewlasciwym obrazkiem (powinna byc parzysta - kosmetyka)
 
@@ -69,7 +69,7 @@ type
 
       function ObrazekJestWOkregu(const Obrazek:TMojImage; const widacKolo: Boolean):Boolean; //Czy lewy gorny rog obrazka wszedl w obreb podpowiedzi(Okrego wystawianego przez Ramke)
 
-      function getPodpis(origName:String):Utf8String;
+      function getPodpis(plikNazw:String):Utf8String;
 
       procedure coNaMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       procedure coNaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1104,33 +1104,45 @@ Begin
 End;
 
 
-function TMojImage.getPodpis(origName:String):Utf8String;
+function TMojImage.getPodpis(plikNazw:String):Utf8String;
 (* ********************************************************************************** *)
 (* Wygenerowanie podpisu pod obrazkiem na pdst. pliku podpisy.txt                     *)
-(* Parametr origName = string, ktory jest w pliku PRZED symbolem gwiazdki             *)
-(* Plik przeszukiwany jest do wystapienia origName.                                   *)
+(*                                                                                    *)
+(* Ponizej przykladowe wiersze pliku podpisy.txt :                                    *)
+(*          Pokaz zieloną papugę*zielona papuga                                       *)
+(*          Pokaz czerwoną papugę*Czerwona papuga                                     *)
+(* Po znanku * wystepuje tekst do 'pozyskania'; przed * jest nazwa pliku=plikNzw      *)
+(*                                                                                    *)
+(* Parametr plikNzw = string, ktory jest nazwą pliku BEZ rozszerzenia, czyli tekstem  *)
+(* PRZED znakiem *gwiazdki.                                                           *)
+(* Plik przeszukiwany jest do wystapienia plikNzw.                                    *)
+(* Potem pobieram to, co po znaku *                                                   *)
 (* Wynik: tekst PO symbolu gwiazdki lub oroigName jesli nie znaleziono lub brak pliku *)
 (* ********************************************************************************** *)
 var Koniec : Boolean;
-    wiersz : UTF8String;
+    wiersz : String;
+    part1,part2 : String; //czesci wiersz przed i po znaku gwiadka *
+    pozG,dlug:integer; //pozycja Gwiadki; dlugosc stringa
 Begin
-  if not jestPlikPodpisy then begin
-    Result:=origName;
-    Exit;
-  end;
+  Result:=plikNazw;
+  if not jestPlikPodpisy then Exit;
 
   reset(plikPodpisy);
-
-  koniec := False;
+  ReadLn(plikPodpisy,wiersz);
+  Koniec := Eof(plikPodpisy);
   While not Koniec do begin
+    pozG := Pos('*',wiersz);
+    part1 := Copy(wiersz,1,pozG-1);
+    if part1=plikNzw then begin
+      dlug := Length(wiersz);
+      part2 := Copy(wiersz,pozG,dlug-pozG+1);
+      Result := part2;
+      Exit
+    end;
+
     ReadLn(plikPodpisy,wiersz);
-    if not Eof(plikPodpisy) then begin
-      Result:='aaaaaa';//wiersz;
-    end
-    else
-      Koniec := True;
+    Koniec := Eof(plikPodpisy);
   End;
-  Result:='bąśćłŻ';
 End;
 
 procedure TMojImage.coNaBlinkTimer(Sender: Tobject);
