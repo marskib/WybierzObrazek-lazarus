@@ -1143,7 +1143,7 @@ Begin
 
     if part1=plikName then begin   //trafilismy na wlasciwy wiersz
       dlug   := Length(wiersz);
-      part2  := Copy(wiersz,pozG,dlug-pozG+1);
+      part2  := Copy(wiersz,pozG+1,dlug-pozG+1);
       Result := part2;
       Exit;
     end;

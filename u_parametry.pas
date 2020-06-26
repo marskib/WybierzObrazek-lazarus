@@ -53,6 +53,7 @@ type
     GroupBox6: TGroupBox;
     Label1: TLabel;
     Label10: TLabel;
+    Label2: TLabel;
     Label9: TLabel;
     ListBoxPodpisy: TListBox;
     LKatalog: TLabel;
@@ -346,7 +347,8 @@ End;
 
 procedure TFParametry.Button1Click(Sender: TObject);
 var plikPodpisy : TextFile;
-    var linijka:RawByteString;//UTF8String;
+    var linijka,wiersz:String;//RawByteString;//UTF8String;
+      var i:integer;
 Begin
 
   //Assign(plikPodpisy,'Zasoby\podpisy.txt');
@@ -357,9 +359,21 @@ Begin
   While not Eof(plikPodpisy) do begin
     readln(plikPodpisy,linijka);
 
-    linijka := AnsiToUtf8(linijka);
 
-    ListBoxPodpisy.AddItem(linijka,nil);
+    //wiersz:='';
+    //for i:=1 to Length(linijka) do wiersz[i]:=wiersz[i]+linijka[i];
+
+    //linijka := AnsiToUtf8(linijka);
+
+    label2.Caption:='';
+
+    for i:=1 to Length(linijka) do
+      Label2.Caption := Label2.Caption+linijka[i];;
+
+    //label2.Caption:=linijka;
+
+
+    ListBoxPodpisy.AddItem(label2.caption,nil);
 
   end;
 End;

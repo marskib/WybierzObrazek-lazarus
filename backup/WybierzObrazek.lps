@@ -31,9 +31,8 @@
         <ComponentName Value="FParametry"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="338"/>
-        <CursorPos X="25" Y="360"/>
+        <TopLine Value="344"/>
+        <CursorPos X="52" Y="353"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -49,9 +48,10 @@
       <Unit4>
         <Filename Value="u_tmimage.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="1216"/>
-        <CursorPos X="8" Y="1253"/>
+        <TopLine Value="1121"/>
+        <CursorPos X="45" Y="1146"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="5">
           <Item0 X="3" Y="204" ID="5"/>
@@ -201,7 +201,7 @@
         <UsageCount Value="11"/>
       </Unit22>
       <Unit23>
-        <Filename Value="C:\lazarus-2-0-8\fpc\3.0.4\source\rtl\inc\systemh.inc"/>
+        <Filename Value="C:\Lazarus-2-0-8\fpc\3.0.4\source\rtl\inc\systemh.inc"/>
         <EditorIndex Value="4"/>
         <TopLine Value="1221"/>
         <CursorPos X="14" Y="1243"/>
@@ -223,7 +223,7 @@
         <UsageCount Value="11"/>
       </Unit25>
       <Unit26>
-        <Filename Value="C:\lazarus-2-0-8\fpc\3.0.4\source\rtl\objpas\classes\classesh.inc"/>
+        <Filename Value="C:\Lazarus-2-0-8\fpc\3.0.4\source\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="1"/>
         <TopLine Value="416"/>
         <CursorPos X="15" Y="438"/>
@@ -231,7 +231,7 @@
         <Loaded Value="True"/>
       </Unit26>
       <Unit27>
-        <Filename Value="C:\lazarus-2-0-8\fpc\3.0.4\source\rtl\inc\text.inc"/>
+        <Filename Value="C:\Lazarus-2-0-8\fpc\3.0.4\source\rtl\inc\text.inc"/>
         <EditorIndex Value="5"/>
         <TopLine Value="110"/>
         <CursorPos X="3" Y="113"/>
@@ -241,123 +241,122 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="374" Column="57" TopLine="328"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="309" Column="172" TopLine="280"/>
       </Position1>
       <Position2>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="309" Column="49" TopLine="280"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="564" Column="51" TopLine="559"/>
       </Position2>
       <Position3>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="595" Column="7" TopLine="590"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="309" Column="172" TopLine="280"/>
       </Position3>
       <Position4>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="596" Column="15" TopLine="590"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="310" Column="172" TopLine="281"/>
       </Position4>
       <Position5>
         <Filename Value="u_parametry.pas"/>
         <Caret Line="309" Column="172" TopLine="280"/>
       </Position5>
       <Position6>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="564" Column="51" TopLine="559"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="310" Column="172" TopLine="299"/>
       </Position6>
       <Position7>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="309" Column="172" TopLine="280"/>
+        <Caret Line="312" Column="172" TopLine="301"/>
       </Position7>
       <Position8>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="310" Column="172" TopLine="281"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="564" Column="51" TopLine="538"/>
       </Position8>
       <Position9>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="309" Column="172" TopLine="280"/>
+        <Caret Line="348" Column="8" TopLine="347"/>
       </Position9>
       <Position10>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="310" Column="172" TopLine="299"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1154" Column="24" TopLine="1142"/>
       </Position10>
       <Position11>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="312" Column="172" TopLine="301"/>
+        <Caret Line="357" Column="24" TopLine="347"/>
       </Position11>
       <Position12>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="564" Column="51" TopLine="538"/>
+        <Filename Value="u_parametry.pas"/>
       </Position12>
       <Position13>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="348" Column="8" TopLine="347"/>
+        <Caret Line="356" Column="35" TopLine="322"/>
       </Position13>
       <Position14>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="1154" Column="24" TopLine="1142"/>
+        <Caret Line="1249" Column="28" TopLine="1216"/>
       </Position14>
       <Position15>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="357" Column="24" TopLine="347"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="13" Column="7"/>
       </Position15>
       <Position16>
         <Filename Value="u_parametry.pas"/>
+        <Caret Line="352" Column="28" TopLine="330"/>
       </Position16>
       <Position17>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="356" Column="35" TopLine="322"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1253" Column="8" TopLine="1216"/>
       </Position17>
       <Position18>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="1249" Column="28" TopLine="1216"/>
+        <Filename Value="C:\lazarus-2-0-8\fpc\3.0.4\source\rtl\inc\systemh.inc"/>
+        <Caret Line="1243" Column="14" TopLine="1221"/>
       </Position18>
       <Position19>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="13" Column="7"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="342" Column="21" TopLine="330"/>
       </Position19>
       <Position20>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="352" Column="28" TopLine="330"/>
+        <Caret Line="10" Column="87"/>
       </Position20>
       <Position21>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="1253" Column="8" TopLine="1216"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="352" Column="71" TopLine="330"/>
       </Position21>
       <Position22>
-        <Filename Value="C:\lazarus-2-0-8\fpc\3.0.4\source\rtl\inc\systemh.inc"/>
-        <Caret Line="1243" Column="14" TopLine="1221"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="357" Column="28" TopLine="335"/>
       </Position22>
       <Position23>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="342" Column="21" TopLine="330"/>
+        <Caret Line="358" Column="23" TopLine="336"/>
       </Position23>
       <Position24>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="10" Column="87"/>
+        <Caret Line="359" Column="14" TopLine="337"/>
       </Position24>
       <Position25>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="352" Column="71" TopLine="330"/>
+        <Caret Line="57" Column="14" TopLine="36"/>
       </Position25>
       <Position26>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="357" Column="28" TopLine="335"/>
+        <Caret Line="360" Column="16" TopLine="338"/>
       </Position26>
       <Position27>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="358" Column="23" TopLine="336"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1230" Column="27" TopLine="1216"/>
       </Position27>
       <Position28>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="359" Column="14" TopLine="337"/>
+        <Filename Value="u_tmimage.pas"/>
       </Position28>
       <Position29>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="57" Column="14" TopLine="36"/>
+        <Caret Line="345" Column="86" TopLine="338"/>
       </Position29>
       <Position30>
         <Filename Value="u_parametry.pas"/>
-        <Caret Line="360" Column="16" TopLine="338"/>
+        <Caret Line="363" Column="12" TopLine="346"/>
       </Position30>
     </JumpHistory>
     <RunParams>

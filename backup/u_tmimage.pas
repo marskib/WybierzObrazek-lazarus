@@ -1120,7 +1120,7 @@ function TMojImage.getPodpis(plikName:String):Utf8String;
 (* Wynik: tekst PO symbolu gwiazdki lub oroigName jesli nie znaleziono lub brak pliku *)
 (* ********************************************************************************** *)
 var wiersz : String;
-    part1,part2 : String; //czesci wiersz przed i po znaku gwiadka *
+    part1,part2 : String; //czesci wiersz przed i po znaku gwiazdka *
     pozG,dlug:integer; //pozycja Gwiadki; dlugosc stringa
 Begin
   Result:=plikNaME;
@@ -1140,9 +1140,10 @@ Begin
     pozG  := Pos('*',wiersz);
     part1 := Copy(wiersz,1,pozG-1);
     part1 := AnsiToUtf8(part1);
+
     if part1=plikName then begin   //trafilismy na wlasciwy wiersz
       dlug   := Length(wiersz);
-      part2  := Copy(wiersz,pozG,dlug-pozG+1);
+      part2  := Copy(wiersz,pozG,dlug-pozG+2);
       Result := part2;
       Exit;
     end;
@@ -1153,7 +1154,8 @@ End;
 
 
 (* --------------------------------------------------- *)
-{
+{   od 'Jasiek'
+
 var i: integer;
 begin
   AssignFile(plik,'dane4.txt');
