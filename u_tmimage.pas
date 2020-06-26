@@ -69,7 +69,7 @@ type
 
       function ObrazekJestWOkregu(const Obrazek:TMojImage; const widacKolo: Boolean):Boolean; //Czy lewy gorny rog obrazka wszedl w obreb podpowiedzi(Okrego wystawianego przez Ramke)
 
-      function getPodpis(plikNazw:String):Utf8String;
+      function getPodpis(plikName:String):Utf8String;
 
       procedure coNaMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       procedure coNaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -596,7 +596,7 @@ Begin
   plik := Zrodlo.Items[Index];
   try  //bo wiem z doswiadczenia, ze czasami nie chcialo pokazywac na Win7 (profMarcin)
     Self.Picture.LoadFromFile(SciezkaZasoby + plik);     //pokazuje plik, na ktorym sie ustawilem
-    plikNzw := plik; //do wykorzystania przy graniu
+    plikNzw := plik; //do wykorzystania przy graniu i innych
   except
   end;
 
@@ -1094,7 +1094,7 @@ Begin
 
 
   //LPodpis.Caption := ExtractFileNameOnly(plikNzw); do 2020-06-24
-  LPodpis.Caption := getPodpis(plikNzw);
+  LPodpis.Caption := getPodpis(ExtractFileNameOnly(plikNzw));
 
 
   LPodpis.Parent  := FOperacje;
@@ -1104,7 +1104,7 @@ Begin
 End;
 
 
-function TMojImage.getPodpis(plikNazw:String):Utf8String;
+function TMojImage.getPodpis(plikName:String):Utf8String;
 (* ********************************************************************************** *)
 (* Wygenerowanie podpisu pod obrazkiem na pdst. pliku podpisy.txt                     *)
 (*                                                                                    *)
@@ -1115,35 +1115,75 @@ function TMojImage.getPodpis(plikNazw:String):Utf8String;
 (*                                                                                    *)
 (* Parametr plikNzw = string, ktory jest nazwą pliku BEZ rozszerzenia, czyli tekstem  *)
 (* PRZED znakiem *gwiazdki.                                                           *)
-(* Plik przeszukiwany jest do wystapienia plikNzw.                                    *)
+(* Plik przeszukiwany jest do wystapienia plikName.                                    *)
 (* Potem pobieram to, co po znaku *                                                   *)
 (* Wynik: tekst PO symbolu gwiazdki lub oroigName jesli nie znaleziono lub brak pliku *)
 (* ********************************************************************************** *)
-var Koniec : Boolean;
-    wiersz : String;
-    part1,part2 : String; //czesci wiersz przed i po znaku gwiadka *
+var wiersz : String;
+    part1,part2 : String; //czesci wiersz przed i po znaku gwiazdka *
     pozG,dlug:integer; //pozycja Gwiadki; dlugosc stringa
 Begin
-  Result:=plikNazw;
+  Result:=plikNaME;
   if not jestPlikPodpisy then Exit;
 
   reset(plikPodpisy);
-  ReadLn(plikPodpisy,wiersz);
-  Koniec := Eof(plikPodpisy);
-  While not Koniec do begin
-    pozG := Pos('*',wiersz);
+//  ReadLn(plikPodpisy,wiersz);
+//  Koniec := Eof(plikPodpisy);
+  While not Eof(plikPodpisy) do begin
+    ReadLn(plikPodpisy,wiersz);
+
+    //wiersz:=Utf8ToAnsi(wiersz);
+    //wiersz := 'pokaż czerwoną rybkę*czerwóna rybća';
+
+    wiersz :=  AnsiToUtf8(wiersz);
+
+    pozG  := Pos('*',wiersz);
     part1 := Copy(wiersz,1,pozG-1);
-    if part1=plikNzw then begin   //trafilismy na wlasciwy wiersz
-      dlug := Length(wiersz);
-      part2 := Copy(wiersz,pozG,dlug-pozG+1);
+    part1 := AnsiToUtf8(part1);
+
+    if part1=plikName then begin   //trafilismy na wlasciwy wiersz
+      dlug   := Length(wiersz);
+      part2  := Copy(wiersz,pozG,dlug-pozG+1);
       Result := part2;
       Exit;
     end;
-
-    ReadLn(plikPodpisy,wiersz);
-    Koniec := Eof(plikPodpisy);
+    //ReadLn(plikPodpisy,wiersz);
+    //Koniec := Eof(plikPodpisy);
   End;
 End;
+
+
+(* --------------------------------------------------- *)
+{   od 'Jasiek'
+
+var i: integer;
+begin
+  AssignFile(plik,'dane4.txt');
+  reset(plik);
+  i:=0;
+  While not Eof(plik) do begin
+    readln(plik,ciag[i]);
+    i:=i+1;
+  end;
+  ileLiczb:=i;
+  LPlik.Caption:='';
+  for i:=0 to ileLiczb-1 do
+    LPlik.Caption:=Lplik.Caption+IntToStr(ciag[i])+'   ';
+end;
+}
+(* ----------------------------------------------------- *)
+
+
+
+
+
+
+
+
+
+
+
+
 
 procedure TMojImage.coNaBlinkTimer(Sender: Tobject);
 Begin

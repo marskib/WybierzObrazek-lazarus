@@ -7,7 +7,7 @@ interface
 uses
   LCLIntf, LCLType,  SysUtils, Variants, Classes,
   Graphics, Controls, Forms,
-  Dialogs, StdCtrls, FileCtrl, EditBtn, ExtCtrls, LazFileUtils, types, Math;
+  Dialogs, StdCtrls, FileCtrl, EditBtn, ExtCtrls, LazFileUtils, types, Math, FileUtil;
 
 
 var a:TControl;
@@ -35,6 +35,7 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
+    Button1: TButton;
     CBAutomat: TCheckBox;
     CBShowRamka: TCheckBox;
     CBPictNames: TCheckBox;
@@ -53,6 +54,7 @@ type
     Label1: TLabel;
     Label10: TLabel;
     Label9: TLabel;
+    ListBoxPodpisy: TListBox;
     LKatalog: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -82,6 +84,7 @@ type
     procedure BSelDownClick(Sender: TObject);
     procedure BSelUpClick(Sender: TObject);
     procedure BDefColorClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
 
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
@@ -339,6 +342,26 @@ procedure TFParametry.BDefColorClick(Sender: TObject);
 (* Kolory dobrane przez Konsultantkę - odcienie szarosci. *)
 Begin
   FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
+End;
+
+procedure TFParametry.Button1Click(Sender: TObject);
+var plikPodpisy : TextFile;
+    var linijka:RawByteString;//UTF8String;
+Begin
+
+  //Assign(plikPodpisy,'Zasoby\podpisy.txt');
+
+  AssignFile(plikPodpisy,'Zasoby\podpisy.txt');
+
+  reset(plikPodpisy);
+  While not Eof(plikPodpisy) do begin
+    readln(plikPodpisy,linijka);
+
+    linijka := AnsiToUtf8(linijka);
+
+    ListBoxPodpisy.AddItem(linijka,nil);
+
+  end;
 End;
 
 

@@ -1448,4 +1448,21 @@ object FParametry: TFParametry
     ParentFont = False
     TabOrder = 18
   end
+  object ListBoxPodpisy: TListBox
+    Left = 240
+    Height = 144
+    Top = 433
+    Width = 248
+    ItemHeight = 0
+    TabOrder = 19
+  end
+  object Button1: TButton
+    Left = 240
+    Height = 25
+    Top = 408
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 20
+  end
 end
