@@ -1,0 +1,42 @@
+wybierz kolor ¿ó³ty*?
+wybierz kolor zielony*?
+wybierz kolor ró¿owy*?                                      
+wybierz kolor pomarañczowy*?
+wybierz kolor niebieski*?                                  
+wybierz kolor fioletowy                                      
+wybierz kolor czerwony                                       
+wybierz kolor czarny                                         
+wybierz kolor br¹zowy                                        
+wybierz kolor bia³y                                          
+poka¿ ¿ó³t¹ rybkê                                            
+poka¿ niebiesk¹ rybkê                                        
+poka¿ jedn¹ ró¿ê                                             
+poka¿ jednego go³êbia                                        
+poka¿ dwie ró¿e                                              
+poka¿ czerwon¹ rybkê                                         
+poka¿ 2 tulipany                                             
+poka¿ 2 go³êbie                                              
+poka¿ 1 tulipan                                              
+podpisy                                                      
+podpisy-z-pracy                                              
+podpisy-ok-zrobione-w-domu                                   
+                                               
+wybierz kolor zielony                                        
+wybierz kolor ró¿owy                                         
+wybierz kolor pomarañczowy                                   
+wybierz kolor niebieski                                      
+wybierz kolor fioletowy                                      
+wybierz kolor czerwony                                       
+wybierz kolor czarny                                         
+wybierz kolor br¹zowy                                        
+wybierz kolor bia³y                                          
+poka¿ czerwon¹ rybkê                                         
+wybierz kolor ¿ó³ty                                          
+poka¿ ¿ó³t¹ rybkê                                            
+poka¿ niebiesk¹ rybkê                                        
+poka¿ jedn¹ ró¿ê                                             
+poka¿ jednego go³êbia                                        
+poka¿ dwie ró¿e                                              
+poka¿ 2 tulipany                                             
+poka¿ 2 go³êbie                                              
+poka¿ 1 tulipan                                              

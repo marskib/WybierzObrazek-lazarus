@@ -69,7 +69,7 @@ type
 
       function ObrazekJestWOkregu(const Obrazek:TMojImage; const widacKolo: Boolean):Boolean; //Czy lewy gorny rog obrazka wszedl w obreb podpowiedzi(Okrego wystawianego przez Ramke)
 
-      function getPodpis(plikName:String):Utf8String;
+      function getPodpis(plikName:String):String;
 
       procedure coNaMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
       procedure coNaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1104,7 +1104,7 @@ Begin
 End;
 
 
-function TMojImage.getPodpis(plikName:String):Utf8String;
+function TMojImage.getPodpis(plikName:String):String;
 (* ********************************************************************************** *)
 (* Wygenerowanie podpisu pod obrazkiem na pdst. pliku podpisy.txt                     *)
 (*                                                                                    *)
@@ -1115,74 +1115,31 @@ function TMojImage.getPodpis(plikName:String):Utf8String;
 (*                                                                                    *)
 (* Parametr plikNzw = string, ktory jest nazwą pliku BEZ rozszerzenia, czyli tekstem  *)
 (* PRZED znakiem *gwiazdki.                                                           *)
-(* Plik przeszukiwany jest do wystapienia plikName.                                    *)
+(* Plik przeszukiwany jest do wystapienia plikName.                                   *)
 (* Potem pobieram to, co po znaku *                                                   *)
-(* Wynik: tekst PO symbolu gwiazdki lub oroigName jesli nie znaleziono lub brak pliku *)
+(* Wynik: tekst PO symbolu gwiazdki lub plikName jesli nie znaleziono lub brak pliku  *)
 (* ********************************************************************************** *)
-var wiersz : String;
+var wiersz : String;      //wiersz wczytany z pliku
     part1,part2 : String; //czesci wiersz przed i po znaku gwiazdka *
-    pozG,dlug:integer; //pozycja Gwiadki; dlugosc stringa
+    pozG,dlug:integer;    //pozycja Gwiadki; dlugosc stringa
 Begin
-  Result:=plikNaME;
+  Result:=plikNaME; //jak nie pliku lub nie znajdzie nazwy, to defaultowo nazwa przed gwiazdką, czyli nazwa obrazka
   if not jestPlikPodpisy then Exit;
-
+  {}
   reset(plikPodpisy);
-//  ReadLn(plikPodpisy,wiersz);
-//  Koniec := Eof(plikPodpisy);
   While not Eof(plikPodpisy) do begin
     ReadLn(plikPodpisy,wiersz);
-
-    //wiersz:=Utf8ToAnsi(wiersz);
-    //wiersz := 'pokaż czerwoną rybkę*czerwóna rybća';
-
-    wiersz :=  AnsiToUtf8(wiersz);
-
     pozG  := Pos('*',wiersz);
     part1 := Copy(wiersz,1,pozG-1);
     part1 := AnsiToUtf8(part1);
-
-    if part1=plikName then begin   //trafilismy na wlasciwy wiersz
+    if (part1=plikName) then begin   //trafilismy na wlasciwy wiersz; ucinamy od gwiazdki w prawo
       dlug   := Length(wiersz);
       part2  := Copy(wiersz,pozG+1,dlug-pozG+1);
       Result := part2;
-      Exit;
+      Exit;  //dalej nie sprawdzamy; jak panzerfaust 'rwie' na pierwszej przeszkodzie ;)
     end;
-    //ReadLn(plikPodpisy,wiersz);
-    //Koniec := Eof(plikPodpisy);
   End;
 End;
-
-
-(* --------------------------------------------------- *)
-{   od 'Jasiek'
-
-var i: integer;
-begin
-  AssignFile(plik,'dane4.txt');
-  reset(plik);
-  i:=0;
-  While not Eof(plik) do begin
-    readln(plik,ciag[i]);
-    i:=i+1;
-  end;
-  ileLiczb:=i;
-  LPlik.Caption:='';
-  for i:=0 to ileLiczb-1 do
-    LPlik.Caption:=Lplik.Caption+IntToStr(ciag[i])+'   ';
-end;
-}
-(* ----------------------------------------------------- *)
-
-
-
-
-
-
-
-
-
-
-
 
 
 procedure TMojImage.coNaBlinkTimer(Sender: Tobject);
@@ -1247,13 +1204,5 @@ End;
 
 
 Begin
-  jestPlikPodpisy:=False;
-
-  if FileExists('Zasoby\podpisy.txt') then begin
-    Assign(plikPodpisy,'Zasoby\podpisy.txt');
-    jestPlikPodpisy := True;
-  end;
-
-
 End.
 

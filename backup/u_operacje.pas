@@ -85,8 +85,6 @@ uses
     procedure PokazUkryjBGrajOnWavExistsDependent();
   private
     function dostosujSpeedBtnGrajHeight():SmallInt;
-    procedure PolozRamkeGhosta(czyPokazac:Boolean);
-    procedure UkryjRamkeGhosta();
   public
     tabOb   : array[1..MAX_OBR] of TMojImage;  //tablica na obrazki
     TImWzorzec: TMojImage;                        //obrazek-wzorzec na gorze okranu (w OG = Obszar Górny)
@@ -768,7 +766,7 @@ Begin
     Exit;
   end;
   IF FParametry.RBPochwala.Checked then begin
-    GrajKomentarz(komciePath+'pozytywy',1);
+    komciePath+'pozytywy',1);
   End;  //IF
 End; (* Procedure *)
 
@@ -777,9 +775,10 @@ procedure TFOperacje.DajNagane();
 (* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
 Begin
   if FParametry.RBNegNo.Checked then Exit;
-  GrajKomentarz(komciePath+'negatywy',1);
+  komciePath+'negatywy',1);
 End;
 
+{
 procedure TFOperacje.GrajKomentarz(katalog: String; opoznienie: SmallInt);
 (* Odegranie nagany/ badz nagrody = jednego z plikow w 'katalog' *)
 var
@@ -802,6 +801,7 @@ Begin
       sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
     End;
 End;
+}
 
 procedure TFOperacje.GrajZle(opoznienie:SmallInt);
 Begin

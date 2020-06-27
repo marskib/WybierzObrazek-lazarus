@@ -1,4 +1,3 @@
-
 unit u_operacje;
 
 {$mode objfpc}{$H+}

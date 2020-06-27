@@ -35,7 +35,6 @@ type
     BPlus: TButton;
     BSelUp: TButton;
     BSelDown: TButton;
-    Button1: TButton;
     CBAutomat: TCheckBox;
     CBShowRamka: TCheckBox;
     CBPictNames: TCheckBox;
@@ -53,9 +52,7 @@ type
     GroupBox6: TGroupBox;
     Label1: TLabel;
     Label10: TLabel;
-    Label2: TLabel;
     Label9: TLabel;
-    ListBoxPodpisy: TListBox;
     LKatalog: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -85,7 +82,6 @@ type
     procedure BSelDownClick(Sender: TObject);
     procedure BSelUpClick(Sender: TObject);
     procedure BDefColorClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
 
     procedure CBNazwaChange(Sender: TObject);
     procedure CBOdgrywajChange(Sender: TObject);
@@ -345,41 +341,6 @@ Begin
   FOperacje.UstawDefaultowyKolorRamki_Ekranu_Napisu();
 End;
 
-procedure TFParametry.Button1Click(Sender: TObject);
-var plikPodpisy : TextFile;
-    var linijka,wiersz:String;//RawByteString;//UTF8String;
-      var i:integer;
-Begin
-
-  //Assign(plikPodpisy,'Zasoby\podpisy.txt');
-
-  AssignFile(plikPodpisy,'Zasoby\podpisy.txt');
-
-  reset(plikPodpisy);
-  While not Eof(plikPodpisy) do begin
-    readln(plikPodpisy,linijka);
-
-
-    //wiersz:='';
-    //for i:=1 to Length(linijka) do wiersz[i]:=wiersz[i]+linijka[i];
-
-    //linijka := AnsiToUtf8(linijka);
-
-    label2.Caption:='';
-
-    for i:=1 to Length(linijka) do
-      Label2.Caption := Label2.Caption+linijka[i];;
-
-    //label2.Caption:=linijka;
-
-
-    ListBoxPodpisy.AddItem(label2.caption,nil);
-
-  end;
-End;
-
-
-
 
 procedure TFParametry.CBNazwaChange(Sender: TObject);
 begin
@@ -519,6 +480,14 @@ Begin
       LWP := Min(MAX_OBR_OD,FListBox1.Count);
       UstawSelekcjeCiagla(0,LWP-1);
       EPoziom.Text:=IntToStr(LWP);
+      {}
+
+      jestPlikPodpisy:=False;
+      if FileExists(SciezkaZasoby+'podpisy.txt') then begin
+        AssignFile(plikPodpisy,SciezkaZasoby+'podpisy.txt');
+        jestPlikPodpisy := True;
+      end;
+      {}
     end;
   End; //With
 End; (* DEKatalogChange *)

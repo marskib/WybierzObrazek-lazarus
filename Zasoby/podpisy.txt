@@ -1,2 +1,19 @@
+wybierz kolor żółty*żółty
+wybierz kolor zielony*zielony
+wybierz kolor różowy*różowy
+wybierz kolor pomarańczowy*pomarańczowy
+wybierz kolor niebieski*niebieski
+wybierz kolor fioletowy*fioletowy
+wybierz kolor czerwony*Czerwony
+wybierz kolor czarny*czarny
+wybierz kolor brązowy*brązowy
+wybierz kolor biały*biały
+pokaż żółtą rybkę*żółta rybka
+pokaż niebieską rybkę*niebieska rybka
+pokaż jedną różę*jedna róża
+pokaż jednego gołębia*1 gołąb
+pokaż dwie róże*dwie róże
 pokaż czerwoną rybkę*czerwona rybka
-pokaż xxx dwie róże*dwie róże
+pokaż 2 tulipany*2 tulipany
+pokaż 2 gołębie*2 gołębie
+pokaż 1 tulipan*1 tulipan
