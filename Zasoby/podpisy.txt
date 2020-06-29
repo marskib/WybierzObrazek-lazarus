@@ -1,13 +1,7 @@
-wybierz kolor żółty*żółty
-wybierz kolor zielony*zielony
-wybierz kolor różowy*różowy
-wybierz kolor pomarańczowy*pomarańczowy
-wybierz kolor niebieski*niebieski
-wybierz kolor fioletowy*fioletowy
-wybierz kolor czerwony*Czerwony
-wybierz kolor czarny*czarny
-wybierz kolor brązowy*brązowy
-wybierz kolor biały*biały
+#Plik mapujący nazwy obrazków na podpisy pod obrazkami.
+#Teksty po znaku * można zmieniać, tworząc w ten sposób własne nazwy (podpisy) pod obrazkami.
+#Tekst przed znakiem * jest nazwą obrazka i nie należy go zmienaić.
+#
 pokaż żółtą rybkę*żółta rybka
 pokaż niebieską rybkę*niebieska rybka
 pokaż jedną różę*jedna róża
@@ -17,3 +11,14 @@ pokaż czerwoną rybkę*czerwona rybka
 pokaż 2 tulipany*2 tulipany
 pokaż 2 gołębie*2 gołębie
 pokaż 1 tulipan*1 tulipan
+wybierz kolor żółty*żółty
+wybierz kolor zielony*zielony
+wybierz kolor różowy*różowy
+wybierz kolor pomarańczowy*pomarańczowy
+wybierz kolor niebieski*niebieski
+wybierz kolor fioletowy*fioletowy
+wybierz kolor czerwony*czerwony
+wybierz kolor czarny*czarny
+wybierz kolor brązowy*brązowy
+wybierz kolor biały*biały
+

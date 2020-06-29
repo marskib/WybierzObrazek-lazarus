@@ -1,4 +1,3 @@
-
 unit u_operacje;
 
 {$mode objfpc}{$H+}
@@ -33,6 +32,7 @@ uses
     BNextCwicz: TButton;
     CBRamka: TCheckBox;
     CBEkran: TCheckBox;
+    Label1: TLabel;
     LRGrayness: TLabel;
     LNazwa: TLabel;
     LEGrayness: TLabel;
@@ -766,7 +766,7 @@ Begin
     Exit;
   end;
   IF FParametry.RBPochwala.Checked then begin
-    komciePath+'pozytywy',1);
+    GrajKomentarz(komciePath+'pozytywy',1);
   End;  //IF
 End; (* Procedure *)
 
@@ -775,10 +775,9 @@ procedure TFOperacje.DajNagane();
 (* Odegranie, ze zle - jesli polozy w Ramce niewlasciwy obrazek *)
 Begin
   if FParametry.RBNegNo.Checked then Exit;
-  komciePath+'negatywy',1);
+  GrajKomentarz(komciePath+'negatywy',1);
 End;
 
-{
 procedure TFOperacje.GrajKomentarz(katalog: String; opoznienie: SmallInt);
 (* Odegranie nagany/ badz nagrody = jednego z plikow w 'katalog' *)
 var
@@ -801,7 +800,6 @@ Begin
       sl.Free; //BARDZO WAZNE !!!!!! bo memory leaks
     End;
 End;
-}
 
 procedure TFOperacje.GrajZle(opoznienie:SmallInt);
 Begin

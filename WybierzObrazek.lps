@@ -4,13 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="28">
+    <Units Count="31">
       <Unit0>
         <Filename Value="WybierzObrazek.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos Y="16"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="10" Y="22"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="u_operacje.pas"/>
@@ -20,7 +21,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="1"/>
         <TopLine Value="398"/>
-        <CursorPos X="72" Y="423"/>
+        <CursorPos X="9" Y="429"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -32,11 +33,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="441"/>
-        <CursorPos X="59" Y="487"/>
+        <TopLine Value="476"/>
+        <CursorPos X="3" Y="504"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
-          <Item0 X="29" Y="487" ID="1"/>
+          <Item0 X="3" Y="492" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -53,14 +54,15 @@
         <Filename Value="u_tmimage.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="1157"/>
-        <CursorPos Y="1207"/>
+        <TopLine Value="1088"/>
+        <CursorPos X="14" Y="1103"/>
         <UsageCount Value="200"/>
-        <Bookmarks Count="4">
-          <Item0 X="3" Y="204" ID="5"/>
-          <Item1 X="24" Y="456" ID="6"/>
-          <Item2 Y="280" ID="7"/>
-          <Item3 X="68" Y="597" ID="2"/>
+        <Bookmarks Count="5">
+          <Item0 X="3" Y="207" ID="5"/>
+          <Item1 X="24" Y="459" ID="6"/>
+          <Item2 Y="283" ID="7"/>
+          <Item3 Y="1101" ID="2"/>
+          <Item4 Y="1139" ID="3"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit4>
@@ -130,10 +132,11 @@
       <Unit13>
         <Filename Value="C:\Lazarus-2-0-8\lcl\stdctrls.pp"/>
         <UnitName Value="StdCtrls"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1551"/>
-        <CursorPos X="3" Y="1577"/>
-        <UsageCount Value="6"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="1566"/>
+        <CursorPos X="19" Y="1585"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus-2-0-6\lcl\stdctrls.pp"/>
@@ -237,123 +240,152 @@
         <CursorPos X="3" Y="113"/>
         <UsageCount Value="10"/>
       </Unit27>
+      <Unit28>
+        <Filename Value="C:\Lazarus-2-0-8\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="1234"/>
+        <CursorPos X="18" Y="1258"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:\Lazarus-2-0-8\lcl\lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="40"/>
+        <CursorPos X="3" Y="66"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="C:\Lazarus-2-0-8\lcl\include\control.inc"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="5021"/>
+        <CursorPos Y="5047"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit30>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="u_tmimage.pas"/>
-        <Caret Line="63" Column="66" TopLine="63"/>
+        <Filename Value="C:\Lazarus-2-0-8\lcl\include\control.inc"/>
+        <Caret Line="1581" TopLine="1551"/>
       </Position1>
       <Position2>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="82" Column="151" TopLine="72"/>
+        <Filename Value="C:\Lazarus-2-0-8\lcl\include\control.inc"/>
+        <Caret Line="2180" TopLine="2154"/>
       </Position2>
       <Position3>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="635" Column="131" TopLine="588"/>
+        <Filename Value="C:\Lazarus-2-0-8\lcl\include\control.inc"/>
+        <Caret Line="5047" TopLine="5021"/>
       </Position3>
       <Position4>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="26" Column="31"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1144" Column="24" TopLine="1119"/>
       </Position4>
       <Position5>
         <Filename Value="u_tmimage.pas"/>
-        <Caret Line="1208" Column="5" TopLine="1087"/>
+        <Caret Line="1145" Column="28" TopLine="1119"/>
       </Position5>
       <Position6>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="477" Column="33" TopLine="450"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1154" Column="23" TopLine="1119"/>
       </Position6>
       <Position7>
-        <Filename Value="u_parametry.pas"/>
+        <Filename Value="WybierzObrazek.lpr"/>
+        <Caret Line="16" Column="81"/>
       </Position7>
       <Position8>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="105" Column="41" TopLine="62"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1156" Column="23" TopLine="1119"/>
       </Position8>
       <Position9>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="484" Column="7" TopLine="451"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1155" Column="5" TopLine="1130"/>
       </Position9>
       <Position10>
-        <Filename Value="u_parametry.pas"/>
-        <Caret Line="487" Column="29" TopLine="443"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1143" Column="14" TopLine="1123"/>
       </Position10>
       <Position11>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="374" Column="57" TopLine="328"/>
+        <Filename Value="u_tmimage.pas"/>
       </Position11>
       <Position12>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="781" Column="36" TopLine="746"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="75" Column="25" TopLine="48"/>
       </Position12>
       <Position13>
-        <Filename Value="u_operacje.pas"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1104" Column="24" TopLine="1083"/>
       </Position13>
       <Position14>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="98" Column="15" TopLine="56"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="492" Column="3" TopLine="480"/>
       </Position14>
       <Position15>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="769" Column="5" TopLine="725"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1104" Column="24" TopLine="1083"/>
       </Position15>
       <Position16>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="777" Column="3" TopLine="734"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1129" Column="97" TopLine="1123"/>
       </Position16>
       <Position17>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="781" Column="36" TopLine="737"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1144" TopLine="1123"/>
       </Position17>
       <Position18>
-        <Filename Value="u_operacje.pas"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1145" TopLine="1123"/>
       </Position18>
       <Position19>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="781" Column="36" TopLine="737"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1150" TopLine="1123"/>
       </Position19>
       <Position20>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="780" Column="36" TopLine="737"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1103" TopLine="1086"/>
       </Position20>
       <Position21>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="781" Column="36" TopLine="737"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1104" TopLine="1086"/>
       </Position21>
       <Position22>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="772" Column="65" TopLine="746"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1103" Column="22" TopLine="1086"/>
       </Position22>
       <Position23>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="805" TopLine="758"/>
+        <Filename Value="u_tmimage.pas"/>
+        <Caret Line="1146" Column="53" TopLine="1129"/>
       </Position23>
       <Position24>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="99" Column="29" TopLine="74"/>
+        <Caret Line="423" Column="72" TopLine="398"/>
       </Position24>
       <Position25>
         <Filename Value="u_operacje.pas"/>
+        <Caret Line="409" Column="5" TopLine="399"/>
       </Position25>
       <Position26>
         <Filename Value="u_operacje.pas"/>
-        <Caret Line="530" Column="3" TopLine="527"/>
+        <Caret Line="408" Column="5" TopLine="398"/>
       </Position26>
       <Position27>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="83" Column="16" TopLine="58"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="503" Column="17" TopLine="480"/>
       </Position27>
       <Position28>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="540" Column="80" TopLine="536"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="502" Column="14" TopLine="476"/>
       </Position28>
       <Position29>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="131" Column="13" TopLine="105"/>
+        <Filename Value="u_parametry.pas"/>
+        <Caret Line="504" Column="7" TopLine="476"/>
       </Position29>
       <Position30>
-        <Filename Value="u_operacje.pas"/>
-        <Caret Line="423" Column="72" TopLine="398"/>
+        <Filename Value="WybierzObrazek.lpr"/>
+        <Caret Line="22" Column="10"/>
       </Position30>
     </JumpHistory>
     <RunParams>

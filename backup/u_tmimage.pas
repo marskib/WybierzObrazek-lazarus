@@ -6,12 +6,15 @@ interface
 
 uses
   Classes, SysUtils, stdCtrls, ExtCtrls, FileCtrl, Forms, math, u_parametry,
-  LCLIntf, LazFileUtils, Controls, Graphics, StrUtils, u_Lapka;
+  LCLIntf, LazFileUtils, Controls, Graphics, u_Lapka;
 
 const LSHAKES_CONST = 10; //ile razy ma lshakes potrzasnac niewlasciwym obrazkiem (powinna byc parzysta - kosmetyka)
 
-var   plikPodpisy : TextFile;
-      JestPlikPodpisy : Boolean;
+
+var
+    JestPlikPodpisy : Boolean; //Zmienne modulowe dajace 'uchwyt' do pliku z podpisami; ustawiane przez FParametry przy zmianie katalogu z zasobami
+    plikPodpisy : TextFile;
+
 
 type
 
@@ -1089,16 +1092,22 @@ End;  (* Procedure *)
 procedure TMojImage.dodajPodpisNaEtapieKonstruktora();
 (* 2020-04-27  Dowiązanie nazwy obrazka do ewentualnego wypisania pod obrazkiem *)
 (* Uwaga - tutaj jeszcze nie ma ostatecznego polozenia - to wyliczam pozniej... *)
+var rob:string;
 Begin
-  LPodpis:=TLabel.Create(nil);
+//  LPodpis:=TLabel.Create(nil);
+    LPodpis:=TLabel.Create(FOperacje);
 
 
   //LPodpis.Caption := ExtractFileNameOnly(plikNzw); do 2020-06-24
-  LPodpis.Caption := getPodpis(ExtractFileNameOnly(plikNzw));
 
+  rob := getPodpis(ExtractFileNameOnly(plikNzw));
+  rob:='ala ma Kota';
+  LPodpis.Caption := TCaption('ala ma Kota');//TCaption(rob); //getPodpis(ExtractFileNameOnly(plikNzw));
+  rob := TCaption(rob);
+  FOperacje.Label1.Caption:=rob;
 
   LPodpis.Parent  := FOperacje;
-  LPodpis.Visible := FParametry.CBPictNames.Checked; //uwaga KOHEZJA, ale trzeba, bo probleiki kosmetyczne
+  LPodpis.Visible := FParametry.CBPictNames.Checked; //uwaga KOHEZJA, ale trzeba, bo problmiki kosmetyczne
   LPodpis.Font.Size:=11;
   LPodpis.Font.Style:=[fsBold];
 End;
@@ -1123,22 +1132,24 @@ var wiersz : String;      //wiersz wczytany z pliku
     part1,part2 : String; //czesci wiersz przed i po znaku gwiazdka *
     pozG,dlug:integer;    //pozycja Gwiadki; dlugosc stringa
 Begin
-  Result:=plikNaME; //jak nie pliku lub nie znajdzie nazwy, to defaultowo nazwa przed gwiazdką, czyli nazwa obrazka
+  Result:=plikNaME; //jak nie pliku lub nie znajdzie nazwy lub exception, to defaultowo nazwa przed gwiazdką, czyli nazwa obrazka
   if not jestPlikPodpisy then Exit;
   {}
-  reset(plikPodpisy);
-  While not Eof(plikPodpisy) do begin
-    ReadLn(plikPodpisy,wiersz);
-    pozG  := Pos('*',wiersz);
-    part1 := Copy(wiersz,1,pozG-1);
-    part1 := AnsiToUtf8(part1);
-    if (part1=plikName) then begin   //trafilismy na wlasciwy wiersz; ucinamy od gwiazdki w prawo
-      dlug   := Length(wiersz);
-      part2  := Copy(wiersz,pozG+1,dlug-pozG+1);
-      Result := part2;
-      Exit;  //dalej nie sprawdzamy; jak panzerfaust 'rwie' na pierwszej przeszkodzie ;)
-    end;
-  End;
+  TRY
+    reset(plikPodpisy);
+    While not Eof(plikPodpisy) do begin
+      ReadLn(plikPodpisy,wiersz);
+      pozG  := Pos('*',wiersz);
+      part1 := Copy(wiersz,1,pozG-1);
+      if (part1=plikName) then begin   //trafilismy na wlasciwy wiersz; ucinamy od gwiazdki w prawo
+        dlug   := Length(wiersz);
+        part2  := Copy(wiersz,pozG+1,dlug-pozG+1);
+        Result := part2;
+        Exit;  //dalej nie sprawdzamy; ten algorytm jak panzerfaust 'rwie' na pierwszej przeszkodzie ;)
+      end;
+    End; //While
+  EXCEPT
+  END;
 End;
 
 
@@ -1204,13 +1215,5 @@ End;
 
 
 Begin
-  jestPlikPodpisy:=False;
-
-  if FileExists('Zasoby\podpisy.txt') then begin
-    Assign(plikPodpisy,'Zasoby\podpisy.txt');
-    jestPlikPodpisy := True;
-  end;
-
-
 End.
 

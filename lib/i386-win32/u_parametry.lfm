@@ -867,7 +867,7 @@ object FParametry: TFParametry
     Font.Color = clWindowText
     Font.Height = -9
     Font.Name = 'MS Sans Serif'
-    ItemHeight = 13
+    ItemHeight = 0
     Mask = '*.jpg;*.png;*.bmp;*.gif;*.jpeg'
     OnSelectionChange = FListBox1SelectionChange
     ParentFont = False

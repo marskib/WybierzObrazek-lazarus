@@ -1,7 +1,12 @@
+#Plik mapujący nazwy obrazków na podpisy pod obrazkami.
+#Teksty po znaku * można zmieniać, tworząc w ten sposób własne nazwy (podpisy) pod obrazkami.
+#Tekst przed znakiem * jest nazwą obrazka i nie należy go zmienaić.
+#
 dzwonek telefonu*telefon
 dzwonek do drzwi*dzwonek
 pranie w pralce*pralka
 spuszczanie wody w toalecie*ubikacja
-mielenie kawy*młynek
+mielenie kawy*młynek do kawy
 otwieranie drzwi kluczem*zamek
 mycie zębów*pasta i szczoteczka
+miksowanie*mikser

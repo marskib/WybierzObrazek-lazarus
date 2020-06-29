@@ -106,6 +106,7 @@ type
   private
     procedure WypelnijComoBoxKolory();
     procedure UstawDomyslnie();
+    procedure DajEwentualnyPlikPodpisy();
     { Private declarations }
   public
     procedure UstawSelekcjeCiagla(indP, indK: integer);  //ustawienie ciaglej selekcji (jeden ciagly obszar w ListBox)
@@ -481,17 +482,35 @@ Begin
       UstawSelekcjeCiagla(0,LWP-1);
       EPoziom.Text:=IntToStr(LWP);
       {}
-
-      jestPlikPodpisy:=False;
-      if FileExists(SciezkaZasoby+'podpisy.txt') then begin
-        AssignFile(plikPodpisy,SciezkaZasoby+'podpisy.txt');
-        jestPlikPodpisy := True;
-      end;
+      DajEwentualnyPlikPodpisy();
       {}
     end;
   End; //With
 End; (* DEKatalogChange *)
 
+
+procedure TFParametry.DajEwentualnyPlikPodpisy();
+(* ********************************************************************** *)
+(* Daje 'uchwyty' do ewentualnego pliku z podpisami pod orazkami.         *)
+(* 'Uchwyty' to zmienne modulowe u_tmimmage.pas - KOHEZJA, ale jest ok... *)
+(* ********************************************************************** *)
+
+Begin
+  jestPlikPodpisy:=False;
+
+  try
+    CloseFile(plikPodpisy);
+  except
+  end;
+
+  Try
+  if FileExists(SciezkaZasoby+'podpisy.txt') then begin
+    AssignFile(plikPodpisy,SciezkaZasoby+'podpisy.txt');
+    jestPlikPodpisy := True;
+  end;
+  Except
+  End;
+End;
 
 procedure TFParametry.DEKatalogMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
